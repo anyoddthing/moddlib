@@ -1,0 +1,9 @@
+[submodule "libs/fmtlib"]
+	path = libs/fmtlib
+	url = https://github.com/anyoddthing/fmt.git
+[submodule "libs/readerwriterqueue"]
+	path = libs/readerwriterqueue
+	url = https://github.com/anyoddthing/readerwriterqueue.git
+[submodule "libs/simdlib"]
+	path = libs/simdlib
+	url = https://github.com/anyoddthing/simdlib.git

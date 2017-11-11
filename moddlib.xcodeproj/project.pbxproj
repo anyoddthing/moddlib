@@ -1,0 +1,991 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		651CE3601BF79DF0006CF727 /* MidiBuffer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 651CE35F1BF79DF0006CF727 /* MidiBuffer.hpp */; };
+		651CE36A1BF7A58E006CF727 /* MathTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 651CE3651BF7A58E006CF727 /* MathTest.cpp */; };
+		651CE36B1BF7A58E006CF727 /* PortsTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 651CE3661BF7A58E006CF727 /* PortsTest.cpp */; };
+		651CE36C1BF7A58E006CF727 /* VoiceTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 651CE3671BF7A58E006CF727 /* VoiceTest.cpp */; };
+		651CE36D1BF7A58E006CF727 /* MidiTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 651CE3691BF7A58E006CF727 /* MidiTest.cpp */; };
+		651CE36F1BF7A59D006CF727 /* ScratchTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 651CE36E1BF7A59D006CF727 /* ScratchTest.cpp */; };
+		651E84991C01E61D003B9323 /* PhaseGeneratorTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 651E84981C01E61D003B9323 /* PhaseGeneratorTest.cpp */; };
+		651E849C1C020475003B9323 /* SineSynthTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 651E849B1C020475003B9323 /* SineSynthTest.cpp */; };
+		651E849E1C026467003B9323 /* CircuitTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 651E849D1C026467003B9323 /* CircuitTest.cpp */; };
+		65200EAE1B57F2D900E36B4C /* libmoddlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 65528F5B1B3EFF7200F0A36D /* libmoddlib.a */; };
+		65268FCE1FAF8B0F0068FE64 /* ADSREnvelopeGenerator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 65268FC51FAF8B0F0068FE64 /* ADSREnvelopeGenerator.hpp */; };
+		65268FCF1FAF8B0F0068FE64 /* MidiSynth.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 65268FC61FAF8B0F0068FE64 /* MidiSynth.hpp */; };
+		65268FD01FAF8B0F0068FE64 /* MidiSynthVoice.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 65268FC71FAF8B0F0068FE64 /* MidiSynthVoice.hpp */; };
+		65268FD11FAF8B0F0068FE64 /* Oscillator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 65268FC81FAF8B0F0068FE64 /* Oscillator.hpp */; };
+		65268FD21FAF8B0F0068FE64 /* PhaseGenerator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 65268FC91FAF8B0F0068FE64 /* PhaseGenerator.hpp */; };
+		65268FD31FAF8B0F0068FE64 /* SawtoothOscillatorBL.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 65268FCA1FAF8B0F0068FE64 /* SawtoothOscillatorBL.hpp */; };
+		65268FD41FAF8B0F0068FE64 /* SawtoothOscillatorDPW.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 65268FCB1FAF8B0F0068FE64 /* SawtoothOscillatorDPW.hpp */; };
+		65268FD51FAF8B0F0068FE64 /* SineOscillator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 65268FCC1FAF8B0F0068FE64 /* SineOscillator.hpp */; };
+		65268FD61FAF8B0F0068FE64 /* TriggerModule.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 65268FCD1FAF8B0F0068FE64 /* TriggerModule.hpp */; };
+		65268FDC1FAF9BAD0068FE64 /* midi.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 65268FDB1FAF9BAD0068FE64 /* midi.hpp */; };
+		654BDB871BF8D88D00346F26 /* MidiBufferTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 654BDB861BF8D88D00346F26 /* MidiBufferTest.cpp */; };
+		654BDB8A1BF8EDAC00346F26 /* SineOscillatorTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 654BDB891BF8EDAC00346F26 /* SineOscillatorTest.cpp */; };
+		65528F701B3F029500F0A36D /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65528F6F1B3F029500F0A36D /* main.cpp */; };
+		655489201B5A83250036C9F4 /* Inputs.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6554891F1B5A83250036C9F4 /* Inputs.hpp */; };
+		655489261B5A86250036C9F4 /* moddlib.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 655489241B5A86250036C9F4 /* moddlib.hpp */; };
+		655489291B5A86820036C9F4 /* Types.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 655489281B5A86820036C9F4 /* Types.hpp */; };
+		6554892C1B5A86B20036C9F4 /* Memory.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6554892A1B5A86B20036C9F4 /* Memory.hpp */; };
+		656529791B56EBD40092511A /* TestSynth.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 656529771B56EBD40092511A /* TestSynth.cpp */; };
+		6566B7601C78CA8900541EF8 /* Envelope.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6566B75D1C78CA8900541EF8 /* Envelope.hpp */; };
+		6566B7611C78CA8900541EF8 /* SawtoothTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6566B75E1C78CA8900541EF8 /* SawtoothTable.cpp */; };
+		6566B7621C78CA8900541EF8 /* SawtoothTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6566B75E1C78CA8900541EF8 /* SawtoothTable.cpp */; };
+		6566B7631C78CA8900541EF8 /* SawtoothTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6566B75E1C78CA8900541EF8 /* SawtoothTable.cpp */; };
+		6566B7641C78CA8900541EF8 /* SawtoothTable.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6566B75F1C78CA8900541EF8 /* SawtoothTable.hpp */; };
+		656E76641C2AF54C007C0C6C /* UtilitiesTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 656E76631C2AF54C007C0C6C /* UtilitiesTest.cpp */; };
+		657211D11C538C920050ABBF /* ADSREnvelopeGeneratorTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 657211D01C538C920050ABBF /* ADSREnvelopeGeneratorTest.cpp */; };
+		65B39ADD1C56AB91002853A1 /* ADSREnvelopeTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65B39ADC1C56AB91002853A1 /* ADSREnvelopeTest.cpp */; };
+		65C1B72B1C3D59F700FDB956 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65C1B72A1C3D59F700FDB956 /* Accelerate.framework */; };
+		65CEA4921C00C33B00CBB5AC /* core.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65CEA4911C00C33B00CBB5AC /* core.cpp */; };
+		65D9F2531C4276CE0067270C /* libmoddlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 65528F5B1B3EFF7200F0A36D /* libmoddlib.a */; };
+		65D9F2541C4276D40067270C /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65C1B72A1C3D59F700FDB956 /* Accelerate.framework */; };
+		65D9F2561C42770B0067270C /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65D9F2551C42770B0067270C /* main.cpp */; };
+		65D9F2581C4278640067270C /* SinCircuitBench.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65D9F2571C4278640067270C /* SinCircuitBench.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		65200EAF1B57F2E900E36B4C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 65528F531B3EFF7200F0A36D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 65528F5A1B3EFF7200F0A36D;
+			remoteInfo = unitsynth;
+		};
+		65268FBD1FAF87A10068FE64 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 65268FB71FAF87A00068FE64 /* simdlib.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 65A1EFF71BEBDD97003852EC;
+			remoteInfo = "simdlib-tests";
+		};
+		65268FBF1FAF87A10068FE64 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 65268FB71FAF87A00068FE64 /* simdlib.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 65A1F01C1BEBDE01003852EC;
+			remoteInfo = "simdlib-bench";
+		};
+		65268FC11FAF87A10068FE64 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 65268FB71FAF87A00068FE64 /* simdlib.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 65A1F0311BEBE304003852EC;
+			remoteInfo = "simdlib-ios";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		652C701E1F991C390006E232 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		65528F6B1B3F029500F0A36D /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		65D9F24A1C4276960067270C /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		651CE35E1BF77F40006CF727 /* MidiMessage.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MidiMessage.hpp; sourceTree = "<group>"; };
+		651CE35F1BF79DF0006CF727 /* MidiBuffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MidiBuffer.hpp; sourceTree = "<group>"; };
+		651CE3651BF7A58E006CF727 /* MathTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MathTest.cpp; sourceTree = "<group>"; };
+		651CE3661BF7A58E006CF727 /* PortsTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PortsTest.cpp; sourceTree = "<group>"; };
+		651CE3671BF7A58E006CF727 /* VoiceTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VoiceTest.cpp; sourceTree = "<group>"; };
+		651CE3691BF7A58E006CF727 /* MidiTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MidiTest.cpp; sourceTree = "<group>"; };
+		651CE36E1BF7A59D006CF727 /* ScratchTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScratchTest.cpp; sourceTree = "<group>"; };
+		651E84981C01E61D003B9323 /* PhaseGeneratorTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PhaseGeneratorTest.cpp; sourceTree = "<group>"; };
+		651E849B1C020475003B9323 /* SineSynthTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SineSynthTest.cpp; sourceTree = "<group>"; };
+		651E849D1C026467003B9323 /* CircuitTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = CircuitTest.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
+		65268FB71FAF87A00068FE64 /* simdlib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = simdlib.xcodeproj; path = libs/simdlib/simdlib.xcodeproj; sourceTree = "<group>"; };
+		65268FC51FAF8B0F0068FE64 /* ADSREnvelopeGenerator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ADSREnvelopeGenerator.hpp; sourceTree = "<group>"; };
+		65268FC61FAF8B0F0068FE64 /* MidiSynth.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MidiSynth.hpp; sourceTree = "<group>"; };
+		65268FC71FAF8B0F0068FE64 /* MidiSynthVoice.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MidiSynthVoice.hpp; sourceTree = "<group>"; };
+		65268FC81FAF8B0F0068FE64 /* Oscillator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Oscillator.hpp; sourceTree = "<group>"; };
+		65268FC91FAF8B0F0068FE64 /* PhaseGenerator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PhaseGenerator.hpp; sourceTree = "<group>"; };
+		65268FCA1FAF8B0F0068FE64 /* SawtoothOscillatorBL.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SawtoothOscillatorBL.hpp; sourceTree = "<group>"; };
+		65268FCB1FAF8B0F0068FE64 /* SawtoothOscillatorDPW.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SawtoothOscillatorDPW.hpp; sourceTree = "<group>"; };
+		65268FCC1FAF8B0F0068FE64 /* SineOscillator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SineOscillator.hpp; sourceTree = "<group>"; };
+		65268FCD1FAF8B0F0068FE64 /* TriggerModule.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TriggerModule.hpp; sourceTree = "<group>"; };
+		65268FDB1FAF9BAD0068FE64 /* midi.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = midi.hpp; sourceTree = "<group>"; };
+		652C70201F991C390006E232 /* moddlib-playground */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "moddlib-playground"; sourceTree = BUILT_PRODUCTS_DIR; };
+		654BDB861BF8D88D00346F26 /* MidiBufferTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MidiBufferTest.cpp; sourceTree = "<group>"; };
+		654BDB891BF8EDAC00346F26 /* SineOscillatorTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SineOscillatorTest.cpp; sourceTree = "<group>"; };
+		6551D4681C83447600740681 /* SubtractiveSynth.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SubtractiveSynth.hpp; sourceTree = "<group>"; };
+		65528F5B1B3EFF7200F0A36D /* libmoddlib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libmoddlib.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		65528F6D1B3F029500F0A36D /* moddlib-test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "moddlib-test"; sourceTree = BUILT_PRODUCTS_DIR; };
+		65528F6F1B3F029500F0A36D /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		6554891F1B5A83250036C9F4 /* Inputs.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Inputs.hpp; sourceTree = "<group>"; };
+		655489221B5A855D0036C9F4 /* Engine.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Engine.hpp; sourceTree = "<group>"; };
+		655489241B5A86250036C9F4 /* moddlib.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = moddlib.hpp; sourceTree = "<group>"; };
+		655489271B5A864A0036C9F4 /* core.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = core.hpp; sourceTree = "<group>"; };
+		655489281B5A86820036C9F4 /* Types.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Types.hpp; sourceTree = "<group>"; };
+		6554892A1B5A86B20036C9F4 /* Memory.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Memory.hpp; sourceTree = "<group>"; };
+		6554892E1B5A87270036C9F4 /* Outputs.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Outputs.hpp; sourceTree = "<group>"; };
+		6554892F1B5A87B90036C9F4 /* Circuit.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; path = Circuit.hpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
+		656529771B56EBD40092511A /* TestSynth.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestSynth.cpp; sourceTree = "<group>"; };
+		656529781B56EBD40092511A /* TestSynth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestSynth.h; sourceTree = "<group>"; };
+		6566B75D1C78CA8900541EF8 /* Envelope.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Envelope.hpp; sourceTree = "<group>"; };
+		6566B75E1C78CA8900541EF8 /* SawtoothTable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SawtoothTable.cpp; sourceTree = "<group>"; };
+		6566B75F1C78CA8900541EF8 /* SawtoothTable.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SawtoothTable.hpp; sourceTree = "<group>"; };
+		6569D1DA1C3C4A690053467E /* Ports.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Ports.hpp; sourceTree = "<group>"; };
+		656E76631C2AF54C007C0C6C /* UtilitiesTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UtilitiesTest.cpp; sourceTree = "<group>"; };
+		656E766A1C2B0445007C0C6C /* MidiOutputPort.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MidiOutputPort.hpp; sourceTree = "<group>"; };
+		657211D01C538C920050ABBF /* ADSREnvelopeGeneratorTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ADSREnvelopeGeneratorTest.cpp; sourceTree = "<group>"; };
+		6574EF421BC1650A0066E7DE /* SineSynth.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; path = SineSynth.hpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
+		6574EF441BC16C3F0066E7DE /* Math.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Math.hpp; sourceTree = "<group>"; };
+		659C25041C090D7F006189B5 /* Utilities.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Utilities.hpp; sourceTree = "<group>"; };
+		65A261FC1BADA37800549156 /* Voice.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Voice.hpp; sourceTree = "<group>"; };
+		65A4A6181C2491E300D68B03 /* debug.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = debug.hpp; sourceTree = "<group>"; };
+		65B245A41C3AEB0900B49468 /* Generator.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Generator.hpp; sourceTree = "<group>"; };
+		65B245A51C3AF18400B49468 /* Synthesizer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Synthesizer.hpp; sourceTree = "<group>"; };
+		65B39ADC1C56AB91002853A1 /* ADSREnvelopeTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ADSREnvelopeTest.cpp; sourceTree = "<group>"; };
+		65C1B7201C3D084600FDB956 /* Connect.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Connect.hpp; sourceTree = "<group>"; };
+		65C1B72A1C3D59F700FDB956 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		65C1B7331C3D8AC900FDB956 /* FFT.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FFT.hpp; sourceTree = "<group>"; };
+		65CEA4911C00C33B00CBB5AC /* core.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = core.cpp; sourceTree = "<group>"; };
+		65D9F24C1C4276960067270C /* moddlib-bench */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "moddlib-bench"; sourceTree = BUILT_PRODUCTS_DIR; };
+		65D9F2551C42770B0067270C /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		65D9F2571C4278640067270C /* SinCircuitBench.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SinCircuitBench.cpp; sourceTree = "<group>"; };
+		65D9F2591C4278D00067270C /* bench.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = bench.hpp; sourceTree = "<group>"; };
+		65D9F25A1C4282800067270C /* SinCircuitBaseLine.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SinCircuitBaseLine.hpp; sourceTree = "<group>"; };
+		65E8DC9D1B6940DD00325A47 /* Selectors.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; path = Selectors.hpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
+		65FF786F1C4A92C400F36B94 /* FastPower.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FastPower.hpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		652C701D1F991C390006E232 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		65528F581B3EFF7200F0A36D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		65528F6A1B3F029500F0A36D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				65C1B72B1C3D59F700FDB956 /* Accelerate.framework in Frameworks */,
+				65200EAE1B57F2D900E36B4C /* libmoddlib.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		65D9F2491C4276960067270C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				65D9F2541C4276D40067270C /* Accelerate.framework in Frameworks */,
+				65D9F2531C4276CE0067270C /* libmoddlib.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		651CE35A1BF77F25006CF727 /* midi */ = {
+			isa = PBXGroup;
+			children = (
+				65268FDB1FAF9BAD0068FE64 /* midi.hpp */,
+				651CE35E1BF77F40006CF727 /* MidiMessage.hpp */,
+				651CE35F1BF79DF0006CF727 /* MidiBuffer.hpp */,
+				656E766A1C2B0445007C0C6C /* MidiOutputPort.hpp */,
+			);
+			path = midi;
+			sourceTree = "<group>";
+		};
+		651CE3641BF7A58E006CF727 /* core */ = {
+			isa = PBXGroup;
+			children = (
+				651CE3651BF7A58E006CF727 /* MathTest.cpp */,
+				651CE3661BF7A58E006CF727 /* PortsTest.cpp */,
+				651CE3671BF7A58E006CF727 /* VoiceTest.cpp */,
+				651E849D1C026467003B9323 /* CircuitTest.cpp */,
+				656E76631C2AF54C007C0C6C /* UtilitiesTest.cpp */,
+			);
+			path = core;
+			sourceTree = "<group>";
+		};
+		651CE3681BF7A58E006CF727 /* midi */ = {
+			isa = PBXGroup;
+			children = (
+				651CE3691BF7A58E006CF727 /* MidiTest.cpp */,
+				654BDB861BF8D88D00346F26 /* MidiBufferTest.cpp */,
+			);
+			path = midi;
+			sourceTree = "<group>";
+		};
+		651E849A1C020445003B9323 /* instruments */ = {
+			isa = PBXGroup;
+			children = (
+				651E849B1C020475003B9323 /* SineSynthTest.cpp */,
+			);
+			path = instruments;
+			sourceTree = "<group>";
+		};
+		65268FB81FAF87A00068FE64 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				65268FBE1FAF87A10068FE64 /* simdlib-tests */,
+				65268FC01FAF87A10068FE64 /* simdlib-bench */,
+				65268FC21FAF87A10068FE64 /* simdlib-ios.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		65268FC41FAF8B0F0068FE64 /* units */ = {
+			isa = PBXGroup;
+			children = (
+				65268FC51FAF8B0F0068FE64 /* ADSREnvelopeGenerator.hpp */,
+				65268FC61FAF8B0F0068FE64 /* MidiSynth.hpp */,
+				65268FC71FAF8B0F0068FE64 /* MidiSynthVoice.hpp */,
+				65268FC81FAF8B0F0068FE64 /* Oscillator.hpp */,
+				65268FC91FAF8B0F0068FE64 /* PhaseGenerator.hpp */,
+				65268FCA1FAF8B0F0068FE64 /* SawtoothOscillatorBL.hpp */,
+				65268FCB1FAF8B0F0068FE64 /* SawtoothOscillatorDPW.hpp */,
+				65268FCC1FAF8B0F0068FE64 /* SineOscillator.hpp */,
+				65268FCD1FAF8B0F0068FE64 /* TriggerModule.hpp */,
+			);
+			path = units;
+			sourceTree = "<group>";
+		};
+		652C70181F991BC60006E232 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		654BDB881BF8ED7E00346F26 /* units */ = {
+			isa = PBXGroup;
+			children = (
+				654BDB891BF8EDAC00346F26 /* SineOscillatorTest.cpp */,
+				651E84981C01E61D003B9323 /* PhaseGeneratorTest.cpp */,
+				657211D01C538C920050ABBF /* ADSREnvelopeGeneratorTest.cpp */,
+				65B39ADC1C56AB91002853A1 /* ADSREnvelopeTest.cpp */,
+			);
+			path = units;
+			sourceTree = "<group>";
+		};
+		65528F521B3EFF7200F0A36D = {
+			isa = PBXGroup;
+			children = (
+				65268FB71FAF87A00068FE64 /* simdlib.xcodeproj */,
+				65C1B72A1C3D59F700FDB956 /* Accelerate.framework */,
+				65528F5D1B3EFF7200F0A36D /* moddlib */,
+				65528F6E1B3F029500F0A36D /* moddlib-test */,
+				65D9F2471C4276390067270C /* moddlib-bench */,
+				65528F5C1B3EFF7200F0A36D /* Products */,
+				652C70181F991BC60006E232 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		65528F5C1B3EFF7200F0A36D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				65528F5B1B3EFF7200F0A36D /* libmoddlib.a */,
+				65528F6D1B3F029500F0A36D /* moddlib-test */,
+				65D9F24C1C4276960067270C /* moddlib-bench */,
+				652C70201F991C390006E232 /* moddlib-playground */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		65528F5D1B3EFF7200F0A36D /* moddlib */ = {
+			isa = PBXGroup;
+			children = (
+				65268FC41FAF8B0F0068FE64 /* units */,
+				6566B75C1C78CA5E00541EF8 /* util */,
+				65A4A6171C24919100D68B03 /* debug */,
+				651CE35A1BF77F25006CF727 /* midi */,
+				6554891E1B5A83250036C9F4 /* core */,
+				65C1B7311C3D8AC900FDB956 /* math */,
+				65528F8D1B3F0BA000F0A36D /* instruments */,
+				655489241B5A86250036C9F4 /* moddlib.hpp */,
+			);
+			path = moddlib;
+			sourceTree = "<group>";
+		};
+		65528F6E1B3F029500F0A36D /* moddlib-test */ = {
+			isa = PBXGroup;
+			children = (
+				651CE36E1BF7A59D006CF727 /* ScratchTest.cpp */,
+				651CE3641BF7A58E006CF727 /* core */,
+				651CE3681BF7A58E006CF727 /* midi */,
+				654BDB881BF8ED7E00346F26 /* units */,
+				651E849A1C020445003B9323 /* instruments */,
+				65528F6F1B3F029500F0A36D /* main.cpp */,
+				656529771B56EBD40092511A /* TestSynth.cpp */,
+				656529781B56EBD40092511A /* TestSynth.h */,
+			);
+			path = "moddlib-test";
+			sourceTree = "<group>";
+		};
+		65528F8D1B3F0BA000F0A36D /* instruments */ = {
+			isa = PBXGroup;
+			children = (
+				6574EF421BC1650A0066E7DE /* SineSynth.hpp */,
+				6551D4681C83447600740681 /* SubtractiveSynth.hpp */,
+			);
+			path = instruments;
+			sourceTree = "<group>";
+		};
+		6554891E1B5A83250036C9F4 /* core */ = {
+			isa = PBXGroup;
+			children = (
+				6554892A1B5A86B20036C9F4 /* Memory.hpp */,
+				655489281B5A86820036C9F4 /* Types.hpp */,
+				655489221B5A855D0036C9F4 /* Engine.hpp */,
+				65CEA4911C00C33B00CBB5AC /* core.cpp */,
+				655489271B5A864A0036C9F4 /* core.hpp */,
+				65E8DC9D1B6940DD00325A47 /* Selectors.hpp */,
+				6554892E1B5A87270036C9F4 /* Outputs.hpp */,
+				6554891F1B5A83250036C9F4 /* Inputs.hpp */,
+				6569D1DA1C3C4A690053467E /* Ports.hpp */,
+				65C1B7201C3D084600FDB956 /* Connect.hpp */,
+				65B245A41C3AEB0900B49468 /* Generator.hpp */,
+				6554892F1B5A87B90036C9F4 /* Circuit.hpp */,
+				65B245A51C3AF18400B49468 /* Synthesizer.hpp */,
+				65A261FC1BADA37800549156 /* Voice.hpp */,
+				6574EF441BC16C3F0066E7DE /* Math.hpp */,
+				659C25041C090D7F006189B5 /* Utilities.hpp */,
+			);
+			path = core;
+			sourceTree = "<group>";
+		};
+		6566B75C1C78CA5E00541EF8 /* util */ = {
+			isa = PBXGroup;
+			children = (
+				6566B75D1C78CA8900541EF8 /* Envelope.hpp */,
+				6566B75F1C78CA8900541EF8 /* SawtoothTable.hpp */,
+				6566B75E1C78CA8900541EF8 /* SawtoothTable.cpp */,
+			);
+			path = util;
+			sourceTree = "<group>";
+		};
+		65A4A6171C24919100D68B03 /* debug */ = {
+			isa = PBXGroup;
+			children = (
+				65A4A6181C2491E300D68B03 /* debug.hpp */,
+			);
+			path = debug;
+			sourceTree = "<group>";
+		};
+		65C1B7311C3D8AC900FDB956 /* math */ = {
+			isa = PBXGroup;
+			children = (
+				65C1B7331C3D8AC900FDB956 /* FFT.hpp */,
+				65FF786F1C4A92C400F36B94 /* FastPower.hpp */,
+			);
+			path = math;
+			sourceTree = "<group>";
+		};
+		65D9F2471C4276390067270C /* moddlib-bench */ = {
+			isa = PBXGroup;
+			children = (
+				65D9F2591C4278D00067270C /* bench.hpp */,
+				65D9F2551C42770B0067270C /* main.cpp */,
+				65D9F2571C4278640067270C /* SinCircuitBench.cpp */,
+				65D9F25A1C4282800067270C /* SinCircuitBaseLine.hpp */,
+			);
+			path = "moddlib-bench";
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		65528F591B3EFF7200F0A36D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				65268FD11FAF8B0F0068FE64 /* Oscillator.hpp in Headers */,
+				65268FD61FAF8B0F0068FE64 /* TriggerModule.hpp in Headers */,
+				6566B7601C78CA8900541EF8 /* Envelope.hpp in Headers */,
+				6566B7641C78CA8900541EF8 /* SawtoothTable.hpp in Headers */,
+				655489291B5A86820036C9F4 /* Types.hpp in Headers */,
+				655489201B5A83250036C9F4 /* Inputs.hpp in Headers */,
+				65268FD41FAF8B0F0068FE64 /* SawtoothOscillatorDPW.hpp in Headers */,
+				6554892C1B5A86B20036C9F4 /* Memory.hpp in Headers */,
+				65268FD01FAF8B0F0068FE64 /* MidiSynthVoice.hpp in Headers */,
+				65268FCF1FAF8B0F0068FE64 /* MidiSynth.hpp in Headers */,
+				65268FD21FAF8B0F0068FE64 /* PhaseGenerator.hpp in Headers */,
+				65268FDC1FAF9BAD0068FE64 /* midi.hpp in Headers */,
+				655489261B5A86250036C9F4 /* moddlib.hpp in Headers */,
+				65268FCE1FAF8B0F0068FE64 /* ADSREnvelopeGenerator.hpp in Headers */,
+				65268FD31FAF8B0F0068FE64 /* SawtoothOscillatorBL.hpp in Headers */,
+				651CE3601BF79DF0006CF727 /* MidiBuffer.hpp in Headers */,
+				65268FD51FAF8B0F0068FE64 /* SineOscillator.hpp in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		652C701F1F991C390006E232 /* moddlib-playground */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 652C70241F991C390006E232 /* Build configuration list for PBXNativeTarget "moddlib-playground" */;
+			buildPhases = (
+				652C701C1F991C390006E232 /* Sources */,
+				652C701D1F991C390006E232 /* Frameworks */,
+				652C701E1F991C390006E232 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "moddlib-playground";
+			productName = "unitsynth-playground";
+			productReference = 652C70201F991C390006E232 /* moddlib-playground */;
+			productType = "com.apple.product-type.tool";
+		};
+		65528F5A1B3EFF7200F0A36D /* moddlib */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 65528F661B3EFF7200F0A36D /* Build configuration list for PBXNativeTarget "moddlib" */;
+			buildPhases = (
+				65528F571B3EFF7200F0A36D /* Sources */,
+				65528F581B3EFF7200F0A36D /* Frameworks */,
+				65528F591B3EFF7200F0A36D /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = moddlib;
+			productName = unitsynth;
+			productReference = 65528F5B1B3EFF7200F0A36D /* libmoddlib.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		65528F6C1B3F029500F0A36D /* moddlib-test */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 65528F711B3F029500F0A36D /* Build configuration list for PBXNativeTarget "moddlib-test" */;
+			buildPhases = (
+				65528F691B3F029500F0A36D /* Sources */,
+				65528F6A1B3F029500F0A36D /* Frameworks */,
+				65528F6B1B3F029500F0A36D /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				65200EB01B57F2E900E36B4C /* PBXTargetDependency */,
+			);
+			name = "moddlib-test";
+			productName = "unitsynth-test";
+			productReference = 65528F6D1B3F029500F0A36D /* moddlib-test */;
+			productType = "com.apple.product-type.tool";
+		};
+		65D9F24B1C4276960067270C /* moddlib-bench */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 65D9F2501C4276960067270C /* Build configuration list for PBXNativeTarget "moddlib-bench" */;
+			buildPhases = (
+				65D9F2481C4276960067270C /* Sources */,
+				65D9F2491C4276960067270C /* Frameworks */,
+				65D9F24A1C4276960067270C /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "moddlib-bench";
+			productName = "unitsynth-bench";
+			productReference = 65D9F24C1C4276960067270C /* moddlib-bench */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		65528F531B3EFF7200F0A36D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0900;
+				ORGANIZATIONNAME = "Daniel Doubleday";
+				TargetAttributes = {
+					652C701F1F991C390006E232 = {
+						CreatedOnToolsVersion = 9.0.1;
+						ProvisioningStyle = Manual;
+					};
+					65528F5A1B3EFF7200F0A36D = {
+						CreatedOnToolsVersion = 6.3.2;
+					};
+					65528F6C1B3F029500F0A36D = {
+						CreatedOnToolsVersion = 6.3.2;
+					};
+					65D9F24B1C4276960067270C = {
+						CreatedOnToolsVersion = 7.2;
+						ProvisioningStyle = Manual;
+					};
+				};
+			};
+			buildConfigurationList = 65528F561B3EFF7200F0A36D /* Build configuration list for PBXProject "moddlib" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 65528F521B3EFF7200F0A36D;
+			productRefGroup = 65528F5C1B3EFF7200F0A36D /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 65268FB81FAF87A00068FE64 /* Products */;
+					ProjectRef = 65268FB71FAF87A00068FE64 /* simdlib.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				65528F5A1B3EFF7200F0A36D /* moddlib */,
+				65528F6C1B3F029500F0A36D /* moddlib-test */,
+				65D9F24B1C4276960067270C /* moddlib-bench */,
+				652C701F1F991C390006E232 /* moddlib-playground */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		65268FBE1FAF87A10068FE64 /* simdlib-tests */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = "simdlib-tests";
+			remoteRef = 65268FBD1FAF87A10068FE64 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		65268FC01FAF87A10068FE64 /* simdlib-bench */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = "simdlib-bench";
+			remoteRef = 65268FBF1FAF87A10068FE64 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		65268FC21FAF87A10068FE64 /* simdlib-ios.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "simdlib-ios.app";
+			remoteRef = 65268FC11FAF87A10068FE64 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXSourcesBuildPhase section */
+		652C701C1F991C390006E232 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		65528F571B3EFF7200F0A36D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				65CEA4921C00C33B00CBB5AC /* core.cpp in Sources */,
+				6566B7611C78CA8900541EF8 /* SawtoothTable.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		65528F691B3F029500F0A36D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				651CE36F1BF7A59D006CF727 /* ScratchTest.cpp in Sources */,
+				65528F701B3F029500F0A36D /* main.cpp in Sources */,
+				654BDB8A1BF8EDAC00346F26 /* SineOscillatorTest.cpp in Sources */,
+				65B39ADD1C56AB91002853A1 /* ADSREnvelopeTest.cpp in Sources */,
+				651E849E1C026467003B9323 /* CircuitTest.cpp in Sources */,
+				651E84991C01E61D003B9323 /* PhaseGeneratorTest.cpp in Sources */,
+				6566B7621C78CA8900541EF8 /* SawtoothTable.cpp in Sources */,
+				651E849C1C020475003B9323 /* SineSynthTest.cpp in Sources */,
+				651CE36C1BF7A58E006CF727 /* VoiceTest.cpp in Sources */,
+				651CE36D1BF7A58E006CF727 /* MidiTest.cpp in Sources */,
+				657211D11C538C920050ABBF /* ADSREnvelopeGeneratorTest.cpp in Sources */,
+				651CE36B1BF7A58E006CF727 /* PortsTest.cpp in Sources */,
+				656529791B56EBD40092511A /* TestSynth.cpp in Sources */,
+				656E76641C2AF54C007C0C6C /* UtilitiesTest.cpp in Sources */,
+				654BDB871BF8D88D00346F26 /* MidiBufferTest.cpp in Sources */,
+				651CE36A1BF7A58E006CF727 /* MathTest.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		65D9F2481C4276960067270C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				65D9F2561C42770B0067270C /* main.cpp in Sources */,
+				65D9F2581C4278640067270C /* SinCircuitBench.cpp in Sources */,
+				6566B7631C78CA8900541EF8 /* SawtoothTable.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		65200EB01B57F2E900E36B4C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 65528F5A1B3EFF7200F0A36D /* moddlib */;
+			targetProxy = 65200EAF1B57F2E900E36B4C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		652C70251F991C390006E232 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+			};
+			name = Debug;
+		};
+		652C70261F991C390006E232 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+			};
+			name = Release;
+		};
+		65528F641B3EFF7200F0A36D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/libs/simdlib/simdlib/include\"",
+					"\"$(SRCROOT)/libs/readerwriterqueue\"",
+					"\"$(SRCROOT)/libs/fmtlib\"",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		65528F651B3EFF7200F0A36D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = "NDEBUG=1";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/libs/simdlib/simdlib/include\"",
+					"\"$(SRCROOT)/libs/readerwriterqueue\"",
+					"\"$(SRCROOT)/libs/fmtlib\"",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		65528F671B3EFF7200F0A36D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = YES;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_UNUSED_FUNCTION = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-isystem",
+					"libs/nova-simd/include/",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		65528F681B3EFF7200F0A36D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = YES;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_UNUSED_FUNCTION = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-isystem",
+					"libs/nova-simd/include/",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		65528F721B3F029500F0A36D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
+				GCC_FAST_MATH = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				GCC_WARN_UNUSED_FUNCTION = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/libs/simdlib/libs/catch2/single_include",
+				);
+				"HEADER_SEARCH_PATHS[arch=*]" = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		65528F731B3F029500F0A36D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
+				CLANG_USE_OPTIMIZATION_PROFILE = YES;
+				GCC_FAST_MATH = YES;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				GCC_WARN_UNUSED_FUNCTION = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/libs/simdlib/libs/catch2/single_include",
+				);
+				"HEADER_SEARCH_PATHS[arch=*]" = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LLVM_LTO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		65D9F2511C4276960067270C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				GCC_FAST_MATH = YES;
+				GCC_WARN_UNUSED_FUNCTION = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/libs/simdlib/libs/benchpress/src\"",
+					"\"$(SRCROOT)/moddlib\"",
+				);
+				LLVM_LTO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+			};
+			name = Debug;
+		};
+		65D9F2521C4276960067270C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				GCC_FAST_MATH = YES;
+				GCC_OPTIMIZATION_LEVEL = fast;
+				GCC_WARN_UNUSED_FUNCTION = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/libs/simdlib/libs/benchpress/src\"",
+					"\"$(SRCROOT)/moddlib\"",
+				);
+				LLVM_LTO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		652C70241F991C390006E232 /* Build configuration list for PBXNativeTarget "moddlib-playground" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				652C70251F991C390006E232 /* Debug */,
+				652C70261F991C390006E232 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		65528F561B3EFF7200F0A36D /* Build configuration list for PBXProject "moddlib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				65528F641B3EFF7200F0A36D /* Debug */,
+				65528F651B3EFF7200F0A36D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		65528F661B3EFF7200F0A36D /* Build configuration list for PBXNativeTarget "moddlib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				65528F671B3EFF7200F0A36D /* Debug */,
+				65528F681B3EFF7200F0A36D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		65528F711B3F029500F0A36D /* Build configuration list for PBXNativeTarget "moddlib-test" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				65528F721B3F029500F0A36D /* Debug */,
+				65528F731B3F029500F0A36D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		65D9F2501C4276960067270C /* Build configuration list for PBXNativeTarget "moddlib-bench" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				65D9F2511C4276960067270C /* Debug */,
+				65D9F2521C4276960067270C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 65528F531B3EFF7200F0A36D /* Project object */;
+}
