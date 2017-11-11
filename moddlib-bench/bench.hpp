@@ -23,6 +23,6 @@
 
 #define NOINLINE __attribute__ ((noinline))
 
-#include "moddlib.hpp"
+#include "aot_moddlib.hpp"
 
 #endif /* bench_h */

@@ -11,7 +11,7 @@
 #include <vector>
 #include <memory>
 
-#include "moddlib.hpp"
+#include "aot_moddlib.hpp"
 
 namespace moddlib
 {

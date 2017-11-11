@@ -10,7 +10,7 @@
 #define __unitsynth__TestSynth__
 
 #include <stdio.h>
-#include "moddlib.hpp"
+#include "aot_moddlib.hpp"
 
 namespace moddlib
 {

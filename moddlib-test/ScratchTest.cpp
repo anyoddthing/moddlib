@@ -10,7 +10,7 @@
 #include <cassert>
 #include "catch.hpp"
 
-#include "moddlib.hpp"
+#include "aot_moddlib.hpp"
 #include "TestSynth.h"
 
 
