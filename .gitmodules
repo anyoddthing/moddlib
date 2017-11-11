@@ -7,3 +7,9 @@
 [submodule "libs/simdlib"]
 	path = libs/simdlib
 	url = https://github.com/anyoddthing/simdlib.git
+[submodule "libs/JUCE"]
+	path = libs/JUCE
+	url = https://github.com/WeAreROLI/JUCE.git
+[submodule "libs/juceplot"]
+	path = libs/juceplot
+	url = https://github.com/anyoddthing/juceplot.git
