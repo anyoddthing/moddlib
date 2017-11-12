@@ -7,21 +7,25 @@
 */
 
 #include "../JuceLibraryCode/JuceHeader.h"
-//#include "aot_moddlib/aot_moddlib.hpp"
+#include "aot_moddlib/instruments/SineSynth.hpp"
 
 //==============================================================================
 /*
     This component lives inside our window, and this is where you should put all
     your controls and content.
 */
-class MainContentComponent   : public AudioAppComponent
+class MainContentComponent   :
+    public AudioAppComponent,
+    public MidiInputCallback
 {
 public:
     //==============================================================================
     MainContentComponent()
     {
-        setSize (800, 600);
-
+        initComponents();
+        
+        setSize(800, 600);
+        
         // specify the number of input and output channels that we want to open
         setAudioChannels (2, 2);
     }
@@ -29,53 +33,82 @@ public:
     ~MainContentComponent()
     {
         shutdownAudio();
+        
+        const StringArray midiInputs(MidiInput::getDevices());
+        for (int i = 0; i < midiInputs.size(); ++i)
+        {
+            if (deviceManager.isMidiInputEnabled(midiInputs[i]))
+            {
+                deviceManager.removeMidiInputCallback(midiInputs[i], this);
+            }
+        }
     }
-
+    
+    // Midi Callback
+    void handleIncomingMidiMessage(juce::MidiInput *source, const juce::MidiMessage &message) override
+    {
+        if (_sineSynth)
+        {
+            _sineSynth->queueMessage(moddlib::midi::createMidiMessage(message.getRawData()));
+        }
+    }
+    
+    
+    void initComponents()
+    {
+        _audioDeviceSelector = std::make_unique<AudioDeviceSelectorComponent>(
+            deviceManager, 0, 0, 2, 2, true, false, true, false);
+        addAndMakeVisible(_audioDeviceSelector.get());
+        
+        const StringArray midiInputs(MidiInput::getDevices());
+        for (int i = 0; i < midiInputs.size(); ++i)
+        {
+            if (midiInputs[i].equalsIgnoreCase("Roland Digital Piano"))
+            {
+                DBG("Midi enabled: " << midiInputs[i] << ": " << deviceManager.isMidiInputEnabled(midiInputs[i]));
+                deviceManager.setMidiInputEnabled(midiInputs[i], true);
+                deviceManager.addMidiInputCallback(midiInputs[i], this);
+            }
+        }
+    }
+    
     //==============================================================================
-    void prepareToPlay (int samplesPerBlockExpected, double sampleRate) override
+    void prepareToPlay(int samplesPerBlockExpected, double sampleRate) override
     {
-        // This function will be called when the audio device is started, or when
-        // its settings (i.e. sample rate, block size, etc) are changed.
-
-        // You can use this function to initialise any resources you might need,
-        // but be careful - it will be called on the audio thread, not the GUI thread.
-
-        // For more details, see the help for AudioProcessor::prepareToPlay()
+        _sineSynth = std::make_unique<moddlib::SineSynth>();
     }
 
-    void getNextAudioBlock (const AudioSourceChannelInfo& bufferToFill) override
+    void getNextAudioBlock(const AudioSourceChannelInfo& bufferToFill) override
     {
-        // Your audio-processing code goes here!
-
-        // For more details, see the help for AudioProcessor::getNextAudioBlock()
-
-        // Right now we are not producing any data, in which case we need to clear the buffer
-        // (to prevent the output of random noise)
-        bufferToFill.clearActiveBufferRegion();
+        jassert(bufferToFill.buffer->getNumChannels() == 2);
+        
+        for (auto i = 0; i < bufferToFill.numSamples; i += 8)
+        {
+            _sineSynth->generate(_sampleBuffer);
+            auto offset = bufferToFill.startSample + i;
+            bufferToFill.buffer->copyFrom(0, offset, _sampleBuffer, 8);
+            bufferToFill.buffer->copyFrom(1, offset, _sampleBuffer, 8);
+        }
+//        bufferToFill.clearActiveBufferRegion();
     }
 
     void releaseResources() override
     {
-        // This will be called when the audio device stops, or when it is being
-        // restarted due to a setting change.
-
-        // For more details, see the help for AudioProcessor::releaseResources()
+        
     }
 
     //==============================================================================
-    void paint (Graphics& g) override
+    void paint(Graphics& g) override
     {
-        // (Our component is opaque, so we must completely fill the background with a solid colour)
-        g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
-
-        // You can add your drawing code here!
+        g.fillAll(getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
     }
 
     void resized() override
     {
-        // This is called when the MainContentComponent is resized.
-        // If you add any child components, this is where you should
-        // update their positions.
+        if (_audioDeviceSelector)
+        {
+            _audioDeviceSelector->setSize(getWidth(), getHeight());
+        }
     }
 
 
@@ -83,9 +116,12 @@ private:
     //==============================================================================
 
     // Your private member variables go here...
-
+    moddlib::SampleBuffer _sampleBuffer;
+    std::unique_ptr<AudioDeviceSelectorComponent> _audioDeviceSelector;
+    std::unique_ptr<moddlib::SineSynth> _sineSynth;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainContentComponent)
+    
 };
 
 

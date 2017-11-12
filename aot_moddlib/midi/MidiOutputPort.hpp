@@ -18,7 +18,7 @@ namespace moddlib
     public:
 
         MidiOutputPort(float min, float max, float mid) :
-            _min(min), _max(max), _mid(mid)
+            _min(min), _mid(mid), _max(max)
         {
             setControlValue(1);
             setControlValue(0);

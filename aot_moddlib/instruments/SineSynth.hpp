@@ -81,9 +81,8 @@ namespace moddlib
         SineSynth() :
             _releaseInput(0.1f, 4.0f)
         {
-            for (fref voice : _voices)
+            for (auto& voice : _voices)
             {
-                using namespace std::placeholders;
                 auto& envModule = voice.getCircuit().module<SineSynthCircuit::envModule>();
                 
                 connect(_releaseInput, envModule.input<ADSREnvelopeGenerator::releaseIn>());
@@ -98,7 +97,7 @@ namespace moddlib
     private:
     
         std::array<SineVoice, 12>  _voices;
-        MidiOutputPort            _releaseInput;
+        MidiOutputPort             _releaseInput;
     };
 }
 

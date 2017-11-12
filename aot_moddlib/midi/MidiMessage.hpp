@@ -95,7 +95,7 @@ namespace moddlib
     
     namespace midi
     {
-        static inline MidiMessage createMidiMessage(uint8_t* values)
+        static inline MidiMessage createMidiMessage(const uint8_t* values)
         {
             return MidiMessage { values[0], values[1], values[2] };
         }

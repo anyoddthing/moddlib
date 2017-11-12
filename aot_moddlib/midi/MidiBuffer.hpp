@@ -11,8 +11,7 @@
 
 #include <queue>
 
-#include "readerwriterqueue.h"
-#include "Midi.hpp"
+#include "midi.hpp"
 
 namespace moddlib
 {

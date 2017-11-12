@@ -145,8 +145,9 @@
 		6569D1DA1C3C4A690053467E /* Ports.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Ports.hpp; sourceTree = "<group>"; };
 		656E76631C2AF54C007C0C6C /* UtilitiesTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UtilitiesTest.cpp; sourceTree = "<group>"; };
 		656E766A1C2B0445007C0C6C /* MidiOutputPort.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MidiOutputPort.hpp; sourceTree = "<group>"; };
+		656FC6FC1FB890C7007176A8 /* TestSineCirucuit.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TestSineCirucuit.hpp; sourceTree = "<group>"; };
 		657211D01C538C920050ABBF /* ADSREnvelopeGeneratorTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ADSREnvelopeGeneratorTest.cpp; sourceTree = "<group>"; };
-		6574EF421BC1650A0066E7DE /* SineSynth.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; path = SineSynth.hpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
+		6574EF421BC1650A0066E7DE /* SineSynth.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; path = SineSynth.hpp; sourceTree = "<group>"; };
 		6574EF441BC16C3F0066E7DE /* Math.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Math.hpp; sourceTree = "<group>"; };
 		659C25041C090D7F006189B5 /* Utilities.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Utilities.hpp; sourceTree = "<group>"; };
 		65A261FC1BADA37800549156 /* Voice.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Voice.hpp; sourceTree = "<group>"; };
@@ -286,6 +287,7 @@
 				65268FB71FAF87A00068FE64 /* simdlib.xcodeproj */,
 				65C1B72A1C3D59F700FDB956 /* Accelerate.framework */,
 				65528F5D1B3EFF7200F0A36D /* aot_moddlib */,
+				656FC6FA1FB8901D007176A8 /* moddlib-testsupport */,
 				65528F6E1B3F029500F0A36D /* moddlib-test */,
 				65D9F2471C4276390067270C /* moddlib-bench */,
 				65528F5C1B3EFF7200F0A36D /* Products */,
@@ -374,6 +376,22 @@
 				6566B75E1C78CA8900541EF8 /* SawtoothTable.cpp */,
 			);
 			path = util;
+			sourceTree = "<group>";
+		};
+		656FC6FA1FB8901D007176A8 /* moddlib-testsupport */ = {
+			isa = PBXGroup;
+			children = (
+				656FC6FB1FB8907A007176A8 /* circuits */,
+			);
+			path = "moddlib-testsupport";
+			sourceTree = "<group>";
+		};
+		656FC6FB1FB8907A007176A8 /* circuits */ = {
+			isa = PBXGroup;
+			children = (
+				656FC6FC1FB890C7007176A8 /* TestSineCirucuit.hpp */,
+			);
+			path = circuits;
 			sourceTree = "<group>";
 		};
 		65A4A6171C24919100D68B03 /* debug */ = {
