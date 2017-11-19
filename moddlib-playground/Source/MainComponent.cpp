@@ -6,8 +6,13 @@
   ==============================================================================
 */
 
+#include <fstream>
+#include <iostream>
+
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "aot_moddlib/instruments/SineSynth.hpp"
+
+static const bool DUMP_DEBUG_STREAM = true;
 
 //==============================================================================
 /*
@@ -27,7 +32,7 @@ public:
         setSize(800, 600);
         
         // specify the number of input and output channels that we want to open
-        setAudioChannels (2, 2);
+        setAudioChannels(2, 2);
     }
 
     ~MainContentComponent()
@@ -75,6 +80,10 @@ public:
     //==============================================================================
     void prepareToPlay(int samplesPerBlockExpected, double sampleRate) override
     {
+        if (DUMP_DEBUG_STREAM)
+        {
+            _dbgStream = std::make_unique<std::ofstream>("testout.bin", std::ios::binary | std::ios::out);
+        }
         _sineSynth = std::make_unique<moddlib::SineSynth>();
     }
 
@@ -88,8 +97,12 @@ public:
             auto offset = bufferToFill.startSample + i;
             bufferToFill.buffer->copyFrom(0, offset, _sampleBuffer, 8);
             bufferToFill.buffer->copyFrom(1, offset, _sampleBuffer, 8);
+            
+            if (DUMP_DEBUG_STREAM)
+            {
+                _dbgStream->write(reinterpret_cast<const char*>(_sampleBuffer.data()), _sampleBuffer.size() * sizeof(float));
+            }
         }
-//        bufferToFill.clearActiveBufferRegion();
     }
 
     void releaseResources() override
@@ -117,8 +130,10 @@ private:
 
     // Your private member variables go here...
     moddlib::SampleBuffer _sampleBuffer;
+    
     std::unique_ptr<AudioDeviceSelectorComponent> _audioDeviceSelector;
     std::unique_ptr<moddlib::SineSynth> _sineSynth;
+    std::unique_ptr<std::ofstream> _dbgStream;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainContentComponent)
     
