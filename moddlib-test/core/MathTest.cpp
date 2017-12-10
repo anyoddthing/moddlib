@@ -51,7 +51,7 @@ TEST_CASE("Normalze Array")
     
     SECTION("Normalize Array with sub 1.0")
     {
-       std::array<float, 5> floats = {0.8, 0, 0.1, 0.2, 0.5};
+        std::array<float, 5> floats = {0.8, 0, 0.1, 0.2, 0.5};
         std::array<float, 5> normalized;
         
         std::transform(floats.begin(), floats.end(), normalized.begin(),
@@ -63,6 +63,16 @@ TEST_CASE("Normalze Array")
         {
             CHECK(floats[i] == Approx(normalized[i]));
         }
+    }
+
+
+    SECTION("Can round to next power of 2")
+    {
+        CHECK(moddlib::roundUpToPower2(3) == 4);
+        
+        // check usage as constexpr
+        std::integral_constant<uint32_t, moddlib::roundUpToPower2(7)> tc;
+        CHECK(tc.value == 8);
     }
 }
 

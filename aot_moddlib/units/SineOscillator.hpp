@@ -6,8 +6,7 @@
 //  Copyright © 2015 Daniel Doubleday. All rights reserved.
 //
 
-#ifndef SineOscillator_hpp
-#define SineOscillator_hpp
+#pragma once
 
 #include "aot_simdlib/aot_simdlib.hpp"
 
@@ -32,4 +31,4 @@ namespace moddlib
     };
 }
 
-#endif /* SineOscillator_hpp */
+

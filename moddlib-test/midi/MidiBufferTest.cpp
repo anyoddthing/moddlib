@@ -11,7 +11,7 @@
 #include <chrono>
 #include "catch.hpp"
 
-#include "MidiBuffer.hpp"
+#include "aot_moddlib.hpp"
 
 #ifndef DISABLE_TEST
 

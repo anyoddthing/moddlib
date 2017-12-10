@@ -36,4 +36,4 @@
 #pragma once
 
 #include "core/core.hpp"
-
+#include "midi/midi.hpp"

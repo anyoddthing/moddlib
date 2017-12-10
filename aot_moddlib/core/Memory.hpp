@@ -20,6 +20,8 @@ namespace moddlib
      */
     struct AlignedMemory
     {
+        AlignedMemory() : _size(0) {}
+        
         AlignedMemory(size_t size) :
             _heap(new float[size]), _size(size)
         {}
@@ -79,7 +81,7 @@ namespace moddlib
         AlignedBuffer& operator=(const AlignedBuffer&) = delete;
 
         static const size_t stride = 4;
-        constexpr uint32_t size() { return Size; }
+        constexpr size_t size() { return Size; }
 
         operator const float*() const { return _buffer.data(); }
         operator float*() { return _buffer.data(); }
@@ -118,6 +120,16 @@ namespace moddlib
             });
         }
 
+        template <typename FunctionT>
+        void forEach(FunctionT f) const
+        {
+            int i = 0;
+            std::for_each(begin(), end(), [&](auto val) {
+                f(i, val);
+                i++;
+            });
+        }
+        
         void zero_mem()
         {
             simd::recipes<Size>::memset(data(), 0);

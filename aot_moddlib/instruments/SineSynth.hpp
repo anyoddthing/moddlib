@@ -16,6 +16,7 @@
 #include "../units/PhaseGenerator.hpp"
 #include "../units/ADSREnvelopeGenerator.hpp"
 #include "../units/SineOscillator.hpp"
+#include "../units/SineWTOscillator.hpp"
 #include "../units/MidiSynthVoice.hpp"
 #include "../units/MidiSynth.hpp"
 #include "../units/TriggerModule.hpp"
@@ -24,8 +25,10 @@
 
 namespace moddlib
 {
+    using OscillatorT = SineWTOscillator;
+    
     struct SineSynthCircuit :
-        Circuit<SineSynthCircuit, PhaseGenerator, SineOscillator, ADSREnvelopeGenerator>,
+        Circuit<SineSynthCircuit, PhaseGenerator, OscillatorT, ADSREnvelopeGenerator>,
         InputBank<
             Inputs<1, TriggerPort>,
             Inputs<1, PortLink<FloatInput>>>
@@ -50,8 +53,8 @@ namespace moddlib
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             // connect modules
             
-            connect(moduleOut<phaseModule, PhaseGenerator::mainOut>(), moduleIn<oscModule, SineOscillator::phaseIn>());
-            connect(moduleOut<oscModule, SineOscillator::mainOut>(), moduleIn<envModule, ADSREnvelopeGenerator::mainIn>());
+            connect(moduleOut<phaseModule, PhaseGenerator::mainOut>(), moduleIn<oscModule, OscillatorT::phaseIn>());
+            connect(moduleOut<oscModule, OscillatorT::mainOut>(), moduleIn<envModule, ADSREnvelopeGenerator::mainIn>());
         }
     };
 

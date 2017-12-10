@@ -6,11 +6,10 @@
 //  Copyright © 2015 Daniel Doubleday. All rights reserved.
 //
 
-#ifndef midi_h
-#define midi_h
+#pragma once
 
 #include "MidiMessage.hpp"
 #include "MidiBuffer.hpp"
 #include "MidiOutputPort.hpp"
 
-#endif /* midi_h */
+

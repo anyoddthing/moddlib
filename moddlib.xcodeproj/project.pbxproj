@@ -42,6 +42,7 @@
 		657211D11C538C920050ABBF /* ADSREnvelopeGeneratorTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 657211D01C538C920050ABBF /* ADSREnvelopeGeneratorTest.cpp */; };
 		65B39ADD1C56AB91002853A1 /* ADSREnvelopeTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65B39ADC1C56AB91002853A1 /* ADSREnvelopeTest.cpp */; };
 		65C1B72B1C3D59F700FDB956 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65C1B72A1C3D59F700FDB956 /* Accelerate.framework */; };
+		65C9B8401FC9AB6B00B350F5 /* WaveTableTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65C9B83F1FC9AB6B00B350F5 /* WaveTableTest.cpp */; };
 		65D9F2531C4276CE0067270C /* libmoddlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 65528F5B1B3EFF7200F0A36D /* libmoddlib.a */; };
 		65D9F2541C4276D40067270C /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65C1B72A1C3D59F700FDB956 /* Accelerate.framework */; };
 		65D9F2561C42770B0067270C /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65D9F2551C42770B0067270C /* main.cpp */; };
@@ -143,6 +144,8 @@
 		6566B75E1C78CA8900541EF8 /* SawtoothTable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SawtoothTable.cpp; sourceTree = "<group>"; };
 		6566B75F1C78CA8900541EF8 /* SawtoothTable.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SawtoothTable.hpp; sourceTree = "<group>"; };
 		6569D1DA1C3C4A690053467E /* Ports.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Ports.hpp; sourceTree = "<group>"; };
+		656A62FE1FC1D592006528EA /* SineWTOscillator.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SineWTOscillator.hpp; sourceTree = "<group>"; };
+		656A63021FC1F73D006528EA /* WaveTable.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = WaveTable.hpp; sourceTree = "<group>"; };
 		656E76631C2AF54C007C0C6C /* UtilitiesTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UtilitiesTest.cpp; sourceTree = "<group>"; };
 		656E766A1C2B0445007C0C6C /* MidiOutputPort.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MidiOutputPort.hpp; sourceTree = "<group>"; };
 		656FC6FC1FB890C7007176A8 /* TestSineCirucuit.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TestSineCirucuit.hpp; sourceTree = "<group>"; };
@@ -158,6 +161,7 @@
 		65C1B7201C3D084600FDB956 /* Connect.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Connect.hpp; sourceTree = "<group>"; };
 		65C1B72A1C3D59F700FDB956 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		65C1B7331C3D8AC900FDB956 /* FFT.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FFT.hpp; sourceTree = "<group>"; };
+		65C9B83F1FC9AB6B00B350F5 /* WaveTableTest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = WaveTableTest.cpp; sourceTree = "<group>"; };
 		65CEA4911C00C33B00CBB5AC /* core.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = core.cpp; sourceTree = "<group>"; };
 		65D9F24C1C4276960067270C /* moddlib-bench */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "moddlib-bench"; sourceTree = BUILT_PRODUCTS_DIR; };
 		65D9F2551C42770B0067270C /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
@@ -259,6 +263,7 @@
 				65268FCB1FAF8B0F0068FE64 /* SawtoothOscillatorDPW.hpp */,
 				65268FCC1FAF8B0F0068FE64 /* SineOscillator.hpp */,
 				65268FCD1FAF8B0F0068FE64 /* TriggerModule.hpp */,
+				656A62FE1FC1D592006528EA /* SineWTOscillator.hpp */,
 			);
 			path = units;
 			sourceTree = "<group>";
@@ -324,6 +329,7 @@
 		65528F6E1B3F029500F0A36D /* moddlib-test */ = {
 			isa = PBXGroup;
 			children = (
+				65C9B83B1FC9AB5100B350F5 /* util */,
 				651CE36E1BF7A59D006CF727 /* ScratchTest.cpp */,
 				651CE3641BF7A58E006CF727 /* core */,
 				651CE3681BF7A58E006CF727 /* midi */,
@@ -374,6 +380,7 @@
 				6566B75D1C78CA8900541EF8 /* Envelope.hpp */,
 				6566B75F1C78CA8900541EF8 /* SawtoothTable.hpp */,
 				6566B75E1C78CA8900541EF8 /* SawtoothTable.cpp */,
+				656A63021FC1F73D006528EA /* WaveTable.hpp */,
 			);
 			path = util;
 			sourceTree = "<group>";
@@ -409,6 +416,14 @@
 				65FF786F1C4A92C400F36B94 /* FastPower.hpp */,
 			);
 			path = math;
+			sourceTree = "<group>";
+		};
+		65C9B83B1FC9AB5100B350F5 /* util */ = {
+			isa = PBXGroup;
+			children = (
+				65C9B83F1FC9AB6B00B350F5 /* WaveTableTest.cpp */,
+			);
+			path = util;
 			sourceTree = "<group>";
 		};
 		65D9F2471C4276390067270C /* moddlib-bench */ = {
@@ -600,6 +615,7 @@
 				651CE36B1BF7A58E006CF727 /* PortsTest.cpp in Sources */,
 				656529791B56EBD40092511A /* TestSynth.cpp in Sources */,
 				656E76641C2AF54C007C0C6C /* UtilitiesTest.cpp in Sources */,
+				65C9B8401FC9AB6B00B350F5 /* WaveTableTest.cpp in Sources */,
 				654BDB871BF8D88D00346F26 /* MidiBufferTest.cpp in Sources */,
 				651CE36A1BF7A58E006CF727 /* MathTest.cpp in Sources */,
 			);
@@ -670,6 +686,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/aot_moddlib\"",
 					"\"$(SRCROOT)/libs/readerwriterqueue\"",
 					"\"$(SRCROOT)/libs/fmtlib\"",
 					"\"$(SRCROOT)/libs/simdlib/simdlib/include\"",
@@ -720,6 +737,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/aot_moddlib\"",
 					"\"$(SRCROOT)/libs/readerwriterqueue\"",
 					"\"$(SRCROOT)/libs/fmtlib\"",
 					"\"$(SRCROOT)/libs/simdlib/simdlib/include\"",
@@ -791,9 +809,12 @@
 				GCC_WARN_UNUSED_FUNCTION = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/libs/simdlib/libs/catch2/single_include",
+					"\"$(SRCROOT)/libs/simdlib/libs/catch2/single_include\"",
 				);
-				"HEADER_SEARCH_PATHS[arch=*]" = "$(inherited)";
+				"HEADER_SEARCH_PATHS[arch=*]" = (
+					"$(inherited)",
+					"\"$(SRCROOT)/libs/simdlib/libs/catch2/single_include\"",
+				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -812,9 +833,12 @@
 				GCC_WARN_UNUSED_FUNCTION = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/libs/simdlib/libs/catch2/single_include",
+					"\"$(SRCROOT)/libs/simdlib/libs/catch2/single_include\"",
 				);
-				"HEADER_SEARCH_PATHS[arch=*]" = "$(inherited)";
+				"HEADER_SEARCH_PATHS[arch=*]" = (
+					"$(inherited)",
+					"\"$(SRCROOT)/libs/simdlib/libs/catch2/single_include\"",
+				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				LLVM_LTO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";

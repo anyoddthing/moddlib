@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include "catch.hpp"
 
-#include "Midi.hpp"
+#include "aot_moddlib.hpp"
 
 #ifndef DISABLE_TEST
 

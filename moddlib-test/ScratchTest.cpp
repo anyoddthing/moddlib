@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 Daniel Doubleday. All rights reserved.
 //
 
-#include <stdio.h>
 #include <cassert>
 #include "catch.hpp"
 

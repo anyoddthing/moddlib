@@ -9,8 +9,10 @@
 #include <stdio.h>
 #include "catch.hpp"
 
-#include "SineOscillator.hpp"
 #include "TestSynth.h"
+
+#include "SineOscillator.hpp"
+#include "units/SineWTOscillator.hpp"
 
 #ifndef DISABLE_TEST
 
@@ -18,13 +20,9 @@ using namespace moddlib;
 
 TEST_CASE("SineOscillator Test")
 {
-    
     SECTION("")
     {
         TestSynth<SineOscillator> testSynth;
-        
-        
-        
     }
 }
 
