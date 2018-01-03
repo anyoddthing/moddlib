@@ -6,14 +6,12 @@
 //  Copyright (c) 2015 Daniel Doubleday. All rights reserved.
 //
 
-#ifndef unitsynth_Ports_hpp
-#define unitsynth_Ports_hpp
+#pragma once
 
 #include "Memory.hpp"
 
 namespace moddlib
 {
-
     template <size_t Pos>
     struct Out_
     {
@@ -45,7 +43,4 @@ namespace moddlib
         enum { bank = Bank };
         enum { pos = Pos };
     };
-    
 }
-
-#endif

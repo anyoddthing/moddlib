@@ -6,8 +6,7 @@
 //  Copyright © 2016 Daniel Doubleday. All rights reserved.
 //
 
-#ifndef Connect_h
-#define Connect_h
+#pragma once
 
 namespace moddlib
 {
@@ -29,21 +28,8 @@ namespace moddlib
         template <typename LeftT, typename RightT, typename Enable = void>
         struct Connector {};
         
-        /** Base case for input -> output (correct but un-intuitive)
-         */
         template <typename LeftT, typename RightT>
-        struct Connector<LeftT, RightT, std::enable_if_t<IsConnectable<LeftT>::value>>
-        {
-            static void connect(LeftT& left, RightT& right)
-            {
-                left.setSource(right);
-            }
-        };
-        
-        /** Specialization for output -> input
-         */
-        template <typename LeftT, typename RightT>
-        struct Connector<LeftT, RightT, std::enable_if_t<IsConnectable<RightT>::value>>
+        struct Connector<LeftT, RightT, std::enable_if_t<!IsConnectable<LeftT>::value && IsConnectable<RightT>::value>>
         {
             static void connect(LeftT& left, RightT& right)
             {
@@ -51,8 +37,9 @@ namespace moddlib
             }
         };
 
-        /** Specialization for port -> input
-         */
+        //==============================================================================
+        // Specializations for port -> input
+        
         template <>
         struct Connector<TriggerPort, TriggerInput>
         {
@@ -89,4 +76,4 @@ namespace moddlib
     }
 }
 
-#endif /* Connect_h */
+

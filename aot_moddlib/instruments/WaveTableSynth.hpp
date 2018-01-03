@@ -14,21 +14,18 @@
 
 #include "../units/PhaseGenerator.hpp"
 #include "../units/ADSREnvelopeGenerator.hpp"
-#include "../units/SineOscillator.hpp"
-#include "../units/SineWTOscillator.hpp"
+#include "../units/WaveTableOscillator.hpp"
 #include "../units/TriggerModule.hpp"
 #include "../debug/debug.hpp"
 #include "BasicMidiSynth.hpp"
 
 namespace moddlib
 {
-    using OscillatorT = SineWTOscillator;
-    
-    struct SineSynthCircuit :
-        Circuit<SineSynthCircuit, PhaseGenerator, OscillatorT, ADSREnvelopeGenerator>,
+    struct WaveTableSynthCircuit :
+        Circuit<WaveTableSynthCircuit, PhaseGenerator, WaveTableOscillator, ADSREnvelopeGenerator>,
         InputBank<
             Inputs<1, TriggerPort>,
-            Inputs<1, PortLink<FloatInput>>>
+            Inputs<1, FloatPort>>
     {
         using phaseModule = Mod_<0>;
         using oscModule   = Mod_<1>;
@@ -37,25 +34,31 @@ namespace moddlib
         using triggerIn   = BIn_<0, 0>;
         using frequencyIn = BIn_<1, 0>;
 
-        SineSynthCircuit()
+        WaveTableSynthCircuit()
         {
             //==============================================================================
             // export ports
             
             connect(input<triggerIn>(), moduleIn<phaseModule, PhaseGenerator::triggerIn>());
-            connect(input<triggerIn>(), moduleIn<envModule, ADSREnvelopeGenerator::triggerIn>());
+            connect(input<frequencyIn>(), moduleIn<phaseModule, PhaseGenerator::freqIn>());
+            connect(input<frequencyIn>(), moduleIn<oscModule, WaveTableOscillator::freqIn>());
             
-            input<frequencyIn>().linkTo(moduleIn<phaseModule, PhaseGenerator::freqIn>());
+            connect(input<triggerIn>(), moduleIn<envModule, ADSREnvelopeGenerator::triggerIn>());
 
             //==============================================================================
             // connect modules
             
-            connect(moduleOut<phaseModule, PhaseGenerator::mainOut>(), moduleIn<oscModule, OscillatorT::phaseIn>());
-            connect(moduleOut<oscModule, OscillatorT::mainOut>(), moduleIn<envModule, ADSREnvelopeGenerator::mainIn>());
+            connect(moduleOut<phaseModule, PhaseGenerator::mainOut>(), moduleIn<oscModule, WaveTableOscillator::phaseIn>());
+            connect(moduleOut<oscModule, WaveTableOscillator::mainOut>(), moduleIn<envModule, ADSREnvelopeGenerator::mainIn>());
+            
+            
+            auto& osc = module<oscModule>();
+            osc.setupTables({1});
         }
     };
     
-    using SineSynth = BasicMidiSynth<SineSynthCircuit>;
+    using WaveTableSynth = BasicMidiSynth<WaveTableSynthCircuit>;
 }
+
 
 

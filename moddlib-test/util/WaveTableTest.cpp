@@ -11,6 +11,7 @@
 
 #include "aot_moddlib.hpp"
 #include "util/WaveTable.hpp"
+#include "units/WaveTableOscillator.hpp"
 
 using namespace moddlib;
 
@@ -18,7 +19,9 @@ using namespace moddlib;
 
 TEST_CASE("WaveTable")
 {
-    WaveTable2D<> waveTable2d(20, {1, 0.5f, 0.2f});
+    WaveTable2D<> waveTable2d;
+    
+    WaveTableOscillator oscillator;
 }
 
 #endif

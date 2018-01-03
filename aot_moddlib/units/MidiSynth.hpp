@@ -44,7 +44,7 @@ namespace moddlib
                 }
             }
 
-            simdv::loop([&](size_t i)
+            simdv::loop([&](uint32_t i)
             {
                 simd::Vec out(outputBuffer + i);
                 out *= 0.3f;

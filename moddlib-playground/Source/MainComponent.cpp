@@ -10,7 +10,7 @@
 #include <iostream>
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "aot_moddlib/instruments/SineSynth.hpp"
+#include "aot_moddlib/instruments/WaveTableSynth.hpp"
 
 static const bool DUMP_DEBUG_STREAM = true;
 
@@ -52,9 +52,9 @@ public:
     // Midi Callback
     void handleIncomingMidiMessage(juce::MidiInput *source, const juce::MidiMessage &message) override
     {
-        if (_sineSynth)
+        if (_synth)
         {
-            _sineSynth->queueMessage(moddlib::midi::createMidiMessage(message.getRawData()));
+            _synth->queueMessage(moddlib::midi::createMidiMessage(message.getRawData()));
         }
     }
     
@@ -84,7 +84,7 @@ public:
         {
             _dbgStream = std::make_unique<std::ofstream>("testout.bin", std::ios::binary | std::ios::out);
         }
-        _sineSynth = std::make_unique<moddlib::SineSynth>();
+        _synth = std::make_unique<moddlib::WaveTableSynth>();
     }
 
     void getNextAudioBlock(const AudioSourceChannelInfo& bufferToFill) override
@@ -93,7 +93,7 @@ public:
         
         for (auto i = 0; i < bufferToFill.numSamples; i += 8)
         {
-            _sineSynth->generate(_sampleBuffer);
+            _synth->generate(_sampleBuffer);
             auto offset = bufferToFill.startSample + i;
             bufferToFill.buffer->copyFrom(0, offset, _sampleBuffer, 8);
             bufferToFill.buffer->copyFrom(1, offset, _sampleBuffer, 8);
@@ -132,7 +132,7 @@ private:
     moddlib::SampleBuffer _sampleBuffer;
     
     std::unique_ptr<AudioDeviceSelectorComponent> _audioDeviceSelector;
-    std::unique_ptr<moddlib::SineSynth> _sineSynth;
+    std::unique_ptr<moddlib::WaveTableSynth> _synth;
     std::unique_ptr<std::ofstream> _dbgStream;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainContentComponent)

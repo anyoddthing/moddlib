@@ -25,17 +25,22 @@
 namespace dbg
 {
     template <typename... ArgsT>
-    void log(const char *file, int line, const char *format, ArgsT&& ... args)
+    void log(char const * file, int line, char const * format, ArgsT&& ... args)
     {
         fmt::print("{:<30}", fmt::format("[{}:{}] ", file, line));
         fmt::print(format, std::forward<ArgsT>(args)...);
         fmt::print("\n");
     }
     
-    static void dumpBuffer(const std::string& filename, const char* source, size_t num)
+    static void dumpBuffer(std::string const & filename, char const * source, size_t num)
     {
         std::ofstream outfile(filename, std::ios::out | std::ios::binary);
         outfile.write(source, num);
+    }
+    
+    static void dumpBuffer(std::string const & filename, float const * source, size_t num)
+    {
+        dumpBuffer(filename, reinterpret_cast<char const*>(source), num * sizeof(float));
     }
 }
 

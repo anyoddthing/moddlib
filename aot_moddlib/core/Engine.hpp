@@ -37,15 +37,15 @@ namespace moddlib
             setFrameRate(DEFAULT_FRAMERATE);
         }
 
-        uint32_t getFrameCount()
-        {
-            return _frameCount;
-        }
-        
-        void incrFrameCount()
-        {
-            _frameCount += FRAMES_PER_BLOCK;
-        }
+//        uint32_t getFrameCount()
+//        {
+//            return _frameCount;
+//        }
+//        
+//        void incrFrameCount()
+//        {
+//            _frameCount += FRAMES_PER_BLOCK;
+//        }
 
         uint32_t getFrameRate()
         {

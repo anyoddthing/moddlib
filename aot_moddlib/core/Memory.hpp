@@ -22,7 +22,7 @@ namespace moddlib
     {
         AlignedMemory() : _size(0) {}
         
-        AlignedMemory(size_t size) :
+        AlignedMemory(uint32_t size) :
             _heap(new float[size]), _size(size)
         {}
         
@@ -39,20 +39,25 @@ namespace moddlib
         template <typename FunctionT>
         void forEach(FunctionT f)
         {
-            for (size_t i = 0; i < size(); ++i)
+            for (auto i = 0; i < size(); ++i)
             {
                 f(i, _heap.get()[i]);
             }
         }
         
-        size_t size()
+        uint32_t size()
         {
             return _size;
         }
         
+        void zero_mem()
+        {
+            memset(data(), 0, size() * sizeof(float));
+        }
+        
     private:
         std::unique_ptr<float[]> _heap;
-        size_t _size;
+        uint32_t _size;
     };
     
     template <size_t Size>
@@ -80,8 +85,8 @@ namespace moddlib
         AlignedBuffer(const AlignedBuffer&) = delete;
         AlignedBuffer& operator=(const AlignedBuffer&) = delete;
 
-        static const size_t stride = 4;
-        constexpr size_t size() { return Size; }
+//        static const uint32_t stride = 4;
+        constexpr uint32_t size() { return Size; }
 
         operator const float*() const { return _buffer.data(); }
         operator float*() { return _buffer.data(); }
@@ -113,7 +118,7 @@ namespace moddlib
         template <typename FunctionT>
         void forEach(FunctionT f)
         {
-            int i = 0;
+            uint32_t i = 0;
             std::for_each(begin(), end(), [&](reference val) {
                 f(i, val);
                 i++;
@@ -154,7 +159,7 @@ namespace moddlib
         alignas(16) std::array<float, Size> _buffer;
     };
 
-    struct SampleBuffer : AlignedBuffer<8> {};
+    using SampleBuffer = AlignedBuffer<8>;
     
     struct SampleBuffers
     {

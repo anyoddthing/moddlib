@@ -50,21 +50,22 @@ namespace moddlib
         }
     };
 
-    template <typename PartialsScaler = HannPartialScaler>
+    template <typename PartialsScaler = IdentityPartialScaler>
     struct WaveTable
     {
         WaveTable() {}
         
-        WaveTable(size_t tableSize) : _buffer(tableSize)
+        WaveTable(uint32_t tableSize) : _buffer(tableSize)
         {
             // only support 2^x wave table sizes
             assert(tableSize && ((tableSize & (tableSize -1)) == 0));
         }
 
-        void fillSinesum(const std::vector<float>& partials, size_t numPartials)
+        void fillSinesum(std::vector<float> const & partials, size_t numPartials)
         {
             assert(_buffer.size() > 0);
-            
+            _buffer.zero_mem();
+
             size_t tableSize = _buffer.size();
             float phase = 0;
             const double phaseIncr = ( 2.0 * M_PI ) / (double)tableSize;
@@ -93,7 +94,7 @@ namespace moddlib
             size_t index2 = ( index1 + 1 ) & ( tableSize - 1 ); // faster mod that only works if tableSize is a power of 2
             float val1 = _buffer[index1];
             float val2 = _buffer[index2];
-            float frac = lookup - (float)index1;
+            float frac = lookup - static_cast<float>(index1);
 
             return val2 + frac * ( val2 - val1 );
         }
@@ -102,27 +103,58 @@ namespace moddlib
         AlignedMemory _buffer;
     };
 
-    template <typename PartialsScaler = HannPartialScaler>
+    template <typename PartialsScaler = IdentityPartialScaler>
     struct WaveTable2D
     {
         using WaveTableType = WaveTable<PartialsScaler>;
         
-        WaveTable2D(float baseFrequency, const std::vector<float> partials, uint32_t overSampling = 1)
-            : _baseFrequency(baseFrequency)
+        void setupTables(float baseFrequency, std::vector<float> const & partials, uint32_t overSampling = 1)
         {
+            _baseFrequency = baseFrequency;
             auto iter = std::find_if(partials.rbegin(), partials.rend(), [](auto v) { return v > 0; });
             auto highestPartial = static_cast<uint32_t>(partials.size() - std::distance(iter, partials.rbegin()));
             
-            auto numTables = static_cast<size_t>(std::ceil(std::log2(highestPartial)));
-            auto tableSize = waveTable::getMinTableSize(highestPartial, overSampling);
+            auto numTables = static_cast<size_t>(std::ceil(std::log2(highestPartial + 0.1f)));
             
+//            auto tableSize = waveTable::getMinTableSize(highestPartial, overSampling);
+            auto tableSize = 1024;
             _tables = std::vector<WaveTableType>(numTables);
-            for (auto i = 0; i <  numTables; ++i)
+            for (auto i = 0; i < numTables; ++i)
             {
                 auto maxPartial = waveTable::getMaxHarmonics(baseFrequency);
                 _tables[i] = WaveTableType(tableSize);
-                _tables[i].fillSinesum(partials, maxPartial);
+                _tables[i].fillSinesum(partials, std::min(maxPartial, static_cast<uint32_t>(partials.size())));
                 baseFrequency *= 2;
+            }
+        }
+        
+        float lookup(float phase, float frequency)
+        {
+            if (_tables.size() == 0) return 0;
+            return _tables[0].lookup(phase);
+            
+            if (frequency < _baseFrequency)
+            {
+                return _tables[0].lookup(phase);
+            }
+            else
+            {
+                float lookup = approxLog2(phase / _baseFrequency);
+                
+                size_t index1 = static_cast<size_t>(lookup);
+                size_t index2 = index1 + 1;
+                
+                if (index2 < _tables.size())
+                {
+                    float val1 = _tables[index1].lookup(phase);
+                    float val2 = _tables[index2].lookup(phase);
+                    float frac = lookup - static_cast<float>(index1);
+                    return val2 + frac * ( val2 - val1 );
+                }
+                else
+                {
+                    return _tables.back().lookup(phase);
+                }
             }
         }
 
