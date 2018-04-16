@@ -17,9 +17,7 @@
 #include <iostream>
 #include <array>
 
-//#include "core/Memory.hpp"
-#include "simdlib/Simd.hpp"
-#include "simdlib/Numerics.hpp"
+#include "aot_simdlib/aot_simdlib.hpp"
 
 #define NOINLINE __attribute__ ((noinline))
 

@@ -46,6 +46,29 @@
 		65B39ADD1C56AB91002853A1 /* ADSREnvelopeTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65B39ADC1C56AB91002853A1 /* ADSREnvelopeTest.cpp */; };
 		65C1B72B1C3D59F700FDB956 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65C1B72A1C3D59F700FDB956 /* Accelerate.framework */; };
 		65C9B8401FC9AB6B00B350F5 /* WaveTableTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65C9B83F1FC9AB6B00B350F5 /* WaveTableTest.cpp */; };
+		65D8751920838320009BA422 /* FFTTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65D8751520838320009BA422 /* FFTTest.cpp */; };
+		65D8752D20838737009BA422 /* ScratchTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 651CE36E1BF7A59D006CF727 /* ScratchTest.cpp */; };
+		65D8752E20838737009BA422 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65528F6F1B3F029500F0A36D /* main.cpp */; };
+		65D8752F20838737009BA422 /* SineOscillatorTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 654BDB891BF8EDAC00346F26 /* SineOscillatorTest.cpp */; };
+		65D8753020838737009BA422 /* ADSREnvelopeTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65B39ADC1C56AB91002853A1 /* ADSREnvelopeTest.cpp */; };
+		65D8753120838737009BA422 /* CircuitTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 651E849D1C026467003B9323 /* CircuitTest.cpp */; };
+		65D8753220838737009BA422 /* PhaseGeneratorTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 651E84981C01E61D003B9323 /* PhaseGeneratorTest.cpp */; };
+		65D8753320838737009BA422 /* FFTTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65D8751520838320009BA422 /* FFTTest.cpp */; };
+		65D8753420838737009BA422 /* SineSynthTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 651E849B1C020475003B9323 /* SineSynthTest.cpp */; };
+		65D8753520838737009BA422 /* VoiceTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 651CE3671BF7A58E006CF727 /* VoiceTest.cpp */; };
+		65D8753620838737009BA422 /* MidiTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 651CE3691BF7A58E006CF727 /* MidiTest.cpp */; };
+		65D8753720838737009BA422 /* ADSREnvelopeGeneratorTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 657211D01C538C920050ABBF /* ADSREnvelopeGeneratorTest.cpp */; };
+		65D8753820838737009BA422 /* PortsTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 651CE3661BF7A58E006CF727 /* PortsTest.cpp */; };
+		65D8753920838737009BA422 /* TestSynth.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 656529771B56EBD40092511A /* TestSynth.cpp */; };
+		65D8753A20838737009BA422 /* UtilitiesTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 656E76631C2AF54C007C0C6C /* UtilitiesTest.cpp */; };
+		65D8753B20838737009BA422 /* WaveTableTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65C9B83F1FC9AB6B00B350F5 /* WaveTableTest.cpp */; };
+		65D8753C20838737009BA422 /* MidiBufferTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 654BDB861BF8D88D00346F26 /* MidiBufferTest.cpp */; };
+		65D8753D20838737009BA422 /* MathTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 651CE3651BF7A58E006CF727 /* MathTest.cpp */; };
+		65D8753F20838737009BA422 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65C1B72A1C3D59F700FDB956 /* Accelerate.framework */; };
+		65D8754020838737009BA422 /* libmoddlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 65528F5B1B3EFF7200F0A36D /* libmoddlib.a */; };
+		65D875472083B57D009BA422 /* FIRTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65D875462083B57D009BA422 /* FIRTest.cpp */; };
+		65D875482083C32D009BA422 /* FIRTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65D875462083B57D009BA422 /* FIRTest.cpp */; };
+		65D8754A2083CC4D009BA422 /* FIRBench.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65D875492083CC4D009BA422 /* FIRBench.cpp */; };
 		65D9F2531C4276CE0067270C /* libmoddlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 65528F5B1B3EFF7200F0A36D /* libmoddlib.a */; };
 		65D9F2541C4276D40067270C /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65C1B72A1C3D59F700FDB956 /* Accelerate.framework */; };
 		65D9F2561C42770B0067270C /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65D9F2551C42770B0067270C /* main.cpp */; };
@@ -88,6 +111,13 @@
 			remoteGlobalIDString = 65528F5A1B3EFF7200F0A36D;
 			remoteInfo = unitsynth;
 		};
+		65D8752B20838737009BA422 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 65528F531B3EFF7200F0A36D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 65528F5A1B3EFF7200F0A36D;
+			remoteInfo = unitsynth;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -101,6 +131,15 @@
 			runOnlyForDeploymentPostprocessing = 1;
 		};
 		658063961FE70D6700498109 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		65D8754120838737009BA422 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -150,6 +189,8 @@
 		65528F5B1B3EFF7200F0A36D /* libmoddlib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libmoddlib.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		65528F6D1B3F029500F0A36D /* moddlib-test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "moddlib-test"; sourceTree = BUILT_PRODUCTS_DIR; };
 		65528F6F1B3F029500F0A36D /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		65540C26200A2C330081DD7F /* FourPoleFilter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FourPoleFilter.hpp; sourceTree = "<group>"; };
+		65540C2A200A60590081DD7F /* VCA.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VCA.hpp; sourceTree = "<group>"; };
 		6554891F1B5A83250036C9F4 /* Inputs.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Inputs.hpp; sourceTree = "<group>"; };
 		655489221B5A855D0036C9F4 /* Engine.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Engine.hpp; sourceTree = "<group>"; };
 		655489271B5A864A0036C9F4 /* core.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = core.hpp; sourceTree = "<group>"; };
@@ -188,6 +229,10 @@
 		65C1B7331C3D8AC900FDB956 /* FFT.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FFT.hpp; sourceTree = "<group>"; };
 		65C9B83F1FC9AB6B00B350F5 /* WaveTableTest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = WaveTableTest.cpp; sourceTree = "<group>"; };
 		65CEA4911C00C33B00CBB5AC /* core.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = core.cpp; sourceTree = "<group>"; };
+		65D8751520838320009BA422 /* FFTTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FFTTest.cpp; sourceTree = "<group>"; };
+		65D8754520838737009BA422 /* moddlib-testFiltered */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "moddlib-testFiltered"; sourceTree = BUILT_PRODUCTS_DIR; };
+		65D875462083B57D009BA422 /* FIRTest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FIRTest.cpp; sourceTree = "<group>"; };
+		65D875492083CC4D009BA422 /* FIRBench.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FIRBench.cpp; sourceTree = "<group>"; };
 		65D9F24C1C4276960067270C /* moddlib-bench */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "moddlib-bench"; sourceTree = BUILT_PRODUCTS_DIR; };
 		65D9F2551C42770B0067270C /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		65D9F2571C4278640067270C /* SinCircuitBench.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SinCircuitBench.cpp; sourceTree = "<group>"; };
@@ -196,6 +241,7 @@
 		65E2B9B81FE6B6F8008BB7A7 /* WaveTableSynth.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = WaveTableSynth.hpp; sourceTree = "<group>"; };
 		65E802BB1FE57FEF001C3ED2 /* BasicMidiSynth.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BasicMidiSynth.hpp; sourceTree = "<group>"; };
 		65E8DC9D1B6940DD00325A47 /* Selectors.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; path = Selectors.hpp; sourceTree = "<group>"; };
+		65FCAF6B1FFFE1FD0037F0A4 /* FIR.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FIR.hpp; sourceTree = "<group>"; };
 		65FF786F1C4A92C400F36B94 /* FastPower.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FastPower.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -222,6 +268,15 @@
 			files = (
 				658063941FE70D6700498109 /* Accelerate.framework in Frameworks */,
 				658063951FE70D6700498109 /* libmoddlib.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		65D8753E20838737009BA422 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				65D8753F20838737009BA422 /* Accelerate.framework in Frameworks */,
+				65D8754020838737009BA422 /* libmoddlib.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,6 +356,8 @@
 				65268FCD1FAF8B0F0068FE64 /* TriggerModule.hpp */,
 				656A62FE1FC1D592006528EA /* SineWTOscillator.hpp */,
 				6569E0AB1FE1A14700FE46A5 /* WaveTableOscillator.hpp */,
+				65540C26200A2C330081DD7F /* FourPoleFilter.hpp */,
+				65540C2A200A60590081DD7F /* VCA.hpp */,
 			);
 			path = units;
 			sourceTree = "<group>";
@@ -345,6 +402,7 @@
 				65528F6D1B3F029500F0A36D /* moddlib-test */,
 				65D9F24C1C4276960067270C /* moddlib-bench */,
 				6580639A1FE70D6700498109 /* moddlib-dbg */,
+				65D8754520838737009BA422 /* moddlib-testFiltered */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -370,6 +428,7 @@
 		65528F6E1B3F029500F0A36D /* moddlib-test */ = {
 			isa = PBXGroup;
 			children = (
+				65D875142083831F009BA422 /* math */,
 				65C9B83B1FC9AB5100B350F5 /* util */,
 				651CE36E1BF7A59D006CF727 /* ScratchTest.cpp */,
 				651CE3641BF7A58E006CF727 /* core */,
@@ -434,6 +493,7 @@
 				656A63021FC1F73D006528EA /* WaveTable.hpp */,
 				6580637B1FE6EF5400498109 /* DebugDumpHost.hpp */,
 				65BDC9A81FF5683500A31A76 /* AutoPtr.hpp */,
+				65FCAF6B1FFFE1FD0037F0A4 /* FIR.hpp */,
 			);
 			path = util;
 			sourceTree = "<group>";
@@ -490,8 +550,17 @@
 			isa = PBXGroup;
 			children = (
 				65C9B83F1FC9AB6B00B350F5 /* WaveTableTest.cpp */,
+				65D875462083B57D009BA422 /* FIRTest.cpp */,
 			);
 			path = util;
+			sourceTree = "<group>";
+		};
+		65D875142083831F009BA422 /* math */ = {
+			isa = PBXGroup;
+			children = (
+				65D8751520838320009BA422 /* FFTTest.cpp */,
+			);
+			path = math;
 			sourceTree = "<group>";
 		};
 		65D9F2471C4276390067270C /* moddlib-bench */ = {
@@ -501,6 +570,7 @@
 				65D9F2551C42770B0067270C /* main.cpp */,
 				65D9F2571C4278640067270C /* SinCircuitBench.cpp */,
 				65D9F25A1C4282800067270C /* SinCircuitBaseLine.hpp */,
+				65D875492083CC4D009BA422 /* FIRBench.cpp */,
 			);
 			path = "moddlib-bench";
 			sourceTree = SOURCE_ROOT;
@@ -588,6 +658,24 @@
 			productReference = 6580639A1FE70D6700498109 /* moddlib-dbg */;
 			productType = "com.apple.product-type.tool";
 		};
+		65D8752920838737009BA422 /* moddlib-testFiltered */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 65D8754220838737009BA422 /* Build configuration list for PBXNativeTarget "moddlib-testFiltered" */;
+			buildPhases = (
+				65D8752C20838737009BA422 /* Sources */,
+				65D8753E20838737009BA422 /* Frameworks */,
+				65D8754120838737009BA422 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				65D8752A20838737009BA422 /* PBXTargetDependency */,
+			);
+			name = "moddlib-testFiltered";
+			productName = "unitsynth-test";
+			productReference = 65D8754520838737009BA422 /* moddlib-testFiltered */;
+			productType = "com.apple.product-type.tool";
+		};
 		65D9F24B1C4276960067270C /* moddlib-bench */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 65D9F2501C4276960067270C /* Build configuration list for PBXNativeTarget "moddlib-bench" */;
@@ -648,6 +736,7 @@
 				65528F6C1B3F029500F0A36D /* moddlib-test */,
 				65D9F24B1C4276960067270C /* moddlib-bench */,
 				6580637F1FE70D6700498109 /* moddlib-dbg */,
+				65D8752920838737009BA422 /* moddlib-testFiltered */,
 			);
 		};
 /* End PBXProject section */
@@ -695,10 +784,12 @@
 				65B39ADD1C56AB91002853A1 /* ADSREnvelopeTest.cpp in Sources */,
 				651E849E1C026467003B9323 /* CircuitTest.cpp in Sources */,
 				651E84991C01E61D003B9323 /* PhaseGeneratorTest.cpp in Sources */,
+				65D8751920838320009BA422 /* FFTTest.cpp in Sources */,
 				651E849C1C020475003B9323 /* SineSynthTest.cpp in Sources */,
 				651CE36C1BF7A58E006CF727 /* VoiceTest.cpp in Sources */,
 				651CE36D1BF7A58E006CF727 /* MidiTest.cpp in Sources */,
 				657211D11C538C920050ABBF /* ADSREnvelopeGeneratorTest.cpp in Sources */,
+				65D875472083B57D009BA422 /* FIRTest.cpp in Sources */,
 				651CE36B1BF7A58E006CF727 /* PortsTest.cpp in Sources */,
 				656529791B56EBD40092511A /* TestSynth.cpp in Sources */,
 				656E76641C2AF54C007C0C6C /* UtilitiesTest.cpp in Sources */,
@@ -716,11 +807,37 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		65D8752C20838737009BA422 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				65D8752D20838737009BA422 /* ScratchTest.cpp in Sources */,
+				65D8752E20838737009BA422 /* main.cpp in Sources */,
+				65D8752F20838737009BA422 /* SineOscillatorTest.cpp in Sources */,
+				65D8753020838737009BA422 /* ADSREnvelopeTest.cpp in Sources */,
+				65D8753120838737009BA422 /* CircuitTest.cpp in Sources */,
+				65D8753220838737009BA422 /* PhaseGeneratorTest.cpp in Sources */,
+				65D8753320838737009BA422 /* FFTTest.cpp in Sources */,
+				65D8753420838737009BA422 /* SineSynthTest.cpp in Sources */,
+				65D8753520838737009BA422 /* VoiceTest.cpp in Sources */,
+				65D8753620838737009BA422 /* MidiTest.cpp in Sources */,
+				65D8753720838737009BA422 /* ADSREnvelopeGeneratorTest.cpp in Sources */,
+				65D8753820838737009BA422 /* PortsTest.cpp in Sources */,
+				65D8753920838737009BA422 /* TestSynth.cpp in Sources */,
+				65D8753A20838737009BA422 /* UtilitiesTest.cpp in Sources */,
+				65D8753B20838737009BA422 /* WaveTableTest.cpp in Sources */,
+				65D8753C20838737009BA422 /* MidiBufferTest.cpp in Sources */,
+				65D875482083C32D009BA422 /* FIRTest.cpp in Sources */,
+				65D8753D20838737009BA422 /* MathTest.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		65D9F2481C4276960067270C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				65D9F2561C42770B0067270C /* main.cpp in Sources */,
+				65D8754A2083CC4D009BA422 /* FIRBench.cpp in Sources */,
 				65D9F2581C4278640067270C /* SinCircuitBench.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -737,6 +854,11 @@
 			isa = PBXTargetDependency;
 			target = 65528F5A1B3EFF7200F0A36D /* moddlib */;
 			targetProxy = 658063811FE70D6700498109 /* PBXContainerItemProxy */;
+		};
+		65D8752A20838737009BA422 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 65528F5A1B3EFF7200F0A36D /* moddlib */;
+			targetProxy = 65D8752B20838737009BA422 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -993,6 +1115,57 @@
 			};
 			name = Release;
 		};
+		65D8754320838737009BA422 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
+				CLANG_USE_OPTIMIZATION_PROFILE = NO;
+				GCC_FAST_MATH = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DISABLE_TEST=1",
+				);
+				GCC_WARN_UNUSED_FUNCTION = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/libs/simdlib/libs/catch2/single_include\"",
+				);
+				"HEADER_SEARCH_PATHS[arch=*]" = (
+					"$(inherited)",
+					"\"$(SRCROOT)/libs/simdlib/libs/catch2/single_include\"",
+				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		65D8754420838737009BA422 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				CLANG_OPTIMIZATION_PROFILE_FILE = "";
+				CLANG_USE_OPTIMIZATION_PROFILE = YES;
+				GCC_FAST_MATH = YES;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				GCC_WARN_UNUSED_FUNCTION = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/libs/simdlib/libs/catch2/single_include\"",
+				);
+				"HEADER_SEARCH_PATHS[arch=*]" = (
+					"$(inherited)",
+					"\"$(SRCROOT)/libs/simdlib/libs/catch2/single_include\"",
+				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LLVM_LTO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		65D9F2511C4276960067270C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1072,6 +1245,15 @@
 			buildConfigurations = (
 				658063981FE70D6700498109 /* Debug */,
 				658063991FE70D6700498109 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		65D8754220838737009BA422 /* Build configuration list for PBXNativeTarget "moddlib-testFiltered" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				65D8754320838737009BA422 /* Debug */,
+				65D8754420838737009BA422 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

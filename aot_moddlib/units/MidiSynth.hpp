@@ -44,7 +44,7 @@ namespace moddlib
                 }
             }
 
-            simdv::loop([&](uint32_t i)
+            simdv::loop([&](uint i)
             {
                 simd::Vec out(outputBuffer + i);
                 out *= 0.3f;
@@ -135,14 +135,14 @@ namespace moddlib
             }
         }
 
-        uint32_t numActiveVoices()
+        uint numActiveVoices()
         {
             auto& voices = thiz()->getVoices();
             auto count   = std::count_if(voices.begin(), voices.end(),
                 [](fref voice) { return voice.getState() != Voice::IDLE; }
             );
             
-            return static_cast<uint32_t>(count);
+            return static_cast<uint>(count);
         }
 
         VoiceT& allocateVoiceForNote(uint8_t note)

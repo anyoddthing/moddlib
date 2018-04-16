@@ -23,7 +23,7 @@ namespace moddlib
             return _state.value;
         }
         
-        void setLength(uint32_t length)
+        void setLength(uint length)
         {
             setup(length, _setup.value);
         }
@@ -43,16 +43,16 @@ namespace moddlib
             _state.value = start;
         }
         
-        void setup(uint32_t length, float end)
+        void setup(uint length, float end)
         {
             _setup.length = length;
             _setup.count  = length;
             _setup.value  = end;
         }
         
-        uint32_t generate(uint32_t max, float* dest)
+        uint generate(uint max, float* dest)
         {
-            uint32_t numGenerated = std::min(_state.count, max);
+            uint numGenerated = std::min(_state.count, max);
             for (size_t i = 0; i < numGenerated; ++i)
             {
                 dest[i] = _state.value;
@@ -67,8 +67,8 @@ namespace moddlib
         {
             State() : count(0), length(0), value(0) {}
             
-            uint32_t count;
-            uint32_t length;
+            uint count;
+            uint length;
             float value;
         } _state, _setup;
     };
@@ -84,7 +84,7 @@ namespace moddlib
             return _state.value;
         }
         
-        void setLength(uint32_t length)
+        void setLength(uint length)
         {
             setup(length, _setup.value, _setup.end);
         }
@@ -108,7 +108,7 @@ namespace moddlib
             }
         }
         
-        void setup(uint32_t length, float start, float end)
+        void setup(uint length, float start, float end)
         {
             _setup.length = length;
             _setup.count  = length;
@@ -121,9 +121,9 @@ namespace moddlib
             }
         }
         
-        uint32_t generate(uint32_t max, float* dest)
+        uint generate(uint max, float* dest)
         {
-            uint32_t numGenerated = 0;
+            uint numGenerated = 0;
             while (max > 0 && _state.count > 0)
             {
                 dest[numGenerated] = _state.value;
@@ -140,8 +140,8 @@ namespace moddlib
         {
             State() : count(0), length(0), value(0) {}
             
-            uint32_t count;
-            uint32_t length;
+            uint count;
+            uint length;
             float value;
             float end;
         
@@ -163,7 +163,7 @@ namespace moddlib
             return _state.value;
         }
         
-        void setLength(uint32_t length)
+        void setLength(uint length)
         {
             setup(length, _setup.value, _setup.end, _setup.bias);
         }
@@ -183,7 +183,7 @@ namespace moddlib
             setup(_setup.length, _setup.value, _setup.end, bias);
         }
         
-        void setup(uint32_t length, float start, float end, float bias)
+        void setup(uint length, float start, float end, float bias)
         {
             configure(_setup, length, start, end, bias);
             _setup.count = length;
@@ -194,9 +194,9 @@ namespace moddlib
             configure(_state, _state.length, start, _state.end, _state.bias);
         }
         
-        uint32_t generate(uint32_t max, float* dest)
+        uint generate(uint max, float* dest)
         {
-            uint32_t numGenerated = 0;
+            uint numGenerated = 0;
             while (max > 0 && _state.count > 0)
             {
                 dest[numGenerated] = _state.value;
@@ -214,8 +214,8 @@ namespace moddlib
         {
             State() : count(0), length(0), value(0), bias(-1), exp(-1) {}
             
-            uint32_t count;
-            uint32_t length;
+            uint count;
+            uint length;
             float value;
             float end;
             float incr;
@@ -227,7 +227,7 @@ namespace moddlib
         
     private:
     
-        static void configure(State& state, uint32_t length, float start, float end, float bias)
+        static void configure(State& state, uint length, float start, float end, float bias)
         {
             if (length > 0)
             {
@@ -276,7 +276,7 @@ namespace moddlib
             return _state.value;
         }
         
-        void setLength(uint32_t length)
+        void setLength(uint length)
         {
             setup(length, _setup.value, _setup.end, _setup.bias);
         }
@@ -301,15 +301,15 @@ namespace moddlib
             configure(_state, _state.length, start, _state.end, _state.bias);
         }
         
-        void setup(uint32_t length, float start, float end, float bias)
+        void setup(uint length, float start, float end, float bias)
         {
             configure(_setup, length, start, end, bias);
             _setup.count = length;
         }
         
-        uint32_t generate(uint32_t max, float* dest)
+        uint generate(uint max, float* dest)
         {
-            uint32_t numGenerated = 0;
+            uint numGenerated = 0;
             while (max > 0 && _state.count > 0)
             {
                 dest[numGenerated] = _state.value;
@@ -327,8 +327,8 @@ namespace moddlib
         {
             State() : count(0), length(0), value(0), bias(-1), exp(-1) {}
             
-            uint32_t count;
-            uint32_t length;
+            uint count;
+            uint length;
             float value;
             float end;
             float incr;
@@ -340,7 +340,7 @@ namespace moddlib
         
     private:
     
-        static void configure(State& state, uint32_t length, float start, float end, float bias)
+        static void configure(State& state, uint length, float start, float end, float bias)
         {
             if (length > 0)
             {
@@ -396,7 +396,7 @@ namespace moddlib
         }
         
         template <size_t I>
-        void setup(uint32_t length, float start, float end)
+        void setup(uint length, float start, float end)
         {
             getSegment<I>().setup(length, start, end);
         }
@@ -433,7 +433,7 @@ namespace moddlib
     private:
     
         template <size_t I = 0> std::enable_if_t<I < sizeof...(SegTs),
-        size_t> seekSegmentImpl(uint32_t samplePos, uint32_t lastSamplePos = 0)
+        size_t> seekSegmentImpl(uint samplePos, uint lastSamplePos = 0)
         {
             auto nextSegmentStart = lastSamplePos + getSegment<I>().getLength();
             if (nextSegmentStart > samplePos)
@@ -447,7 +447,7 @@ namespace moddlib
         }
         
         template <size_t Size = 0> std::enable_if_t<Size >= sizeof...(SegTs),
-        size_t> seekSegmentImpl(uint32_t samplePos, uint32_t lastSamplePos = 0)
+        size_t> seekSegmentImpl(uint samplePos, uint lastSamplePos = 0)
         {
             return sizeof...(SegTs);
         }
@@ -464,7 +464,7 @@ namespace moddlib
     template <typename ...SegmentsT>
     struct SegmentedEnvelopeKernel <1, SegmentsT...> : SegmentedEnvelopeBase<SegmentsT...>
     {
-        uint32_t generate(uint32_t max, float* dest)
+        uint generate(uint max, float* dest)
         {
             return this->template getSegment<0>().generate(max, dest);
         }
@@ -482,7 +482,7 @@ namespace moddlib
             virtual void reset() = 0;
             virtual float currentValue() = 0;
             virtual void overwriteStart(float start) = 0;
-            virtual uint32_t generate(uint32_t max, float* dest) = 0;
+            virtual uint generate(uint max, float* dest) = 0;
             virtual void* getSegment() = 0;
         };
         
@@ -504,7 +504,7 @@ namespace moddlib
                 _segment.overwriteStart(start);
             }
             
-            uint32_t generate(uint32_t max, float* dest) override
+            uint generate(uint max, float* dest) override
             {
                 return _segment.generate(max, dest);
             }
@@ -548,7 +548,7 @@ namespace moddlib
             _currentSegment = 0;
         }
         
-        void generate(uint32_t max, float* dest, bool triggerOn = true)
+        void generate(uint max, float* dest, bool triggerOn = true)
         {
             auto generated = fill(max, dest, triggerOn);
             for (size_t i = generated; i < max; ++i)
@@ -557,7 +557,7 @@ namespace moddlib
             }
         }
         
-        uint32_t fill(uint32_t max, float* dest, bool triggerOn = true)
+        uint fill(uint max, float* dest, bool triggerOn = true)
         {
             if (!(triggerOn) && _currentSegment < _releaseStart)
             {
@@ -567,7 +567,7 @@ namespace moddlib
                 _segments[_currentSegment]->overwriteStart(currentValue);
             }
             
-            uint32_t generatedSamples = 0;
+            uint generatedSamples = 0;
             while (_currentSegment < _segments.size())
             {
                 generatedSamples += _segments[_currentSegment]->generate(max - generatedSamples, &dest[generatedSamples]);

@@ -61,7 +61,7 @@ TEST_CASE("Ports Test")
         output.up();
         synth.generate();
         
-        out.buffer().forEach([](uint32_t i, float& val) {
+        out.buffer().forEach([](uint i, float& val) {
             CHECK(val == Approx(0.5));
         });
     

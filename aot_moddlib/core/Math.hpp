@@ -25,7 +25,7 @@ namespace moddlib
 
     static inline float approxLog2(float val)
     {
-        auto i = punning_cast<int32_t>(val);
+        auto i = punning_cast<int>(val);
         return (((i & 0x7f800000) >> 23) - 0x7f)+(i & 0x007fffff) / static_cast<float>(0x800000);
     }
 
@@ -48,7 +48,7 @@ namespace moddlib
         return wrapPhase(val + phaseIncrement);
     }
 
-    constexpr static inline uint32_t roundDownToPower2(uint32_t val)
+    constexpr static inline uint roundDownToPower2(uint val)
     {
         val |= val >> 1;
         val |= val >> 2;
@@ -58,7 +58,7 @@ namespace moddlib
         return val - (val >> 1);
     }
 
-    constexpr static inline uint32_t roundUpToPower2(uint32_t val)
+    constexpr static inline uint roundUpToPower2(uint val)
     {
         val--;
         val |= val >> 1;

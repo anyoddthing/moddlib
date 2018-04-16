@@ -96,8 +96,8 @@ namespace moddlib
 
     private:
     
-        std::array<SubtractiveVoice, 12>  _voices;
-        MidiOutputPort            _releaseInput;
+        std::array<SubtractiveVoice, 12> _voices;
+        MidiOutputPort _releaseInput;
     };
 }
 

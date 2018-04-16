@@ -23,7 +23,7 @@ namespace moddlib
         using freqIn  = BIn_<0, 0>;
         using phaseIn = BIn_<1, 0>;
 
-        using WaveTable2DType = WaveTable2D<>;            
+        using WaveTable2DType = WaveTable2D;
     
         void setupTables(const std::vector<float> &partials)
         {

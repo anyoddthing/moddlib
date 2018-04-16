@@ -25,7 +25,7 @@ namespace moddlib
             _generator.init();
         }
         
-        void generate(uint32_t numSamples)
+        void generate(uint numSamples)
         {
             auto& out = _generator.output(0, 0);
             

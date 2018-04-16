@@ -20,22 +20,49 @@ namespace moddlib
      */
     struct AlignedMemory
     {
+        typedef float                                 value_type;
+        typedef value_type&                           reference;
+        typedef const value_type&                     const_reference;
+        typedef value_type*                           iterator;
+        typedef const value_type*                     const_iterator;
+        typedef value_type*                           pointer;
+        typedef const value_type*                     const_pointer;
+        typedef std::reverse_iterator<iterator>       reverse_iterator;
+        typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
+        
         AlignedMemory() : _size(0) {}
         
-        AlignedMemory(uint32_t size) :
+        AlignedMemory(uint size) :
             _heap(new float[size]), _size(size)
         {}
         
-        float* data()
-        {
-            return _heap.get();
-        }
-        
-        operator float*()
-        {
-            return _heap.get();
-        }
-        
+        operator const float*() const { return _heap.get(); }
+        operator float*() { return _heap.get(); }
+
+        float& operator [](size_t index) { return _heap[index]; }
+
+        iterator begin() noexcept { return _heap.get(); }
+        const_iterator begin() const noexcept { return _heap.get(); }
+        iterator end() noexcept { return _heap.get() + _size; }
+        const_iterator end() const noexcept { return _heap.get() + _size; }
+
+        reverse_iterator rbegin() noexcept {return reverse_iterator(end());}
+        const_reverse_iterator rbegin() const noexcept {return const_reverse_iterator(end());}
+        reverse_iterator rend() noexcept {return reverse_iterator(begin());}
+        const_reverse_iterator rend() const noexcept {return const_reverse_iterator(begin());}
+
+        const_iterator cbegin() const noexcept {return begin();}
+        const_iterator cend() const noexcept {return end();}
+        const_reverse_iterator crbegin() const noexcept {return rbegin();}
+        const_reverse_iterator crend() const noexcept {return rend();}
+
+        float* data() { return _heap.get(); }
+        const float* data() const { return _heap.get(); }
+
+        float& front() { return *_heap.get(); }
+
+        float& back() { return *(_heap.get() + _size - 1); }
+
         template <typename FunctionT>
         void forEach(FunctionT f)
         {
@@ -45,7 +72,7 @@ namespace moddlib
             }
         }
         
-        uint32_t size()
+        uint size()
         {
             return _size;
         }
@@ -57,7 +84,7 @@ namespace moddlib
         
     private:
         std::unique_ptr<float[]> _heap;
-        uint32_t _size;
+        uint _size;
     };
     
     template <size_t Size>
@@ -85,8 +112,8 @@ namespace moddlib
         AlignedBuffer(const AlignedBuffer&) = delete;
         AlignedBuffer& operator=(const AlignedBuffer&) = delete;
 
-//        static const uint32_t stride = 4;
-        constexpr uint32_t size() { return Size; }
+//        static const uint stride = 4;
+        constexpr uint size() { return Size; }
 
         operator const float*() const { return _buffer.data(); }
         operator float*() { return _buffer.data(); }
@@ -118,7 +145,7 @@ namespace moddlib
         template <typename FunctionT>
         void forEach(FunctionT f)
         {
-            uint32_t i = 0;
+            uint i = 0;
             std::for_each(begin(), end(), [&](reference val) {
                 f(i, val);
                 i++;

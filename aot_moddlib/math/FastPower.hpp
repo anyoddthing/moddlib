@@ -16,7 +16,7 @@ namespace moddlib
 {
     namespace detail
     {
-        template <size_t Precision>
+        template <uint Precision>
         struct FastPowLookup
         {
             FastPowLookup()
@@ -29,24 +29,24 @@ namespace moddlib
                 {
                     /* make y-axis value for table element */
                     float f = (std::pow(2.0f, zeroToOne) - 1.0f) * P2_23;
-                    _table[i] = (uint32_t)( f < P2_23 ? f : (P2_23 - 1.0f) );
+                    _table[i] = (uint)( f < P2_23 ? f : (P2_23 - 1.0f) );
                     zeroToOne += 1.0f / (float)(1 << Precision);
                 }
             }
             
-            constexpr size_t precision()
+            constexpr uint precision()
             {
                 return Precision;
             }
             
-            uint32_t operator[](const size_t index)
+            uint operator[](const size_t index)
             {
                 return _table[index];
             }
 
         private:
         
-            std::array<uint32_t, 1 << Precision> _table;
+            std::array<uint, 1 << Precision> _table;
         };
     }
 
@@ -77,10 +77,10 @@ namespace moddlib
         float fastPow(FastPowerLookupT& table, float val)
         {
             /* build float bits */
-           auto i = (uint32_t)( (val * _ilog2) + (127.0f * P2_23) );
+           auto i = (uint)( (val * _ilog2) + (127.0f * P2_23) );
 
            /* replace mantissa with lookup */
-           union { uint32_t i; float f; }
+           union { uint i; float f; }
            result = { (i & 0xFF800000) | table[(i & 0x7FFFFF) >> (23 - table.precision())] };
 
            /* convert bits to float */

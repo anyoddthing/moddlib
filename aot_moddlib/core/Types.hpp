@@ -17,6 +17,9 @@
 
 #define fref auto&&
 
+using uint = unsigned int;
+using uchar = unsigned char;
+
 using Action = std::function<void()>;
 using simdv = simd::recipes<8>;
 

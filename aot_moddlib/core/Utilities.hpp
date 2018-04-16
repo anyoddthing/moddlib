@@ -157,7 +157,7 @@ namespace moddlib
     class TestToneBuffer
     {
     public:
-        TestToneBuffer(uint32_t numSamples) : _buffer(numSamples)
+        TestToneBuffer(uint numSamples) : _buffer(numSamples)
         {
             assert(numSamples % 8 == 0);
             for (size_t n = 0; n < numSamples; ++n)

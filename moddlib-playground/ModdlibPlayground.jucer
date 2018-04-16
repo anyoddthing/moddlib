@@ -4,7 +4,7 @@
               reportAppUsage="0" splashScreenColour="Dark" projectType="guiapp"
               version="1.0.0" bundleIdentifier="com.anyoddthing.ModdlibPlayground"
               includeBinaryInAppConfig="1" cppLanguageStandard="14" companyCopyright=""
-              jucerVersion="5.2.0" headerPath="">
+              jucerVersion="5.3.1" headerPath="">
   <MAINGROUP id="U5QCMK" name="ModdlibPlayground">
     <GROUP id="{CCD977E5-86A8-D587-F9B6-62128BD0C420}" name="Source">
       <FILE id="O3l2go" name="MainComponent.cpp" compile="1" resource="0"

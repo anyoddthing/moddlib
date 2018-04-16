@@ -60,7 +60,7 @@ namespace moddlib
             return outputs<selector.bank>()[selector.pos];
         }
         
-        constexpr auto& output(uint32_t i, uint32_t j)
+        constexpr auto& output(uint i, uint j)
         {
             return std::get<i>(_outputs)[j];
         }

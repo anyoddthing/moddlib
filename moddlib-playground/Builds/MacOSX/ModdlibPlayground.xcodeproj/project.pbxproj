@@ -120,7 +120,7 @@
 					ADD4D861FD73456A598CBC7D,
 					0B65F8BA90D53A5D98AD8B7F,
 					1F40663C2A1BE832577D760D,
-					82DDCC91F2A0392D0E329BE4, ); name = "Juce Modules"; sourceTree = "<group>"; };
+					82DDCC91F2A0392D0E329BE4, ); name = "JUCE Modules"; sourceTree = "<group>"; };
 		0C8A87530F4DDB715C403F6B = {isa = PBXGroup; children = (
 					D8CBFF1417062FDEC836D3F3,
 					02B514DC8DC0EC51DA625A1F,
@@ -140,7 +140,7 @@
 					D6E967693CDCD7BFA2B0255A,
 					221A2E59EF6F3E51931B9A0C,
 					5ADCF39D9744CCCD2792B493,
-					DCABEC5E86D10B35440D5587, ); name = "Juce Library Code"; sourceTree = "<group>"; };
+					DCABEC5E86D10B35440D5587, ); name = "JUCE Library Code"; sourceTree = "<group>"; };
 		20D1597A3594EE04BC3A5787 = {isa = PBXGroup; children = (
 					524783A0A4A7C46B55C8D71D,
 					FE530CD3FF6E5DA985D59DA3, ); name = Resources; sourceTree = "<group>"; };
@@ -354,7 +354,7 @@
 					29D809495EA23604687E5BF3,
 					33FFA5E9026E303980A11072,
 					2BD00145786F0A5A36CC7FA3, ); buildRules = ( ); dependencies = (  ); name = "ModdlibPlayground - App"; productName = ModdlibPlayground; productReference = 37225362DC5EC8CA98260C69; productType = "com.apple.product-type.application"; };
-		E4C2DE745453E1DC13F9E990 = {isa = PBXProject; buildConfigurationList = 07BFCDED139621E122177DB6; attributes = { LastUpgradeCheck = 0830; TargetAttributes = { 10FF02DC67CD0B8F232A95F6 = { SystemCapabilities = {com.apple.ApplicationGroups.iOS = { enabled = 0; }; com.apple.InAppPurchase = { enabled = 0; }; com.apple.InterAppAudio = { enabled = 0; }; com.apple.Push = { enabled = 0; }; com.apple.Sandbox = { enabled = 0; }; }; }; }; }; compatibilityVersion = "Xcode 3.2"; hasScannedForEncodings = 0; mainGroup = E67DAD7AC7CBF4D6B8674079; projectDirPath = ""; projectRoot = ""; targets = (10FF02DC67CD0B8F232A95F6); };
+		E4C2DE745453E1DC13F9E990 = {isa = PBXProject; buildConfigurationList = 07BFCDED139621E122177DB6; attributes = { LastUpgradeCheck = 0830; ORGANIZATIONNAME = ""; TargetAttributes = { 10FF02DC67CD0B8F232A95F6 = { SystemCapabilities = {com.apple.ApplicationGroups.iOS = { enabled = 0; }; com.apple.InAppPurchase = { enabled = 0; }; com.apple.InterAppAudio = { enabled = 0; }; com.apple.Push = { enabled = 0; }; com.apple.Sandbox = { enabled = 0; }; }; }; }; }; compatibilityVersion = "Xcode 3.2"; hasScannedForEncodings = 0; mainGroup = E67DAD7AC7CBF4D6B8674079; projectDirPath = ""; projectRoot = ""; targets = (10FF02DC67CD0B8F232A95F6); };
 	};
 	rootObject = E4C2DE745453E1DC13F9E990;
 }

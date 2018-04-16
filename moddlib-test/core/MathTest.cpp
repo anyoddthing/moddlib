@@ -71,7 +71,7 @@ TEST_CASE("Normalze Array")
         CHECK(moddlib::roundUpToPower2(3) == 4);
         
         // check usage as constexpr
-        std::integral_constant<uint32_t, moddlib::roundUpToPower2(7)> tc;
+        std::integral_constant<uint, moddlib::roundUpToPower2(7)> tc;
         CHECK(tc.value == 8);
     }
 }

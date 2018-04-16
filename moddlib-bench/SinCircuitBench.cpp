@@ -73,7 +73,7 @@ struct SinCircuitBench
     static constexpr int size = 1024 * 1;
     static constexpr int hold = size * 0.2;
     
-    TestSineSynthCircuit circuit;
+    SineSynthCircuit circuit;
     
     AlignedMemory mem;
     
@@ -82,8 +82,8 @@ struct SinCircuitBench
     
     SinCircuitBench() : mem(size)
     {
-        connect(_trigger, circuit.input<TestSineSynthCircuit::triggerIn>());
-        connect(_frequency, circuit.input<TestSineSynthCircuit::frequencyIn>());
+        connect(_trigger, circuit.input<SineSynthCircuit::triggerIn>());
+        connect(_frequency, circuit.input<SineSynthCircuit::frequencyIn>());
     }
     
     void trigger(float herz)
@@ -94,7 +94,7 @@ struct SinCircuitBench
     
     NOINLINE void test(benchpress::context* ctx)
     {
-        auto circuitOut = circuit.mainOut();
+        fref circuitOut = circuit.moduleOut<SineSynthCircuit::envModule, ADSREnvelopeGenerator::mainOut>();
         trigger(440);
         for (size_t i = 0; i < size / 2; i += 8)
         {
@@ -124,7 +124,7 @@ struct TestToneCircuitBench
     
     TestToneCircuitBench() : mem(size)
     {
-        connect(_trigger, circuit.input<TestSineSynthCircuit::triggerIn>());
+        connect(_trigger, circuit.input<SineSynthCircuit::triggerIn>());
     }
     
     void trigger(float herz)

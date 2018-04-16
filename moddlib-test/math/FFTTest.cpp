@@ -7,17 +7,15 @@
 //
 
 
-#include <stdio.h>
-#include <cmath>
-
+#include <cassert>
 #include "catch.hpp"
 
-#include "core.hpp"
-#include "FFT.hpp"
+#include "aot_moddlib.hpp"
+#include "math/FFT.hpp"
 
-#ifdef DISABLE_TEST
+#ifndef DISABLE_TEST
 
-using namespace usyn;
+using namespace moddlib;
 
 #define N 1024
 
@@ -26,10 +24,10 @@ void generateSin(float* dest, uint numPeriods)
     for (size_t n = 0; n < N; ++n)
     {
         dest[n] =
-            0.5f * std::cos(2 * simd::pi<float> * numPeriods * static_cast<float>(n)/N)
+            0.5f * std::cos(2 * simd::pi<float> * 2 * numPeriods * static_cast<float>(n)/N)
 //            ;
              +
-            0.5f * std::cos(2 * simd::pi<float> * 2 * numPeriods * static_cast<float>(n)/N);
+            0.5f * std::cos(2 * simd::pi<float> * 3 * numPeriods * static_cast<float>(n)/N);
     }
 }
 
@@ -39,7 +37,7 @@ TEST_CASE("FFT Test")
     SECTION("Can parse message")
     {
     
-        AlignedMemory audioIn(1024);
+        AlignedMemory audioIn(N);
         AlignedBuffer<N / 2> freqOut;
         
         generateSin(audioIn, 5);

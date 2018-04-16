@@ -20,8 +20,8 @@ namespace moddlib
 {
     struct Engine
     {
-        static constexpr uint32_t FRAMES_PER_BLOCK = 8;
-        static constexpr uint32_t DEFAULT_FRAMERATE = 44100;
+        static constexpr uint FRAMES_PER_BLOCK = 8;
+        static constexpr uint DEFAULT_FRAMERATE = 44100;
         
         static constexpr float DB90 = (1.0 / (1 << 15));
         static constexpr float DB96 = (1.0 / 63095.73444801943);
@@ -37,7 +37,7 @@ namespace moddlib
             setFrameRate(DEFAULT_FRAMERATE);
         }
 
-//        uint32_t getFrameCount()
+//        uint getFrameCount()
 //        {
 //            return _frameCount;
 //        }
@@ -47,12 +47,12 @@ namespace moddlib
 //            _frameCount += FRAMES_PER_BLOCK;
 //        }
 
-        uint32_t getFrameRate()
+        uint getFrameRate()
         {
             return _frameRate;
         }
 
-        void setFrameRate(uint32_t frameRate)
+        void setFrameRate(uint frameRate)
         {
             _frameRate      = frameRate;
             _framePeriod    = 1.0 / frameRate;
@@ -74,9 +74,9 @@ namespace moddlib
             return _inverseNyquist;
         }
         
-        uint32_t convertTimeToSamples(float time)
+        uint convertTimeToSamples(float time)
         {
-            return static_cast<uint32_t>(time * _frameRate);
+            return static_cast<uint>(time * _frameRate);
         }
 
         float convertTimeToExponentialScaler(float duration)
@@ -97,8 +97,8 @@ namespace moddlib
         
     private:
         
-        uint32_t _frameCount;
-        uint32_t _frameRate;
+        uint _frameCount;
+        uint _frameRate;
         float _framePeriod;
         float _inverseNyquist;
 
@@ -110,12 +110,12 @@ namespace moddlib
         return Engine::instance().convertFrequencyToPhaseIncrement(frequency);
     }
     
-    static uint32_t time2Samples(float time)
+    static uint time2Samples(float time)
     {
         return Engine::instance().convertTimeToSamples(time);
     }
     
-    static uint32_t framerate()
+    static uint framerate()
     {
         return Engine::instance().getFrameRate();
     }

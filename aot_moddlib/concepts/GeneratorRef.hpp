@@ -29,7 +29,7 @@ namespace moddlib
             _data->generate();
         }
         
-        SampleBuffer& output(uint32_t i, uint32_t j)
+        SampleBuffer& output(uint i, uint j)
         {
             return _data->output(i, j);
         }
@@ -40,7 +40,7 @@ namespace moddlib
             virtual ~Concept() {}
             virtual void init() = 0;
             virtual void generate() = 0;
-            virtual SampleBuffer& output(uint32_t i, uint32_t j) = 0;
+            virtual SampleBuffer& output(uint i, uint j) = 0;
         };
         
         template <typename T>
@@ -58,7 +58,7 @@ namespace moddlib
                 _data.generate();
             }
             
-            SampleBuffer& output(uint32_t i, uint32_t j) override
+            SampleBuffer& output(uint i, uint j) override
             {
                 return _data.output(i, j);
             }

@@ -6,8 +6,7 @@
 //  Copyright (c) 2015 Daniel Doubleday. All rights reserved.
 //
 
-#ifndef unitsynth_Input_hpp
-#define unitsynth_Input_hpp
+#pragma once
 
 #include <array>
 #include <tuple>
@@ -21,7 +20,7 @@
 
 namespace moddlib
 {
-    template <size_t Size, typename InputT>
+    template <uint Size, typename InputT>
     struct Inputs
     {
         using type = InputT;
@@ -42,16 +41,21 @@ namespace moddlib
             cleanupInputs();
         }
 
-        template <size_t Pos>
+        template <uint Pos>
         constexpr auto& get()
         {
             static_assert(Pos < Size, "No such input");
             return _inputs[Pos];
         }
+        
+        InputT& operator[](uint pos)
+        {
+            return _inputs[pos];
+        }
 
     private:
-        
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+        //==============================================================================
         // init loop
         
         template <std::size_t I> std::enable_if_t<
@@ -66,7 +70,7 @@ namespace moddlib
             _inputs[I].init();
         }
         
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //==============================================================================
         // prepare loop
         
         template <std::size_t I> std::enable_if_t<
@@ -81,7 +85,7 @@ namespace moddlib
             _inputs[I].prepare();
         }
         
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //==============================================================================
         // cleanup loop
         
         template <std::size_t I> std::enable_if_t<
@@ -123,7 +127,7 @@ namespace moddlib
             inputBankCleanup(_inputs);
         }
 
-        template <std::size_t I>
+        template <uint I>
         /* Inputs<InputT>& */ constexpr auto& inputs()
         {
             static_assert(I < sizeof...(InputsT), "No such input bank");
@@ -138,15 +142,15 @@ namespace moddlib
 
     private:
 
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //==============================================================================
         // init inputs loop
 
-        template <std::size_t I> std::enable_if_t<
+        template <uint I> std::enable_if_t<
             I == sizeof...(InputsT),
         void> inputBankInit(std::tuple<InputsT...>&)
         {}
 
-        template <std::size_t I = 0> std::enable_if_t<
+        template <uint I = 0> std::enable_if_t<
             I < sizeof...(InputsT),
         void> inputBankInit(std::tuple<InputsT...>& inputs)
         {
@@ -154,7 +158,7 @@ namespace moddlib
             inputBankInit<I + 1>(inputs);
         }
 
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //==============================================================================
         // prepare inputs loop>
 
         template <std::size_t I> std::enable_if_t<
@@ -170,7 +174,7 @@ namespace moddlib
             inputBankPrepare<I + 1>(inputs);
         }
 
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //==============================================================================
         // cleanup inputs loop
 
         template <std::size_t I> std::enable_if_t<
@@ -223,7 +227,7 @@ namespace moddlib
 
         bool isUp()
         {
-            return getValue() > 0.01f;
+            return getValue() > 0.5f;
         }
 
         bool isDown()
@@ -344,14 +348,14 @@ namespace moddlib
             return _source->buffer();
         }
         
-        const simd::Vec vec(size_t offset = 0) const
+        const simd::Vec vec(uint offset = 0) const
         {
             return simd::Vec(ptr(offset));
         }
         
         operator const float*() const { return ptr(); }
 
-        const float* ptr(size_t offset = 0) const
+        const float* ptr(uint offset = 0) const
         {
             return buffer().data() + offset;
         }
@@ -367,7 +371,6 @@ namespace moddlib
         }
         
     private:
-        
         const StreamOutput* _source;
     };
 
@@ -376,7 +379,7 @@ namespace moddlib
     {
         MultiInput()
         {
-            std::fill_n(_connections, Size, nullptr);
+            _connections.fill(nullptr);
         }
 
         void pullData() {}
@@ -392,4 +395,4 @@ namespace moddlib
     
 }
 
-#endif
+
