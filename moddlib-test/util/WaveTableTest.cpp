@@ -19,7 +19,7 @@ using namespace moddlib;
 
 TEST_CASE("WaveTable")
 {
-    WaveTable2D<> waveTable2d;
+    WaveTable2D waveTable2d;
     
     WaveTableOscillator oscillator;
 }
