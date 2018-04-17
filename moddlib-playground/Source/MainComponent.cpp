@@ -70,7 +70,8 @@ public:
         {
             if (midiInputs[i].equalsIgnoreCase("Roland Digital Piano"))
             {
-                DBG("Midi enabled: " << midiInputs[i] << ": " << deviceManager.isMidiInputEnabled(midiInputs[i]));
+                DBG("Midi enabled: " << midiInputs[i] << ": " << (int)deviceManager.isMidiInputEnabled(midiInputs[i]));
+                
                 deviceManager.setMidiInputEnabled(midiInputs[i], true);
                 deviceManager.addMidiInputCallback(midiInputs[i], this);
             }
