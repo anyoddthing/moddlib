@@ -26,7 +26,7 @@ namespace moddlib
             auto& phase = input<phaseIn>().buffer();
             auto& out   = output<mainOut>().buffer();
             
-            simdv::fastSin(out, phase);
+            simdv::fastSin(out.data(), phase.data());
         }
     };
 }

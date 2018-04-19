@@ -25,7 +25,7 @@ namespace moddlib
 
         void doGenerate()
         {
-            output<mainOut>().buffer().copy(input<freqIn>().buffer());
+            output<mainOut>().buffer().copy(input<freqIn>().buffer().data());
         }
     };
 

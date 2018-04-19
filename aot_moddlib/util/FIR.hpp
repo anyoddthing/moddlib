@@ -13,32 +13,47 @@ namespace moddlib
     template <uint TapSize>
     struct FIR
     {
-        FIR()
+        FIR() : _coefs(TapSize), _scoefs(simd::stride * TapSize), _buffer(TapSize)
         {
             reset();
         }
         
         template <typename ContainerT>
-        void setCoefs(ContainerT const & coefs)
+        void setCoefs(const ContainerT& coefs)
         {
             std::copy(coefs.begin(), coefs.end(), _coefs.begin());
+            setSimdCoefs(coefs);
         }
         
-        void setCoefs(std::initializer_list<float> const & coefs)
+        void setCoefs(const std::initializer_list<float>& coefs)
         {
             std::copy(coefs.begin(), coefs.end(), _coefs.begin());
+            setSimdCoefs(coefs);
         }
 
         void setCoefs(float* coefs)
         {
             std::copy(coefs, coefs + TapSize, _coefs.begin());
+            setSimdCoefs(coefs);
+        }
+        
+        template <typename ContainerT>
+        void setSimdCoefs(const ContainerT& coefs)
+        {
+            for (auto i = 0; i < TapSize; ++i)
+            {
+                for (auto j = 0; j < simd::stride; ++j)
+                {
+                    _scoefs[i * simd::stride + j] = coefs[(i + j) % TapSize];
+                }
+            }
         }
         
         void reset()
         {
             _index = 0;
-            _coefs.fill(0);
-            _buffer.fill(0);
+            _coefs.zero_mem();
+            _buffer.zero_mem();
         }
         
         float filter(float sample)
@@ -74,9 +89,30 @@ namespace moddlib
             return out;
         }
         
+        float simdFilter(float sample)
+        {
+            using namespace simd;
+            
+            _buffer[_index] = sample;
+            Vec partial(0.0f);
+            for (auto i = 0; i < TapSize; i += stride)
+            {
+                auto coefIdx = (TapSize - _index + i) % TapSize;
+                
+                Vec coefs(_scoefs + coefIdx * simd::stride);
+                Vec samples(_buffer + i);
+                
+                partial += coefs * samples;
+            }
+            
+            _index = (_index == 0 ? TapSize - 1 : _index - 1);
+            return partial.sum();
+        }
+        
     private:
         uint _index;
-        std::array<float, TapSize> _coefs;
-        std::array<float, TapSize> _buffer;
+        simd::AlignedMemory _coefs;
+        simd::AlignedMemory _scoefs;
+        simd::AlignedMemory _buffer;
     };
 }

@@ -37,13 +37,13 @@ TEST_CASE("FFT Test")
     SECTION("Can parse message")
     {
     
-        AlignedMemory audioIn(N);
-        AlignedBuffer<N / 2> freqOut;
+        simd::AlignedMemory audioIn(N);
+        simd::AlignedBuffer<N / 2> freqOut;
         
-        generateSin(audioIn, 5);
+        generateSin(audioIn.data(), 5);
         
         FFT<N> fft;
-        fft.computeFFT(audioIn, freqOut);
+        fft.computeFFT(audioIn.data(), freqOut.data());
         
         freqOut.forEach([](int n, fref sample)
         {

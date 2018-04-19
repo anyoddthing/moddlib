@@ -131,7 +131,7 @@ namespace moddlib
         }
 
     private:
-        AlignedMemory _buffer;
+        simd::AlignedMemory _buffer;
     };
 
     struct WaveTable2D

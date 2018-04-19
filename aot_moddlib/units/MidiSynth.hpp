@@ -46,9 +46,9 @@ namespace moddlib
 
             simdv::loop([&](uint i)
             {
-                simd::Vec out(outputBuffer + i);
+                simd::Vec out(outputBuffer.data() + i);
                 out *= 0.3f;
-                out.store(outputBuffer + i);
+                out.store(outputBuffer.data() + i);
             });
         }
 

@@ -68,7 +68,6 @@
 		65D8754020838737009BA422 /* libmoddlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 65528F5B1B3EFF7200F0A36D /* libmoddlib.a */; };
 		65D875472083B57D009BA422 /* FIRTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65D875462083B57D009BA422 /* FIRTest.cpp */; };
 		65D875482083C32D009BA422 /* FIRTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65D875462083B57D009BA422 /* FIRTest.cpp */; };
-		65D8754A2083CC4D009BA422 /* FIRBench.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65D875492083CC4D009BA422 /* FIRBench.cpp */; };
 		65D9F2531C4276CE0067270C /* libmoddlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 65528F5B1B3EFF7200F0A36D /* libmoddlib.a */; };
 		65D9F2541C4276D40067270C /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65C1B72A1C3D59F700FDB956 /* Accelerate.framework */; };
 		65D9F2561C42770B0067270C /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65D9F2551C42770B0067270C /* main.cpp */; };
@@ -232,7 +231,6 @@
 		65D8751520838320009BA422 /* FFTTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FFTTest.cpp; sourceTree = "<group>"; };
 		65D8754520838737009BA422 /* moddlib-testFiltered */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "moddlib-testFiltered"; sourceTree = BUILT_PRODUCTS_DIR; };
 		65D875462083B57D009BA422 /* FIRTest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FIRTest.cpp; sourceTree = "<group>"; };
-		65D875492083CC4D009BA422 /* FIRBench.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FIRBench.cpp; sourceTree = "<group>"; };
 		65D9F24C1C4276960067270C /* moddlib-bench */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "moddlib-bench"; sourceTree = BUILT_PRODUCTS_DIR; };
 		65D9F2551C42770B0067270C /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		65D9F2571C4278640067270C /* SinCircuitBench.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SinCircuitBench.cpp; sourceTree = "<group>"; };
@@ -570,7 +568,6 @@
 				65D9F2551C42770B0067270C /* main.cpp */,
 				65D9F2571C4278640067270C /* SinCircuitBench.cpp */,
 				65D9F25A1C4282800067270C /* SinCircuitBaseLine.hpp */,
-				65D875492083CC4D009BA422 /* FIRBench.cpp */,
 			);
 			path = "moddlib-bench";
 			sourceTree = SOURCE_ROOT;
@@ -837,7 +834,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				65D9F2561C42770B0067270C /* main.cpp in Sources */,
-				65D8754A2083CC4D009BA422 /* FIRBench.cpp in Sources */,
 				65D9F2581C4278640067270C /* SinCircuitBench.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

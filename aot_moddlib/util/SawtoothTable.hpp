@@ -128,7 +128,7 @@ namespace moddlib
         static constexpr float PHASE_SCALAR = CYCLE_SIZE * 0.5f;
         
     private:
-        std::array<AlignedBuffer<TABLE_SIZE>, NUM_TABLES> _tables;
+        std::array<simd::AlignedBuffer<TABLE_SIZE>, NUM_TABLES> _tables;
     };
 }
 #endif /* SawtoothTable_hpp */

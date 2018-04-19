@@ -19,7 +19,6 @@ using namespace moddlib;
 #ifdef DISABLE_TEST
 
 /*
-
 FIR filter designed with
 http://t-filter.appspot.com
 
@@ -34,7 +33,6 @@ sampling frequency: 88000 Hz
   gain = 0
   desired attenuation = -40 dB
   actual attenuation = -65.61939877550482 dB
-
 */
 
 #define FILTER_TAP_NUM 40
@@ -104,9 +102,9 @@ TEST_CASE("FIR")
             CHECK(val <= 1.0f);
             
             auto firval1 = fir1.filter(val);
-            auto firval2 = fir2.filter(val);
+            auto firval2 = fir2.simdFilter(val);
             
-            CHECK(firval1 == firval2);
+            CHECK(firval1 == Approx(firval2));
         }
     }
 }

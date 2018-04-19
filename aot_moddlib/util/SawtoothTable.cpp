@@ -53,7 +53,7 @@ namespace moddlib
         
         for (int i = 1; i < NUM_TABLES; ++i)
         {
-            normalizeArray(_tables[i], TABLE_SIZE);
+            normalizeArray(_tables[i].data(), TABLE_SIZE);
         }
     }
 }

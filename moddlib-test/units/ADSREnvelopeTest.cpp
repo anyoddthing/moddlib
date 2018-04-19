@@ -31,15 +31,15 @@ SCENARIO("ADSREnvelopeTest")
         {
             THEN("it produces zero output")
             {
-                AlignedMemory buffer(8);
-                CHECK(envelope.fill(8, buffer) == 0);
+                simd::AlignedMemory buffer(8);
+                CHECK(envelope.fill(8, buffer.data()) == 0);
             }
             
             THEN("zeroes destination")
             {
-                AlignedMemory buffer(8);
-                memset(buffer, 13, 8);
-                envelope.generate(8, buffer);
+                simd::AlignedMemory buffer(8);
+                memset(buffer.data(), 13, 8);
+                envelope.generate(8, buffer.data());
                 buffer.forEach([](auto i, float& v) {
                     CHECK(v == 0);
                 });
@@ -50,10 +50,10 @@ SCENARIO("ADSREnvelopeTest")
         {
             THEN("it generates output")
             {
-                AlignedMemory buffer(8);
+                simd::AlignedMemory buffer(8);
                 envelope.reset();
                 CHECK(envelope.isPlaying());
-                CHECK(envelope.fill(8, buffer) > 0);
+                CHECK(envelope.fill(8, buffer.data()) > 0);
             }
         }
     }

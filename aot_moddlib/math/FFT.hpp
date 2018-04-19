@@ -21,8 +21,8 @@ namespace moddlib
             _realBuffer(N/2),
             _imagBuffer(N/2)
         {
-            _dspSplitComplex.realp = _realBuffer;
-            _dspSplitComplex.imagp = _imagBuffer;
+            _dspSplitComplex.realp = _realBuffer.data();
+            _dspSplitComplex.imagp = _imagBuffer.data();
             _fftSetup = vDSP_create_fftsetup(log2N(), kFFTRadix2);
         }
         
@@ -64,8 +64,8 @@ namespace moddlib
         }
         
     private:
-        AlignedMemory   _realBuffer;
-        AlignedMemory   _imagBuffer;
+        simd::AlignedMemory   _realBuffer;
+        simd::AlignedMemory   _imagBuffer;
         FFTSetup        _fftSetup;
         DSPSplitComplex _dspSplitComplex;
     };

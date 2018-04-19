@@ -48,7 +48,7 @@ namespace moddlib
         }
         
     private:
-        AlignedBuffer<64> _table;
+        simd::AlignedBuffer<64> _table;
     };
     
     struct SineWTOscillator :
