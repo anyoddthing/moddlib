@@ -9,7 +9,6 @@
 #pragma once
 
 #include "aot_simdlib/aot_simdlib.hpp"
-
 #include "../core/core.hpp"
 
 namespace moddlib

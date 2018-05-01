@@ -65,6 +65,11 @@ namespace moddlib
             return module<ModSelectorT>().template output<OutputSelectT>();
         }
 
+        constexpr std::tuple<moduleTs...>& getModules()
+        {
+            return _modules;
+        }
+
     private:
 
         CircuitT* thiz()
@@ -164,10 +169,27 @@ namespace moddlib
         {
             circuit.generate();
         }
-
+        
     private:
         std::tuple<moduleTs...> _modules;
     };
+    
+    //==============================================================================
+    // Helpers methods to prevent need for this->template moduleIn / Out
+
+    template <typename ModSelectorT, typename InputSelectT, typename CircuitT>
+    auto moduleIn(CircuitT* circuit) -> decltype(auto)
+    {
+        return circuit->template moduleIn<ModSelectorT, InputSelectT>();
+    }
+    
+    template <typename ModSelectorT, typename OutputSelectT, typename CircuitT>
+    auto moduleOut(CircuitT* circuit) -> decltype(auto)
+    {
+        return circuit->template moduleOut<ModSelectorT, OutputSelectT>();
+    }
+    
+
     
 }
 

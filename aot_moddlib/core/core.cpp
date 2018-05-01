@@ -11,6 +11,8 @@
 #include "core.hpp"
 #include "../../libs/fmtlib/fmt/format.cc"
 
-moddlib::SampleBuffers moddlib::SampleBuffers::_instance;
-moddlib::FloatOutput   moddlib::FlatOutput::_output;
-moddlib::StreamOutput  moddlib::FlatOutput::_stream;
+moddlib::Engine         moddlib::Engine::_instance;
+moddlib::SampleBuffers  moddlib::SampleBuffers::_instance;
+moddlib::NoInput        moddlib::NoInput::instance;
+moddlib::FloatOutput    moddlib::FlatOutput::_output;
+moddlib::StreamOutput   moddlib::FlatOutput::_stream;

@@ -14,18 +14,21 @@ namespace moddlib
 {
     enum MidiType: uint8_t
     {
-
         MIDI_UNKNOWN            = 0x00,
 
         // channel voice messages
         MIDI_NOTE_OFF           = 0x80,
         MIDI_NOTE_ON            = 0x90,
+        MIDI_POLY_AFTERTOUCH    = 0xA0, // aka key pressure
         MIDI_CONTROL_CHANGE     = 0xB0,
         MIDI_PROGRAM_CHANGE     = 0xC0,
-        MIDI_PITCH_BEND         = 0xE0,
         MIDI_AFTERTOUCH         = 0xD0, // aka channel pressure
-        MIDI_POLY_AFTERTOUCH    = 0xA0, // aka key pressure
-
+        MIDI_PITCH_BEND         = 0xE0,
+        MIDI_SYSTEM_MESSAGE     = 0xF0,
+    };
+    
+    enum MidiSystemMessage
+    {
         // system messages
         MIDI_SYSEX              = 0xF0,
         MIDI_TIME_CODE          = 0xF1,
@@ -54,39 +57,47 @@ namespace moddlib
             uint8_t bytes[4];
         } raw;
         
-        MidiType type;
+        MidiType getType() const
+        {
+            return static_cast<MidiType>(getRawType() & 0xF0);
+        }
         
-        uint8_t getMidiNote()
+        uint8_t getRawType() const
+        {
+            return raw.bytes[0];
+        }
+        
+        uint8_t getMidiNote() const
         {
             return raw.bytes[1];
         }
         
-        float getMidiNoteInHertz()
+        float getMidiNoteInHertz() const
         {
             return 440.0 * std::pow(2.0, (getMidiNote() - 69) / 12.0);
         }
         
-        uint8_t getVelocity()
+        uint8_t getVelocity() const
         {
             return raw.bytes[2];
         }
         
-        uint8_t getControl()
+        uint8_t getControl() const
         {
             return raw.bytes[1];
         }
         
-        uint8_t getControlValue()
+        uint8_t getControlValue() const
         {
             return raw.bytes[2];
         }
         
-        uint8_t getAfterTouch()
+        uint8_t getAfterTouch() const
         {
             return raw.bytes[1];
         }
         
-        float getPitchBend()
+        float getPitchBend() const
         {
             int intValue = (((int)raw.bytes[2]) << 7) + raw.bytes[1];
             return ((float)(intValue - 0x2000)) / 0x2000;

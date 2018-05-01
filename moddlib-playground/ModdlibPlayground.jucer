@@ -7,6 +7,11 @@
               jucerVersion="5.3.1" headerPath="">
   <MAINGROUP id="U5QCMK" name="ModdlibPlayground">
     <GROUP id="{CCD977E5-86A8-D587-F9B6-62128BD0C420}" name="Source">
+      <FILE id="AV1C72" name="Spectrogram.cpp" compile="1" resource="0" file="Source/Spectrogram.cpp"/>
+      <FILE id="Kzh5Zt" name="Spectrogram.h" compile="0" resource="0" file="Source/Spectrogram.h"/>
+      <FILE id="BojVWu" name="Oscilloscope.cpp" compile="1" resource="0"
+            file="Source/Oscilloscope.cpp"/>
+      <FILE id="nTkqqR" name="Oscilloscope.h" compile="0" resource="0" file="Source/Oscilloscope.h"/>
       <FILE id="O3l2go" name="MainComponent.cpp" compile="1" resource="0"
             file="Source/MainComponent.cpp"/>
       <FILE id="jUg318" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>

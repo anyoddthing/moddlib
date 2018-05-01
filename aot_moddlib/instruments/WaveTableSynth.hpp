@@ -40,7 +40,7 @@ namespace moddlib
             // export ports
             
             connect(input<triggerIn>(), moduleIn<phaseModule, PhaseGenerator::triggerIn>());
-            connect(input<frequencyIn>(), moduleIn<phaseModule, PhaseGenerator::freqIn>());
+            connect(input<frequencyIn>(), moduleIn<phaseModule, FreqInT<PhaseGenerator>>());
             connect(input<frequencyIn>(), moduleIn<oscModule, WaveTableOscillator::freqIn>());
             
             connect(input<triggerIn>(), moduleIn<envModule, ADSREnvelopeGenerator::triggerIn>());
@@ -53,6 +53,7 @@ namespace moddlib
             
             
             auto& osc = module<oscModule>();
+//            osc.setupTables(waveTable::sawPartials());
             osc.setupTables({1});
         }
     };

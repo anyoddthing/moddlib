@@ -212,7 +212,7 @@ namespace moddlib
     private:
         struct State
         {
-            State() : count(0), length(0), value(0), bias(-1), exp(-1) {}
+            State() : count(0), length(0), value(0), exp(-1), bias(-1) {}
             
             uint count;
             uint length;
@@ -325,7 +325,7 @@ namespace moddlib
     private:
         struct State
         {
-            State() : count(0), length(0), value(0), bias(-1), exp(-1) {}
+            State() : count(0), length(0), value(0), exp(-1), bias(-1) {}
             
             uint count;
             uint length;

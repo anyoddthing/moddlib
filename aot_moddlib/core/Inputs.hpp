@@ -20,6 +20,11 @@
 
 namespace moddlib
 {
+    struct NoInput
+    {
+        static NoInput instance;
+    };
+
     template <uint Size, typename InputT>
     struct Inputs
     {
@@ -104,7 +109,30 @@ namespace moddlib
         std::array<InputT, Size> _inputs;
     };
 
-
+    namespace detail
+    {
+        template <typename SelectorT>
+        struct InputHelper
+        {
+            template <typename... InputsT>
+            constexpr static auto& get(std::tuple<InputsT...>& inputs)
+            {
+                static_assert(SelectorT::bank < sizeof...(InputsT), "No such input bank");
+                return std::get<SelectorT::bank>(inputs).template get<SelectorT::pos>();
+            }
+        };
+        
+        template <>
+        struct InputHelper<NoBIn>
+        {
+            template <typename... InputsT>
+            constexpr static auto& get(std::tuple<InputsT...>& inputs)
+            {
+                return NoInput::instance;
+            }
+        };
+    }
+    
     template <typename... InputsT>
     struct InputBank
     {
@@ -137,9 +165,9 @@ namespace moddlib
         template <typename SelectorT>
         /* InputT& */ constexpr auto& input()
         {
-            return inputs<SelectorT::bank>().template get<SelectorT::pos>();
+            return detail::InputHelper<SelectorT>::get(_inputs);
         }
-
+        
     private:
 
         //==============================================================================
@@ -157,7 +185,7 @@ namespace moddlib
             std::get<I>(inputs).init();
             inputBankInit<I + 1>(inputs);
         }
-
+        
         //==============================================================================
         // prepare inputs loop>
 
@@ -193,7 +221,7 @@ namespace moddlib
     private:
         std::tuple<InputsT...> _inputs;
     };
-
+    
     struct FloatInput
     {
         FloatInput() : _source(&FlatOutput::sharedOutput())

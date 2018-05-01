@@ -6,8 +6,7 @@
 //  Copyright © 2015 Daniel Doubleday. All rights reserved.
 //
 
-#ifndef PhaseGenerator_hpp
-#define PhaseGenerator_hpp
+#pragma once
 
 #include "../core/core.hpp"
 #include "../debug/debug.hpp"
@@ -74,4 +73,4 @@ namespace moddlib
     };
 }
 
-#endif /* PhaseGenerator_hpp */
+

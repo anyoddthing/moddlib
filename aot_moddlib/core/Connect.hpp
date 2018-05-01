@@ -25,23 +25,31 @@ namespace moddlib
 
     namespace detail
     {
-        template <typename LeftT, typename RightT, typename Enable = void>
+        template <typename LeftT, typename RightT, typename Optional, typename Enable = void>
         struct Connector {};
         
         template <typename LeftT, typename RightT>
-        struct Connector<LeftT, RightT, std::enable_if_t<!IsConnectable<LeftT>::value && IsConnectable<RightT>::value>>
+        struct Connector<LeftT, RightT, std::false_type, std::enable_if_t<!IsConnectable<LeftT>::value && IsConnectable<RightT>::value>>
         {
             static void connect(LeftT& left, RightT& right)
             {
                 right.setSource(left);
             }
         };
-
+        
+        template <typename LeftT>
+        struct Connector<LeftT, NoInput, std::true_type>
+        {
+            static void connect(LeftT& left, NoInput& input)
+            {
+            }
+        };
+        
         //==============================================================================
         // Specializations for port -> input
         
         template <>
-        struct Connector<TriggerPort, TriggerInput>
+        struct Connector<TriggerPort, TriggerInput, std::false_type>
         {
             static void connect(TriggerPort& port, TriggerInput& input)
             {
@@ -50,7 +58,7 @@ namespace moddlib
         };
 
         template <>
-        struct Connector<FloatPort, FloatInput>
+        struct Connector<FloatPort, FloatInput, std::false_type>
         {
             static void connect(FloatPort& port, FloatInput& input)
             {
@@ -59,7 +67,7 @@ namespace moddlib
         };
 
         template <>
-        struct Connector<FloatPort, DefaultInput>
+        struct Connector<FloatPort, DefaultInput, std::false_type>
         {
             static void connect(FloatPort& port, DefaultInput& input)
             {
@@ -72,8 +80,15 @@ namespace moddlib
     template <typename LeftT, typename RightT>
     void connect(LeftT& left, RightT& right)
     {
-        detail::Connector<LeftT, RightT>::connect(left, right);
+        detail::Connector<LeftT, RightT, std::false_type>::connect(left, right);
     }
+    
+    template <typename LeftT, typename RightT>
+    void tryconnect(LeftT& left, RightT& right)
+    {
+        detail::Connector<LeftT, RightT, std::true_type>::connect(left, right);
+    }
+
 }
 
 

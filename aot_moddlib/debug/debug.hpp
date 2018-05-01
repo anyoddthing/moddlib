@@ -32,12 +32,14 @@ namespace dbg
         fmt::print("\n");
     }
     
+    [[maybe_unused]]
     static void dumpBuffer(std::string const & filename, char const * source, size_t num)
     {
         std::ofstream outfile(filename, std::ios::out | std::ios::binary);
         outfile.write(source, num);
     }
     
+    [[maybe_unused]]
     static void dumpBuffer(std::string const & filename, float const * source, size_t num)
     {
         dumpBuffer(filename, reinterpret_cast<char const*>(source), num * sizeof(float));

@@ -14,22 +14,26 @@ namespace moddlib
 {
     namespace waveTable
     {
+        [[maybe_unused]]
         static uint getMaxHarmonic(float baseFrequency, uint frameRate)
         {
             return (uint) (frameRate / (3.5f * baseFrequency) + 0.5f);
         }
         
+        [[maybe_unused]]
         static uint getMaxHarmonic(float baseFrequency)
         {
             return getMaxHarmonic(baseFrequency, Engine::instance().getFrameRate());
         }
 
+        [[maybe_unused]]
         constexpr static uint getMinTableSize(uint maxHarmonic, uint overSampling = 1)
         {
             return std::max(64u, roundUpToPower2(maxHarmonic) * 2 * overSampling);
         }
         
-        static std::vector<float> sawPartials(float baseFrequency)
+        [[maybe_unused]]
+        static std::vector<float> sawPartials(float baseFrequency = 40)
         {
             uint maxHarms = waveTable::getMaxHarmonic(baseFrequency);
             std::vector<float> partials(maxHarms);
@@ -67,7 +71,7 @@ namespace moddlib
         }
     };
 
-    struct WaveTable
+    struct WaveTable : NonCopyable
     {
         WaveTable() {}
         
@@ -76,6 +80,9 @@ namespace moddlib
             // only support 2^x wave table sizes
             assert(tableSize && ((tableSize & (tableSize -1)) == 0));
         }
+        
+        WaveTable(WaveTable&&) noexcept;
+        WaveTable& operator=(WaveTable&&);
 
         float & operator [] (uint index)
         {
@@ -133,8 +140,11 @@ namespace moddlib
     private:
         simd::AlignedMemory _buffer;
     };
+    
+    inline WaveTable::WaveTable(WaveTable&&) noexcept = default;
+    inline WaveTable& WaveTable::operator=(WaveTable&&) = default;
 
-    struct WaveTable2D
+    struct WaveTable2D : NonCopyable
     {
         template <typename PartialsScaler = IdentityPartialScaler>
         void setupTables(float baseFrequency, std::vector<float> const & partials, uint overSampling = 1)
@@ -146,11 +156,12 @@ namespace moddlib
             uint numTables = (uint) std::ceil(std::log2(highestPartial + 0.1f));
             
             uint tableSize = waveTable::getMinTableSize(highestPartial, overSampling);
-            _tables = std::vector<WaveTable>(numTables);
+            _tables = std::vector<WaveTable>();
+            _tables.reserve(numTables);
             for (uint i = 0; i < numTables; ++i)
             {
                 uint maxPartial = waveTable::getMaxHarmonic(baseFrequency);
-                _tables[i] = WaveTable(tableSize);
+                _tables.emplace_back(tableSize);
                 _tables[i].fillSinesum<PartialsScaler>(partials, std::min(maxPartial, (uint) partials.size()));
                 baseFrequency *= 2;
             }

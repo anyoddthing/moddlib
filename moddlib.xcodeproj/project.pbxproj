@@ -184,6 +184,9 @@
 		653F50D01FB75FBE0005777A /* aot_moddlib.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = aot_moddlib.hpp; sourceTree = "<group>"; };
 		654BDB861BF8D88D00346F26 /* MidiBufferTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MidiBufferTest.cpp; sourceTree = "<group>"; };
 		654BDB891BF8EDAC00346F26 /* SineOscillatorTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SineOscillatorTest.cpp; sourceTree = "<group>"; };
+		654C6F38209788A300E84C35 /* DbgWaveTable.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DbgWaveTable.hpp; sourceTree = "<group>"; };
+		654C6F3C209789A700E84C35 /* DbgCreateSine.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DbgCreateSine.hpp; sourceTree = "<group>"; };
+		654C6F3D209789E500E84C35 /* DbgUtils.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DbgUtils.hpp; sourceTree = "<group>"; };
 		6551D4681C83447600740681 /* SubtractiveSynth.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SubtractiveSynth.hpp; sourceTree = "<group>"; };
 		65528F5B1B3EFF7200F0A36D /* libmoddlib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libmoddlib.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		65528F6D1B3F029500F0A36D /* moddlib-test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "moddlib-test"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -203,6 +206,8 @@
 		6566B75D1C78CA8900541EF8 /* Envelope.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Envelope.hpp; sourceTree = "<group>"; };
 		6566B75E1C78CA8900541EF8 /* SawtoothTable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SawtoothTable.cpp; sourceTree = "<group>"; };
 		6566B75F1C78CA8900541EF8 /* SawtoothTable.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SawtoothTable.hpp; sourceTree = "<group>"; };
+		65691D36208CC65200ADEFAC /* moddlib-test.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "moddlib-test.h"; sourceTree = "<group>"; };
+		65691D38208E611F00ADEFAC /* Filter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Filter.hpp; sourceTree = "<group>"; };
 		6569D1DA1C3C4A690053467E /* Ports.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Ports.hpp; sourceTree = "<group>"; };
 		6569E0AB1FE1A14700FE46A5 /* WaveTableOscillator.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = WaveTableOscillator.hpp; sourceTree = "<group>"; };
 		656A62FE1FC1D592006528EA /* SineWTOscillator.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SineWTOscillator.hpp; sourceTree = "<group>"; };
@@ -343,6 +348,7 @@
 		65268FC41FAF8B0F0068FE64 /* units */ = {
 			isa = PBXGroup;
 			children = (
+				65691D38208E611F00ADEFAC /* Filter.hpp */,
 				65268FC51FAF8B0F0068FE64 /* ADSREnvelopeGenerator.hpp */,
 				65268FC61FAF8B0F0068FE64 /* MidiSynth.hpp */,
 				65268FC71FAF8B0F0068FE64 /* MidiSynthVoice.hpp */,
@@ -408,8 +414,8 @@
 		65528F5D1B3EFF7200F0A36D /* aot_moddlib */ = {
 			isa = PBXGroup;
 			children = (
+				65691D37208E3EE300ADEFAC /* filter */,
 				655554A01FFCED2700E70D6C /* concepts */,
-				65BDC9A31FF52AC800A31A76 /* doc */,
 				65268FC41FAF8B0F0068FE64 /* units */,
 				6566B75C1C78CA5E00541EF8 /* util */,
 				65A4A6171C24919100D68B03 /* debug */,
@@ -436,6 +442,7 @@
 				65528F6F1B3F029500F0A36D /* main.cpp */,
 				656529771B56EBD40092511A /* TestSynth.cpp */,
 				656529781B56EBD40092511A /* TestSynth.h */,
+				65691D36208CC65200ADEFAC /* moddlib-test.h */,
 			);
 			path = "moddlib-test";
 			sourceTree = "<group>";
@@ -496,6 +503,13 @@
 			path = util;
 			sourceTree = "<group>";
 		};
+		65691D37208E3EE300ADEFAC /* filter */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = filter;
+			sourceTree = "<group>";
+		};
 		656FC6FA1FB8901D007176A8 /* moddlib-testsupport */ = {
 			isa = PBXGroup;
 			children = (
@@ -516,6 +530,9 @@
 			isa = PBXGroup;
 			children = (
 				6580639C1FE70E1300498109 /* main.cpp */,
+				654C6F38209788A300E84C35 /* DbgWaveTable.hpp */,
+				654C6F3C209789A700E84C35 /* DbgCreateSine.hpp */,
+				654C6F3D209789E500E84C35 /* DbgUtils.hpp */,
 			);
 			path = "moddlib-dbg";
 			sourceTree = "<group>";
@@ -526,13 +543,6 @@
 				65A4A6181C2491E300D68B03 /* debug.hpp */,
 			);
 			path = debug;
-			sourceTree = "<group>";
-		};
-		65BDC9A31FF52AC800A31A76 /* doc */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = doc;
 			sourceTree = "<group>";
 		};
 		65C1B7311C3D8AC900FDB956 /* math */ = {

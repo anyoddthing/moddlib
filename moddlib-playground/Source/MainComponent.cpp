@@ -10,7 +10,9 @@
 #include <iostream>
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "aot_moddlib/instruments/WaveTableSynth.hpp"
+#include "aot_moddlib/instruments/SubtractiveSynth.hpp"
+#include "Oscilloscope.h"
+#include "Spectrogram.h"
 
 static const bool DUMP_DEBUG_STREAM = true;
 
@@ -32,7 +34,9 @@ public:
         setSize(800, 600);
         
         // specify the number of input and output channels that we want to open
-        setAudioChannels(2, 2);
+        setAudioChannels(0, 2);
+        
+        _openGLContext.attachTo(*getTopLevelComponent());
     }
 
     ~MainContentComponent()
@@ -47,17 +51,12 @@ public:
                 deviceManager.removeMidiInputCallback(midiInputs[i], this);
             }
         }
+        
+        _openGLContext.detach();
     }
-    
-    // Midi Callback
-    void handleIncomingMidiMessage(juce::MidiInput *source, const juce::MidiMessage &message) override
-    {
-        if (_synth)
-        {
-            _synth->queueMessage(moddlib::midi::createMidiMessage(message.getRawData()));
-        }
-    }
-    
+
+    //==============================================================================
+    // ui
     
     void initComponents()
     {
@@ -65,27 +64,44 @@ public:
             deviceManager, 0, 0, 2, 2, true, false, true, false);
         addAndMakeVisible(_audioDeviceSelector.get());
         
+        _oscilloscope = std::make_unique<Oscilloscope>();
+        addAndMakeVisible(_oscilloscope.get());
+        
+        _spectrogram = std::make_unique<Spectrogram>();
+        addAndMakeVisible(_spectrogram.get());
+        
         const StringArray midiInputs(MidiInput::getDevices());
         for (int i = 0; i < midiInputs.size(); ++i)
         {
-            if (midiInputs[i].equalsIgnoreCase("Roland Digital Piano"))
-            {
-                DBG("Midi enabled: " << midiInputs[i] << ": " << (int)deviceManager.isMidiInputEnabled(midiInputs[i]));
-                
-                deviceManager.setMidiInputEnabled(midiInputs[i], true);
-                deviceManager.addMidiInputCallback(midiInputs[i], this);
-            }
+            deviceManager.setMidiInputEnabled(midiInputs[i], true);
+            deviceManager.addMidiInputCallback(midiInputs[i], this);
         }
     }
     
+    void paint(Graphics& g) override
+    {
+        g.fillAll(getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
+    }
+
+    void resized() override
+    {
+        auto bounds = getLocalBounds();
+
+        _audioDeviceSelector->setBounds(bounds.removeFromTop(200));
+        _oscilloscope->setBounds(bounds.removeFromLeft(bounds.getWidth() / 2));
+        _spectrogram->setBounds(bounds);
+    }
+
     //==============================================================================
+    // audio
+    
     void prepareToPlay(int samplesPerBlockExpected, double sampleRate) override
     {
         if (DUMP_DEBUG_STREAM)
         {
             _dbgStream = std::make_unique<std::ofstream>("testout.bin", std::ios::binary | std::ios::out);
         }
-        _synth = std::make_unique<moddlib::WaveTableSynth>();
+        _synth = std::make_unique<SynthT>();
     }
 
     void getNextAudioBlock(const AudioSourceChannelInfo& bufferToFill) override
@@ -96,45 +112,49 @@ public:
         {
             _synth->generate(_sampleBuffer);
             auto offset = bufferToFill.startSample + i;
-            bufferToFill.buffer->copyFrom(0, offset, _sampleBuffer, 8);
-            bufferToFill.buffer->copyFrom(1, offset, _sampleBuffer, 8);
+            bufferToFill.buffer->copyFrom(0, offset, _sampleBuffer.data(), 8);
+            bufferToFill.buffer->copyFrom(1, offset, _sampleBuffer.data(), 8);
             
             if (DUMP_DEBUG_STREAM)
             {
                 _dbgStream->write(reinterpret_cast<const char*>(_sampleBuffer.data()), _sampleBuffer.size() * sizeof(float));
             }
         }
+        
+        _oscilloscope->read(bufferToFill.buffer->getReadPointer(0), bufferToFill.numSamples);
+        _spectrogram->read(bufferToFill.buffer->getReadPointer(0), bufferToFill.numSamples);
     }
 
+    // Midi Callback
+    void handleIncomingMidiMessage(juce::MidiInput *source, const juce::MidiMessage &message) override
+    {
+        if (_synth)
+        {
+            DBG(message.getDescription());
+            _synth->queueMessage(moddlib::midi::createMidiMessage(message.getRawData()));
+        }
+    }
+    
     void releaseResources() override
     {
         
     }
 
-    //==============================================================================
-    void paint(Graphics& g) override
-    {
-        g.fillAll(getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
-    }
-
-    void resized() override
-    {
-        if (_audioDeviceSelector)
-        {
-            _audioDeviceSelector->setSize(getWidth(), getHeight());
-        }
-    }
-
-
 private:
     //==============================================================================
 
-    // Your private member variables go here...
+    using SynthT = moddlib::SubtractiveSynth<moddlib::SineOscillator>;
+    std::unique_ptr<SynthT> _synth;
+    
+    
     moddlib::SampleBuffer _sampleBuffer;
     
     std::unique_ptr<AudioDeviceSelectorComponent> _audioDeviceSelector;
-    std::unique_ptr<moddlib::WaveTableSynth> _synth;
+    std::unique_ptr<Oscilloscope> _oscilloscope;
+    std::unique_ptr<Spectrogram> _spectrogram;
     std::unique_ptr<std::ofstream> _dbgStream;
+    
+    OpenGLContext _openGLContext;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainContentComponent)
     

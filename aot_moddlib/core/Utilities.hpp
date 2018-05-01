@@ -160,7 +160,7 @@ namespace moddlib
         TestToneBuffer(uint numSamples) : _buffer(numSamples)
         {
             assert(numSamples % 8 == 0);
-            for (size_t n = 0; n < numSamples; ++n)
+            for (auto n = 0; n < numSamples; ++n)
             {
                 _buffer[n] = std::sin(2 * simd::pi<float> * static_cast<float>(n) / numSamples);
             }

@@ -6,13 +6,7 @@
 //  Copyright © 2017 Daniel Doubleday. All rights reserved.
 //
 
-#include <cassert>
-#include <random>
-
-#include "catch.hpp"
-
-#include "aot_moddlib.hpp"
-#include "util/FIR.hpp"
+#include "../moddlib-test.h"
 
 using namespace moddlib;
 
@@ -35,8 +29,7 @@ sampling frequency: 88000 Hz
   actual attenuation = -65.61939877550482 dB
 */
 
-#define FILTER_TAP_NUM 40
-static float filter_taps[FILTER_TAP_NUM] = {
+static float filter_taps[40] = {
   0.0019390782882137887,
   0.0032384617106349716,
   -0.0005598729703174639,
@@ -83,8 +76,9 @@ TEST_CASE("FIR")
 {
     SECTION("Compare versions")
     {
+        const int FILTER_TAP_NUM = 10;
         uint bufferSize = 1024;
-        AlignedMemory buffer(bufferSize);
+        simd::AlignedMemory buffer(bufferSize);
         std::generate(buffer.begin(), buffer.end(), [] ()
         {
             return std::rand() * 2.0f / RAND_MAX - 1;
@@ -104,7 +98,7 @@ TEST_CASE("FIR")
             auto firval1 = fir1.filter(val);
             auto firval2 = fir2.simdFilter(val);
             
-            CHECK(firval1 == Approx(firval2));
+            CHECK(firval1 == Approx20bit(firval2));
         }
     }
 }

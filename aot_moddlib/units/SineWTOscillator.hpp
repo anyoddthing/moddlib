@@ -26,10 +26,10 @@ namespace moddlib
         
         float getSample(float phase)
         {
-            size_t tableSize = _table.size();
+            uint tableSize = _table.size();
             float lookup = 0.5f * (phase + 1) * tableSize;
-            size_t index1 = static_cast<size_t>(lookup);
-            size_t index2 = ( index1 + 1 ) & ( tableSize - 1 ); // faster mod that only works if tableSize is a power of 2
+            uint index1 = static_cast<uint>(lookup);
+            uint index2 = ( index1 + 1 ) & ( tableSize - 1 ); // faster mod that only works if tableSize is a power of 2
             float val1 = _table[index1];
             float val2 = _table[index2];
             float frac = lookup - (float)index1;

@@ -13,7 +13,7 @@ namespace moddlib
     template <uint TapSize>
     struct FIR
     {
-        FIR() : _coefs(TapSize), _scoefs(simd::stride * TapSize), _buffer(TapSize)
+        FIR() : _coefs(TapSize), _scoefs(simd::pad(simd::stride * TapSize)), _buffer(simd::pad(TapSize))
         {
             reset();
         }
@@ -28,7 +28,7 @@ namespace moddlib
         void setCoefs(const std::initializer_list<float>& coefs)
         {
             std::copy(coefs.begin(), coefs.end(), _coefs.begin());
-            setSimdCoefs(coefs);
+            setSimdCoefs(coefs.begin());
         }
 
         void setCoefs(float* coefs)
@@ -53,6 +53,7 @@ namespace moddlib
         {
             _index = 0;
             _coefs.zero_mem();
+            _scoefs.zero_mem();
             _buffer.zero_mem();
         }
         
@@ -99,8 +100,8 @@ namespace moddlib
             {
                 auto coefIdx = (TapSize - _index + i) % TapSize;
                 
-                Vec coefs(_scoefs + coefIdx * simd::stride);
-                Vec samples(_buffer + i);
+                Vec coefs(_scoefs.data() + coefIdx * simd::stride);
+                Vec samples(_buffer.data() + i);
                 
                 partial += coefs * samples;
             }

@@ -6,8 +6,7 @@
 //  Copyright (c) 2015 Daniel Doubleday. All rights reserved.
 //
 
-#ifndef unitsynth_Engine_hpp
-#define unitsynth_Engine_hpp
+#pragma once
 
 #include "../../libs/readerwriterqueue/readerwriterqueue.h"
 
@@ -28,8 +27,7 @@ namespace moddlib
         
         static Engine& instance()
         {
-            static Engine engine;
-            return engine;
+            return _instance;
         }
         
         Engine()
@@ -96,7 +94,7 @@ namespace moddlib
         }
         
     private:
-        
+        static Engine _instance;
         uint _frameCount;
         uint _frameRate;
         float _framePeriod;
@@ -105,16 +103,19 @@ namespace moddlib
         moodycamel::ReaderWriterQueue<Action> _commands;
     };
   
+    [[maybe_unused]]
     static float frequency2Phase(float frequency)
     {
         return Engine::instance().convertFrequencyToPhaseIncrement(frequency);
     }
     
+    [[maybe_unused]]
     static uint time2Samples(float time)
     {
         return Engine::instance().convertTimeToSamples(time);
     }
     
+    [[maybe_unused]]
     static uint framerate()
     {
         return Engine::instance().getFrameRate();
@@ -123,4 +124,3 @@ namespace moddlib
 }
 
 
-#endif

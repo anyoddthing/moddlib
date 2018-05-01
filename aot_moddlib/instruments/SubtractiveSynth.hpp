@@ -16,89 +16,62 @@
 
 #include "../units/PhaseGenerator.hpp"
 #include "../units/ADSREnvelopeGenerator.hpp"
-#include "../units/SawtoothOscillatorDPW.hpp"
-#include "../units/MidiSynthVoice.hpp"
-#include "../units/MidiSynth.hpp"
+#include "../units/WaveTableOscillator.hpp"
 #include "../units/TriggerModule.hpp"
 #include "../debug/debug.hpp"
+#include "BasicMidiSynth.hpp"
 
 
 namespace moddlib
 {
+    template <typename OscillatorT>
     struct SubtractiveSynthCircuit :
-        Circuit<SubtractiveSynthCircuit, SawtoothOscillatorDPW, ADSREnvelopeGenerator>,
+        Circuit<SubtractiveSynthCircuit<OscillatorT>, PhaseGenerator, OscillatorT, ADSREnvelopeGenerator>,
         InputBank<
             Inputs<1, TriggerPort>,
-            Inputs<1, PortLink<FloatInput>>>
+            Inputs<1, FloatPort>>
     {
-        using oscModule   = Mod_<0>;
-        using envModule   = Mod_<1>;
+        using phaseModule = Mod_<0>;
+        using oscModule   = Mod_<1>;
+        using envModule   = Mod_<2>;
 
         using triggerIn   = BIn_<0, 0>;
         using frequencyIn = BIn_<1, 0>;
 
         SubtractiveSynthCircuit()
         {
-            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            // export ports
-            
-            connect(input<triggerIn>(), moduleIn<oscModule, SawtoothOscillatorDPW::triggerIn>());
-            connect(input<triggerIn>(), moduleIn<envModule, ADSREnvelopeGenerator::triggerIn>());
-            
-            input<frequencyIn>().linkTo(moduleIn<oscModule, SawtoothOscillatorDPW::freqIn>());
+            //==============================================================================
+            // connect inputs
 
-            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            connect(
+                input<triggerIn>(),
+                moduleIn<phaseModule, TriggerInT<PhaseGenerator>>(this));
+            connect(
+                input<frequencyIn>(),
+                moduleIn<phaseModule, FreqInT<PhaseGenerator>>(this));
+            tryconnect(
+                input<frequencyIn>(),
+                moduleIn<oscModule, FreqInT<OscillatorT>>(this));
+
+            connect(
+                input<triggerIn>(),
+                moduleIn<envModule, TriggerInT<ADSREnvelopeGenerator>>(this));
+            
+            //==============================================================================
             // connect modules
-            
-            connect(moduleOut<oscModule, SawtoothOscillatorDPW::mainOut>(), moduleIn<envModule, ADSREnvelopeGenerator::mainIn>());
+
+            connect(
+                moduleOut<phaseModule, MainOutT<PhaseGenerator>>(this),
+                moduleIn<oscModule, PhaseInT<OscillatorT>>(this));
+            connect(
+                moduleOut<oscModule, MainOutT<OscillatorT>>(this),
+                moduleIn<envModule, MainInT<ADSREnvelopeGenerator>>(this));
         }
     };
-
     
-    struct SubtractiveVoice : MidiSynthVoice<SubtractiveVoice, SubtractiveSynthCircuit>, TriggerModule
-    {
-        SubtractiveVoice()
-        {
-            connect(getTrigger(), getCircuit().input<SubtractiveSynthCircuit::triggerIn>());
-            connect(getFrequency(), getCircuit().input<SubtractiveSynthCircuit::frequencyIn>());
-        }
-        
-        constexpr StreamOutput& mainOut()
-        {
-            return getCircuit().moduleOut<SubtractiveSynthCircuit::envModule, ADSREnvelopeGenerator::mainOut>();
-        }
+    template <typename OscillatorT>
+    using SubtractiveSynth = BasicMidiSynth<SubtractiveSynthCircuit<OscillatorT>>;
 
-        bool isSilent()
-        {
-            auto isPlaying = getCircuit().module<SubtractiveSynthCircuit::envModule>().isPlaying();
-            return ! isPlaying;
-        }
-    };
-
-    struct SubtractiveSynth : MidiSynth<SubtractiveSynth, SubtractiveVoice>
-    {
-        SubtractiveSynth() :
-            _releaseInput(0.1f, 4.0f)
-        {
-            for (fref voice : _voices)
-            {
-                using namespace std::placeholders;
-                auto& envModule = voice.getCircuit().module<SubtractiveSynthCircuit::envModule>();
-                
-                connect(_releaseInput, envModule.input<ADSREnvelopeGenerator::releaseIn>());
-            }
-        }
-
-        std::array<SubtractiveVoice, 12>& getVoices()
-        {
-            return _voices;
-        }
-
-    private:
-    
-        std::array<SubtractiveVoice, 12> _voices;
-        MidiOutputPort _releaseInput;
-    };
 }
 
 

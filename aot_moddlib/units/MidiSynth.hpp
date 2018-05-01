@@ -44,7 +44,7 @@ namespace moddlib
                 }
             }
 
-            simdv::loop([&](uint i)
+            simdv::loop([&](auto i)
             {
                 simd::Vec out(outputBuffer.data() + i);
                 out *= 0.3f;
@@ -75,7 +75,7 @@ namespace moddlib
 
         void processMessage(const MidiMessage message)
         {
-            switch (message.type)
+            switch (message.getType())
             {
                 case MIDI_NOTE_ON:
                     processNoteOn(message);
@@ -87,7 +87,7 @@ namespace moddlib
                     processControlChange(message);
                     break;
                 default:
-                    assert(message.type != MIDI_UNKNOWN);
+                    break;
             }
         }
 
