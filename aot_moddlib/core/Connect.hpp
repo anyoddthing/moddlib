@@ -48,8 +48,8 @@ namespace moddlib
         //==============================================================================
         // Specializations for port -> input
         
-        template <>
-        struct Connector<TriggerPort, TriggerInput, std::false_type>
+        template <typename Optional>
+        struct Connector<TriggerPort, TriggerInput, Optional>
         {
             static void connect(TriggerPort& port, TriggerInput& input)
             {
@@ -57,8 +57,8 @@ namespace moddlib
             }
         };
 
-        template <>
-        struct Connector<FloatPort, FloatInput, std::false_type>
+        template <typename Optional>
+        struct Connector<FloatPort, FloatInput, Optional>
         {
             static void connect(FloatPort& port, FloatInput& input)
             {
@@ -66,8 +66,8 @@ namespace moddlib
             }
         };
 
-        template <>
-        struct Connector<FloatPort, DefaultInput, std::false_type>
+        template <typename Optional>
+        struct Connector<FloatPort, DefaultInput, Optional>
         {
             static void connect(FloatPort& port, DefaultInput& input)
             {

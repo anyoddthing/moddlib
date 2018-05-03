@@ -22,9 +22,9 @@ namespace moddlib
         OutputBank<
             Outputs<2, StreamOutput>>
     {
-        using signalIn = In_<0>;
-        using ampIn = In_<1>;
-        using envIn = In_<2>;
+        using signalIn = Bank_<0>;
+        using ampIn = Bank_<1>;
+        using envIn = Bank_<2>;
 
         void init()
         {

@@ -11,6 +11,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "aot_moddlib/instruments/SubtractiveSynth.hpp"
+#include "aot_moddlib/instruments/WaveTableSynth.hpp"
 #include "Oscilloscope.h"
 #include "Spectrogram.h"
 
@@ -102,6 +103,7 @@ public:
             _dbgStream = std::make_unique<std::ofstream>("testout.bin", std::ios::binary | std::ios::out);
         }
         _synth = std::make_unique<SynthT>();
+        
     }
 
     void getNextAudioBlock(const AudioSourceChannelInfo& bufferToFill) override
@@ -143,7 +145,8 @@ public:
 private:
     //==============================================================================
 
-    using SynthT = moddlib::SubtractiveSynth<moddlib::SineOscillator>;
+    using SynthT = moddlib::SubtractiveSynth<moddlib::WaveTableOscillator>;
+//    using SynthT = moddlib::WaveTableSynth;
     std::unique_ptr<SynthT> _synth;
     
     
@@ -157,7 +160,6 @@ private:
     OpenGLContext _openGLContext;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainContentComponent)
-    
 };
 
 

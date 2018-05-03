@@ -125,14 +125,7 @@ namespace moddlib
 
         void processControlChange(MidiMessage message)
         {
-            switch (message.getControl()) {
-                case 22:
-                    _releaseInput.setControlValue(message.getControlValue());
-                    break;
-                case 23:
-                default:
-                    break;
-            }
+            _midiPorts[message.getControl()].setControlValue(message.getControlValue());
         }
 
         uint numActiveVoices()
@@ -175,10 +168,9 @@ namespace moddlib
 
     private:
 
-        size_t                    _nextVoice;
-        MidiBuffer                _midiBuffer;
-        MidiOutputPort            _releaseInput;
-        MidiOutputPort            _freqInput;
+        size_t                          _nextVoice;
+        MidiBuffer                      _midiBuffer;
+        std::array<MidiOutputPort, 128> _midiPorts;
     };
 }
 

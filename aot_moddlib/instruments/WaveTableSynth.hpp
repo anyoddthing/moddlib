@@ -32,7 +32,7 @@ namespace moddlib
         using envModule   = Mod_<2>;
 
         using triggerIn   = BIn_<0, 0>;
-        using frequencyIn = BIn_<1, 0>;
+        using freqIn = BIn_<1, 0>;
 
         WaveTableSynthCircuit()
         {
@@ -40,8 +40,8 @@ namespace moddlib
             // export ports
             
             connect(input<triggerIn>(), moduleIn<phaseModule, PhaseGenerator::triggerIn>());
-            connect(input<frequencyIn>(), moduleIn<phaseModule, FreqInT<PhaseGenerator>>());
-            connect(input<frequencyIn>(), moduleIn<oscModule, WaveTableOscillator::freqIn>());
+            connect(input<freqIn>(), moduleIn<phaseModule, FreqInT<PhaseGenerator>>());
+            connect(input<freqIn>(), moduleIn<oscModule, WaveTableOscillator::freqIn>());
             
             connect(input<triggerIn>(), moduleIn<envModule, ADSREnvelopeGenerator::triggerIn>());
 
@@ -51,10 +51,10 @@ namespace moddlib
             connect(moduleOut<phaseModule, PhaseGenerator::mainOut>(), moduleIn<oscModule, WaveTableOscillator::phaseIn>());
             connect(moduleOut<oscModule, WaveTableOscillator::mainOut>(), moduleIn<envModule, ADSREnvelopeGenerator::mainIn>());
             
-            
             auto& osc = module<oscModule>();
-//            osc.setupTables(waveTable::sawPartials());
-            osc.setupTables({1});
+            auto waveTable = std::make_shared<WaveTable2D>();
+            waveTable->setupTables(40, waveTable::sawPartials());
+            osc.setupTables(waveTable);
         }
     };
     

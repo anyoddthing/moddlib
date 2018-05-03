@@ -244,6 +244,7 @@
 		65E2B9B81FE6B6F8008BB7A7 /* WaveTableSynth.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = WaveTableSynth.hpp; sourceTree = "<group>"; };
 		65E802BB1FE57FEF001C3ED2 /* BasicMidiSynth.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BasicMidiSynth.hpp; sourceTree = "<group>"; };
 		65E8DC9D1B6940DD00325A47 /* Selectors.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; lineEnding = 0; path = Selectors.hpp; sourceTree = "<group>"; };
+		65ED9C0B209A110B0072E2C5 /* DbgNestedCircuit.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DbgNestedCircuit.hpp; sourceTree = "<group>"; };
 		65FCAF6B1FFFE1FD0037F0A4 /* FIR.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FIR.hpp; sourceTree = "<group>"; };
 		65FF786F1C4A92C400F36B94 /* FastPower.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FastPower.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -533,6 +534,7 @@
 				654C6F38209788A300E84C35 /* DbgWaveTable.hpp */,
 				654C6F3C209789A700E84C35 /* DbgCreateSine.hpp */,
 				654C6F3D209789E500E84C35 /* DbgUtils.hpp */,
+				65ED9C0B209A110B0072E2C5 /* DbgNestedCircuit.hpp */,
 			);
 			path = "moddlib-dbg";
 			sourceTree = "<group>";

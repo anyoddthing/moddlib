@@ -53,16 +53,68 @@ namespace moddlib
             return std::get<SelectorT::pos>(_modules);
         }
         
-        template <typename ModSelectorT, typename InputSelectT>
+        template <typename SelT>
+        struct ModuleAccessor
+        {
+            template <typename CurrentCircuitT>
+            static auto& unpack(CurrentCircuitT& circuit)
+            {
+                return SelT::compile_error;
+            }
+        };
+        
+        template <typename FirstT, typename TailT>
+        struct ModuleAccessor<SelList<FirstT, TailT>>
+        {
+            template <typename CurrentCircuitT>
+            static auto& unpack(CurrentCircuitT& circuit)
+            {
+                auto& subcircuit = circuit.template module<FirstT>();
+                return ModuleAccessor<TailT>::unpack(subcircuit);
+            }
+        };
+        
+        template <typename FirstT>
+        struct ModuleAccessor<SelList<FirstT, std::nullptr_t>>
+        {
+            template <typename CurrentCircuitT>
+            static auto& unpack(CurrentCircuitT& circuit)
+            {
+                 return unpack(circuit, typename FirstT::selectorType {});
+            }
+            
+        private:
+        
+            template <typename CurrentCircuitT>
+            static auto& unpack(CurrentCircuitT& circuit, ModuleSelectorTag)
+            {
+                return circuit.template module<FirstT>();
+            }
+            
+            template <typename CurrentCircuitT>
+            static auto& unpack(CurrentCircuitT& circuit, InputSelectorTag)
+            {
+                return circuit.template input<FirstT>();
+            }
+            
+            template <typename CurrentCircuitT>
+            static auto& unpack(CurrentCircuitT& circuit, OutputSelectorTag)
+            {
+                return circuit.template output<FirstT>();
+            }
+
+        };
+
+        template <typename... SelectorT>
         constexpr auto moduleIn() -> decltype(auto)
         {
-            return module<ModSelectorT>().template input<InputSelectT>();
+            return ModuleAccessor<Sel_<SelectorT...>>::unpack(*this);
         }
 
-        template <typename ModSelectorT, typename OutputSelectT>
+        template <typename... SelectorT>
         constexpr auto moduleOut() -> decltype(auto)
         {
-            return module<ModSelectorT>().template output<OutputSelectT>();
+            return ModuleAccessor<Sel_<SelectorT...>>::unpack(*this);
         }
 
         constexpr std::tuple<moduleTs...>& getModules()
@@ -175,22 +227,31 @@ namespace moddlib
     };
     
     //==============================================================================
-    // Helpers methods to prevent need for this->template moduleIn / Out
+    // Helpers methods to prevent need for this->template lookup
 
-    template <typename ModSelectorT, typename InputSelectT, typename CircuitT>
+    template <typename... SelectorT, typename CircuitT>
     auto moduleIn(CircuitT* circuit) -> decltype(auto)
     {
-        return circuit->template moduleIn<ModSelectorT, InputSelectT>();
+        return circuit->template moduleIn<SelectorT...>();
     }
     
-    template <typename ModSelectorT, typename OutputSelectT, typename CircuitT>
+    template <typename... SelectorT, typename CircuitT>
+    auto moduleIn(CircuitT& circuit) -> decltype(auto)
+    {
+        return circuit.template moduleIn<SelectorT...>();
+    }
+    
+    template <typename... SelectorT, typename CircuitT>
     auto moduleOut(CircuitT* circuit) -> decltype(auto)
     {
-        return circuit->template moduleOut<ModSelectorT, OutputSelectT>();
+        return circuit->template moduleOut<SelectorT...>();
     }
     
-
-    
+    template <typename... SelectorT, typename CircuitT>
+    auto moduleOut(CircuitT& circuit) -> decltype(auto)
+    {
+        return circuit.template moduleOut<SelectorT...>();
+    }
 }
 
 #endif

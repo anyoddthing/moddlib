@@ -31,12 +31,12 @@ namespace moddlib
             Inputs<1, TriggerPort>,
             Inputs<1, FloatPort>>
     {
-        using phaseModule = Mod_<0>;
-        using oscModule   = Mod_<1>;
-        using envModule   = Mod_<2>;
+        using phaseModule   = Mod_<0>;
+        using oscModule     = Mod_<1>;
+        using envModule     = Mod_<2>;
 
-        using triggerIn   = BIn_<0, 0>;
-        using frequencyIn = BIn_<1, 0>;
+        using triggerIn     = BIn_<0, 0>;
+        using freqIn        = BIn_<1, 0>;
 
         SubtractiveSynthCircuit()
         {
@@ -47,10 +47,10 @@ namespace moddlib
                 input<triggerIn>(),
                 moduleIn<phaseModule, TriggerInT<PhaseGenerator>>(this));
             connect(
-                input<frequencyIn>(),
+                input<freqIn>(),
                 moduleIn<phaseModule, FreqInT<PhaseGenerator>>(this));
             tryconnect(
-                input<frequencyIn>(),
+                input<freqIn>(),
                 moduleIn<oscModule, FreqInT<OscillatorT>>(this));
 
             connect(

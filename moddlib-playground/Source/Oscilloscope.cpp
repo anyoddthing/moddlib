@@ -85,11 +85,11 @@ void Oscilloscope::read(const float* buffer, size_t maxVals, size_t minSamples)
             {
                 if (_bufferPos == 0)
                 {
-                    _buffer[_bufferPos++] = current;
+                    _buffer[_bufferPos++] = 0;
                 }
                 else
                 {
-                    _buffer[_bufferPos++] = current;
+                    _buffer[_bufferPos++] = 0;
                     _numSamples = _bufferPos;
                     _dataAvailable.set(true);
 

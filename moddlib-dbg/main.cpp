@@ -16,7 +16,7 @@
 
 #include "DbgWaveTable.hpp"
 #include "DbgCreateSine.hpp"
-
+#include "DbgNestedCircuit.hpp"
 
 
 //==============================================================================
@@ -25,9 +25,9 @@
 
 int main()
 {
-    createSine();
+//    testNestedCircuit();
 //    Engine::instance().setFrameRate(Engine::DEFAULT_FRAMERATE * 2);
-//    oversamplingTest();
+    oversamplingTest();
 //    testWaveTable2D<IdentityPartialScaler>("identity1");
 //    testWaveTable2D<HammingPartialScaler>("hamming1");
 //    testWaveTable2D<HannPartialScaler>("hann1");

@@ -23,11 +23,9 @@ namespace moddlib
         using freqIn  = BIn_<0, 0>;
         using phaseIn = BIn_<1, 0>;
 
-        using WaveTable2DType = WaveTable2D;
-    
-        void setupTables(const std::vector<float> &partials)
+        void setupTables(std::shared_ptr<WaveTable2D> waveTable2d)
         {
-            _waveTable2d.setupTables(20, partials);
+            _waveTable2d = waveTable2d;
         }
 
         void doGenerate()
@@ -39,13 +37,12 @@ namespace moddlib
             
             out.forEach([&](auto i, auto& val)
             {
-                val = _waveTable2d.lookup(phase[i], frequency);
+                val = _waveTable2d->lookup(phase[i], frequency);
             });
         }
 
     private:
-    
-        WaveTable2DType _waveTable2d;
+        std::shared_ptr<WaveTable2D> _waveTable2d;
     };
 }
 

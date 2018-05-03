@@ -15,25 +15,24 @@ namespace moddlib
     //==============================================================================
     // Basic selectors
     
-    template <int Pos>
-    struct Out_
+    struct ModuleSelectorTag {};
+    struct InputSelectorTag {};
+    struct OutputSelectorTag {};
+    struct BankSelectorTag {};
+    
+    template <int Bank>
+    struct Bank_
     {
-        enum { pos = Pos };
+        using selectorType = BankSelectorTag;
+        enum { bank = Bank };
     };
     
-    using NoOut = Out_<-1>;
-    
-    template <int Pos>
-    struct In_
-    {
-        enum { pos = Pos };
-    };
-    
-    using NoIn = In_<-1>;
+    using NoBank = Bank_<-1>;
 
     template <int Pos>
     struct Mod_
     {
+        using selectorType = ModuleSelectorTag;
         enum { pos = Pos };
     };
     
@@ -42,6 +41,7 @@ namespace moddlib
     template <int Bank, int Pos>
     struct BIn_
     {
+        using selectorType = InputSelectorTag;
         enum { bank = Bank };
         enum { pos = Pos };
     };
@@ -51,11 +51,80 @@ namespace moddlib
     template <int Bank, int Pos>
     struct BOut_
     {
+        using selectorType = OutputSelectorTag;
         enum { bank = Bank };
         enum { pos = Pos };
     };
 
-    using NoBout = BOut_<-1, -1>;
+    using NoBOut = BOut_<-1, -1>;
+    
+    //==============================================================================
+    // selector list
+    
+    template <typename HeadT, typename TailT>
+    struct SelList
+    {
+        using head = HeadT;
+        using tail = TailT;
+    };
+
+    namespace detail
+    {
+        template <typename... T>
+        struct makeSel {};
+
+        template <typename HeadT, typename ... RestT>
+        struct makeSel<HeadT, RestT...>
+        {
+            using type = SelList<HeadT, typename makeSel<RestT...>::type>;
+        };
+
+        template <>
+        struct makeSel<>
+        {
+            using type = std::nullptr_t;
+        };
+    }
+    
+    template <typename ... T>
+    using Sel_ = typename detail::makeSel<T...>::type;
+
+    //==============================================================================
+    // traits
+    
+    template <typename, typename = void>
+    struct IsModuleSelector : std::false_type {};
+    
+    template <typename SelectorT>
+    struct IsModuleSelector<SelectorT, std::enable_if_t<
+        std::is_same<typename SelectorT::selectorType, ModuleSelectorTag>::value
+    >> : std::true_type {};
+    
+    template <typename, typename = void>
+    struct IsInputSelector : std::false_type {};
+    
+    template <typename SelectorT>
+    struct IsInputSelector<SelectorT, std::enable_if_t<
+        std::is_same<typename SelectorT::selectorType, InputSelectorTag>::value
+    >> : std::true_type {};
+    
+    template <typename, typename = void>
+    struct IsOutputSelector : std::false_type {};
+    
+    template <typename SelectorT>
+    struct IsOutputSelector<SelectorT, std::enable_if_t<
+        std::is_same<typename SelectorT::selectorType, OutputSelectorTag>::value
+    >> : std::true_type {};
+    
+    template <typename, typename = void>
+    struct IsSelectorList : std::false_type {};
+
+    template <typename SelectorT>
+    struct IsSelectorList<SelectorT, std::void_t<
+        std::is_same<
+            SelList<typename SelectorT::head, typename SelectorT::tail>,
+            SelectorT>
+    >> : std::true_type {};
     
     //==============================================================================
     // Default ins and outs
@@ -78,42 +147,23 @@ namespace moddlib
     template <typename UnitT>
     using MainInT = typename MainIn<UnitT>::type;
 
-    template <typename, template <typename> class, typename = void>
-    struct HasPort : std::false_type {};
-
-    template <typename UnitT, template <typename> class Selector>
-    struct HasPort<UnitT, Selector, std::void_t<Selector<UnitT>>> : std::true_type {};
+    //==============================================================================
+    // default freq in
     
-    template <typename, typename = void>
-    struct FreqIn
-    {
-        using type = NoBIn;
-    };
+#define DEFAULT_PORT(_NAME_, _TYPE_)                                    \
+    template <typename, typename = void>                                \
+    struct _NAME_ { using type = NoBIn; };                              \
+                                                                        \
+    template <typename UnitT>                                           \
+    struct _NAME_<UnitT, std::void_t<typename UnitT::_TYPE_>>           \
+    {                                                                   \
+        using type = typename UnitT::_TYPE_;                            \
+    };                                                                  \
+                                                                        \
+    template <typename UnitT>                                           \
+    using _NAME_ ## T = typename _NAME_<UnitT>::type;
     
-    template <typename UnitT>
-    struct FreqIn<UnitT, std::void_t<typename UnitT::freqIn>>
-    {
-        using type = typename UnitT::freqIn;
-    };
-    
-    template <typename UnitT>
-    using FreqInT = typename FreqIn<UnitT>::type;
-    
-    template <typename UnitT>
-    struct PhaseIn
-    {
-        using type = typename UnitT::phaseIn;
-    };
-    
-    template <typename UnitT>
-    using PhaseInT = typename PhaseIn<UnitT>::type;
-
-    template <typename UnitT>
-    struct TriggerIn
-    {
-        using type = typename UnitT::triggerIn;
-    };
-    
-    template <typename UnitT>
-    using TriggerInT = typename TriggerIn<UnitT>::type;
+    DEFAULT_PORT(FreqIn, freqIn)
+    DEFAULT_PORT(PhaseIn, phaseIn)
+    DEFAULT_PORT(TriggerIn, triggerIn)
 }

@@ -168,6 +168,11 @@ namespace moddlib
             return detail::InputHelper<SelectorT>::get(_inputs);
         }
         
+        std::tuple<InputsT...>& getInputs()
+        {
+            return _inputs;
+        }
+        
     private:
 
         //==============================================================================
@@ -221,6 +226,24 @@ namespace moddlib
     private:
         std::tuple<InputsT...> _inputs;
     };
+    
+    //==============================================================================
+    // Helpers methods to prevent need for this->template lookup
+
+    template <typename SelectorT, typename InputBankT>
+    /* InputT& */ constexpr auto& input(InputBankT* inputBank)
+    {
+        return detail::InputHelper<SelectorT>::get(inputBank->getInputs());
+    }
+    
+    template <typename SelectorT, typename InputBankT>
+    /* InputT& */ constexpr auto& input(InputBankT& inputBank)
+    {
+        return detail::InputHelper<SelectorT>::get(inputBank.getInputs());
+    }
+
+    //==============================================================================
+    // Concrete inputa
     
     struct FloatInput
     {

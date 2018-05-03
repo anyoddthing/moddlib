@@ -31,14 +31,14 @@ namespace moddlib
         BasicMidiSynthVoice()
         {
             auto& circuit = this->template getCircuit();
-            connect(getTrigger(), circuit.template input<typename CircuitT::triggerIn>());
-            connect(getFrequency(), circuit.template input<typename CircuitT::frequencyIn>());
+            connect(getTrigger(), input<TriggerInT<CircuitT>>(circuit));
+            connect(getFrequency(), input<FreqInT<CircuitT>>(circuit));
         }
 
         constexpr StreamOutput& mainOut()
         {
             auto& circuit = this->template getCircuit();
-            return circuit.template moduleOut<envModule, ADSREnvelopeGenerator::mainOut>();
+            return moduleOut<envModule, MainOutT<ADSREnvelopeGenerator>>(circuit);
         }
 
         bool isSilent()
