@@ -60,6 +60,7 @@ namespace moddlib
     
     //==============================================================================
     // selector list
+    // based on https://blog.galowicz.de/2016/05/08/compile_time_type_lists/
     
     template <typename HeadT, typename TailT>
     struct SelList
@@ -70,6 +71,40 @@ namespace moddlib
 
     namespace detail
     {
+        template <typename ListT, typename SelT>
+        struct appendSel;
+
+        // (empty list, std::nullptr_t item) -> Still an empty list
+        template <>
+        struct appendSel<std::nullptr_t, std::nullptr_t>
+        {
+            using type = std::nullptr_t;
+        };
+
+        // (empty list, T) -> List which only contains T
+        // This is usually the recursion abort step when adding an item to a list
+        template <typename SelT>
+        struct appendSel<std::nullptr_t, SelT>
+        {
+            using type = SelList<SelT, std::nullptr_t>;
+        };
+
+        template <typename HeadT, typename TailT>
+        struct appendSel<std::nullptr_t, SelList<HeadT, TailT>>
+        {
+            using type = SelList<HeadT, TailT>;
+        };
+        
+        // (list, T) -> Recurse until tail of list, and return a version with T at its end
+        template <typename HeadT, typename TailT, typename SelT>
+        struct appendSel<SelList<HeadT, TailT>, SelT>
+        {
+            using type = SelList<HeadT, typename appendSel<TailT, SelT>::type>;
+        };
+
+        template <typename ListT, typename SelT>
+        using appendSelT = typename appendSel<ListT, SelT>::type;
+
         template <typename... T>
         struct makeSel {};
 
@@ -79,6 +114,12 @@ namespace moddlib
             using type = SelList<HeadT, typename makeSel<RestT...>::type>;
         };
 
+        template <typename HeadT, typename TailT, typename ... RestT>
+        struct makeSel<SelList<HeadT, TailT>, RestT...>
+        {
+            using type = typename appendSel<SelList<HeadT, TailT>, typename makeSel<RestT...>::type>::type;
+        };
+
         template <>
         struct makeSel<>
         {
@@ -86,7 +127,7 @@ namespace moddlib
         };
     }
     
-    template <typename ... T>
+    template <typename... T>
     using Sel_ = typename detail::makeSel<T...>::type;
 
     //==============================================================================
@@ -120,10 +161,10 @@ namespace moddlib
     struct IsSelectorList : std::false_type {};
 
     template <typename SelectorT>
-    struct IsSelectorList<SelectorT, std::void_t<
+    struct IsSelectorList<SelectorT, std::enable_if_t<
         std::is_same<
             SelList<typename SelectorT::head, typename SelectorT::tail>,
-            SelectorT>
+            SelectorT>::value
     >> : std::true_type {};
     
     //==============================================================================
@@ -155,14 +196,17 @@ namespace moddlib
     struct _NAME_ { using type = NoBIn; };                              \
                                                                         \
     template <typename UnitT>                                           \
-    struct _NAME_<UnitT, std::void_t<typename UnitT::_TYPE_>>           \
+    struct _NAME_<UnitT, std::enable_if_t<                              \
+        std::is_class<typename UnitT::_TYPE_>::value                    \
+    >>                                                                  \
     {                                                                   \
         using type = typename UnitT::_TYPE_;                            \
     };                                                                  \
                                                                         \
     template <typename UnitT>                                           \
     using _NAME_ ## T = typename _NAME_<UnitT>::type;
-    
+
+
     DEFAULT_PORT(FreqIn, freqIn)
     DEFAULT_PORT(PhaseIn, phaseIn)
     DEFAULT_PORT(TriggerIn, triggerIn)

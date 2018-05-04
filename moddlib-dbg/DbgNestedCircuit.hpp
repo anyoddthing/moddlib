@@ -63,7 +63,7 @@ struct MasterCircuit :
     {
         connect(
             input<BIn_<0,0>>(),
-            module<Mod_<0>>().moduleIn<ChildCircuit::forwarderModule, ValueForwarder::valIn>()
+            moduleIn<Mod_<0>, ChildCircuit::forwarderModule, ValueForwarder::valIn>()
         );
     }
 };

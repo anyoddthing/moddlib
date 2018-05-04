@@ -45,10 +45,10 @@ TEST_CASE("FFT Test")
         FFT<N> fft;
         fft.computeFFT(audioIn.data(), freqOut.data());
         
-        freqOut.forEach([](int n, fref sample)
-        {
-            std::cout << n << " " << sample << "\n";
-        });
+//        freqOut.forEach([](int n, fref sample)
+//        {
+//            std::cout << n << " " << sample << "\n";
+//        });
     }
 }
 

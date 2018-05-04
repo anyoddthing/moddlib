@@ -43,6 +43,7 @@
 		658063941FE70D6700498109 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65C1B72A1C3D59F700FDB956 /* Accelerate.framework */; };
 		658063951FE70D6700498109 /* libmoddlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 65528F5B1B3EFF7200F0A36D /* libmoddlib.a */; };
 		6580639D1FE70E1300498109 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6580639C1FE70E1300498109 /* main.cpp */; };
+		6590DF5A209C992F00C9AE89 /* SelectorsTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6590DF59209C992F00C9AE89 /* SelectorsTest.cpp */; };
 		65B39ADD1C56AB91002853A1 /* ADSREnvelopeTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65B39ADC1C56AB91002853A1 /* ADSREnvelopeTest.cpp */; };
 		65C1B72B1C3D59F700FDB956 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65C1B72A1C3D59F700FDB956 /* Accelerate.framework */; };
 		65C9B8401FC9AB6B00B350F5 /* WaveTableTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65C9B83F1FC9AB6B00B350F5 /* WaveTableTest.cpp */; };
@@ -221,6 +222,7 @@
 		6580637B1FE6EF5400498109 /* DebugDumpHost.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DebugDumpHost.hpp; sourceTree = "<group>"; };
 		6580639A1FE70D6700498109 /* moddlib-dbg */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "moddlib-dbg"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6580639C1FE70E1300498109 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		6590DF59209C992F00C9AE89 /* SelectorsTest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SelectorsTest.cpp; sourceTree = "<group>"; };
 		659C25041C090D7F006189B5 /* Utilities.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Utilities.hpp; sourceTree = "<group>"; };
 		65A261FC1BADA37800549156 /* Voice.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Voice.hpp; sourceTree = "<group>"; };
 		65A4A6181C2491E300D68B03 /* debug.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = debug.hpp; sourceTree = "<group>"; };
@@ -315,6 +317,7 @@
 				651CE3671BF7A58E006CF727 /* VoiceTest.cpp */,
 				651E849D1C026467003B9323 /* CircuitTest.cpp */,
 				656E76631C2AF54C007C0C6C /* UtilitiesTest.cpp */,
+				6590DF59209C992F00C9AE89 /* SelectorsTest.cpp */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -788,6 +791,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				651CE36F1BF7A59D006CF727 /* ScratchTest.cpp in Sources */,
+				6590DF5A209C992F00C9AE89 /* SelectorsTest.cpp in Sources */,
 				65528F701B3F029500F0A36D /* main.cpp in Sources */,
 				654BDB8A1BF8EDAC00346F26 /* SineOscillatorTest.cpp in Sources */,
 				65B39ADD1C56AB91002853A1 /* ADSREnvelopeTest.cpp in Sources */,
@@ -982,7 +986,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
 				COMBINE_HIDPI_IMAGES = YES;
 				EXECUTABLE_PREFIX = lib;
 				GCC_ENABLE_CPP_EXCEPTIONS = YES;
@@ -1006,7 +1010,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
 				COMBINE_HIDPI_IMAGES = YES;
 				EXECUTABLE_PREFIX = lib;
 				GCC_ENABLE_CPP_EXCEPTIONS = YES;

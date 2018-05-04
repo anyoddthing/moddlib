@@ -23,11 +23,11 @@ using uchar = unsigned char;
 using Action = std::function<void()>;
 using simdv = simd::recipes<8>;
 
-namespace std
-{
-    template< class... >
-    using void_t = void;
-}
+//namespace std
+//{
+//    template< class... >
+//    using void_t = void;
+//}
 
 namespace moddlib
 {

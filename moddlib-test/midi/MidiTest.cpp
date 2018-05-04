@@ -29,13 +29,13 @@ TEST_CASE("Midi Test")
         };
         
         MidiMessage msg = { stream[0], stream[1], stream[2] };
-        CHECK(msg.type == MidiType::MIDI_NOTE_ON);
+        CHECK(msg.getType() == MidiType::MIDI_NOTE_ON);
         CHECK(msg.getMidiNote() == 69); // da A
         CHECK(msg.getMidiNoteInHertz() == Approx(440));
         
         
         auto msg2 = midi::createMidiMessage(&stream[3]);
-        CHECK(msg2.type == MidiType::MIDI_NOTE_OFF);
+        CHECK(msg2.getType() == MidiType::MIDI_NOTE_OFF);
         
     }
 }
