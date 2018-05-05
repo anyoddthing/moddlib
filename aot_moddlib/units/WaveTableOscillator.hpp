@@ -30,15 +30,18 @@ namespace moddlib
 
         void doGenerate()
         {
-            auto frequency = input<freqIn>().getValue();
-            
-            auto& phase = input<phaseIn>().buffer();
-            auto& out   = output<mainOut>().buffer();
-            
-            out.forEach([&](auto i, auto& val)
+            if (_waveTable2d)
             {
-                val = _waveTable2d->lookup(phase[i], frequency);
-            });
+                auto frequency = input<freqIn>().getValue();
+                
+                auto& phase = input<phaseIn>().buffer();
+                auto& out   = output<mainOut>().buffer();
+                
+                out.forEach([&](auto i, auto& val)
+                {
+                    val = _waveTable2d->lookup(phase[i], frequency);
+                });
+            }
         }
 
     private:

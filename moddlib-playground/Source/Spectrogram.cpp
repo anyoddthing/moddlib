@@ -22,7 +22,7 @@ Spectrogram::Spectrogram() :
 
 void Spectrogram::paint (Graphics& g)
 {
-    g.fillAll (Colours::black);
+    g.fillAll(getLookAndFeel().findColour(ResizableWindow::backgroundColourId));
 
     g.setOpacity (1.0f);
     g.drawImage(_spectrogramImage, getLocalBounds().toFloat());
@@ -36,6 +36,7 @@ void Spectrogram::update()
         auto levels = FloatVectorOperations::findMinAndMax(_fftData.data(), fftBuckets);
         float minDB = 0, maxDB = -100;
 //        DBG("maxLevel=" << levels.getEnd() << " minLevel=" << levels.getStart());
+        auto backgroundColour = getLookAndFeel().findColour(ResizableWindow::backgroundColourId);
         for (auto i = 0; i < fftBuckets; ++i)
         {
             float relLevel = _fftData[i] / levels.getEnd();
@@ -43,11 +44,18 @@ void Spectrogram::update()
             minDB = std::min(minDB, db);
             maxDB = std::max(maxDB, db);
             float deltaDb = (db + 30) / 30;
-            
-            auto level = jmap(deltaDb, 0.0f, 1.0f, 0.0f, 0.66f);
             auto y = fftSqrtSize - i / fftSqrtSize - 1;
             auto x = i % fftSqrtSize;
-            _spectrogramImage.setPixelAt(x, y, Colour::fromHSV(0.66 - level, 1, deltaDb, 1));
+
+            if (deltaDb > 0)
+            {
+                auto level = jmap(deltaDb, 0.0f, 1.0f, 0.0f, 0.66f);
+                _spectrogramImage.setPixelAt(x, y, Colour::fromHSV(0.66 - level, 1, deltaDb, 1));
+            }
+            else
+            {
+                _spectrogramImage.setPixelAt(x, y, backgroundColour);
+            }
         }
 //        DBG("maxDB=" << maxDB << " minDB=" << minDB);
         _dataAvailable.set(false);

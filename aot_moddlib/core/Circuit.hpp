@@ -46,18 +46,11 @@ namespace moddlib
         //==============================================================================
         // module access
 
-        template <typename SelectorT>
-        constexpr std::tuple_element_t<SelectorT::pos, std::tuple<moduleTs...>>&
-        /* moduleT& */ module()
-        {
-            return std::get<SelectorT::pos>(_modules);
-        }
-        
         template <typename SelT>
         struct ModuleAccessor
         {
             template <typename CurrentCircuitT>
-            static auto& unpack(CurrentCircuitT& circuit)
+            static decltype(auto) unpack(CurrentCircuitT& circuit)
             {
                 return SelT::compile_error;
             }
@@ -67,9 +60,9 @@ namespace moddlib
         struct ModuleAccessor<SelList<FirstT, TailT>>
         {
             template <typename CurrentCircuitT>
-            static auto& unpack(CurrentCircuitT& circuit)
+            static decltype(auto) unpack(CurrentCircuitT& circuit)
             {
-                auto& subcircuit = circuit.template module<FirstT>();
+                auto& subcircuit = std::get<FirstT::pos>(circuit.template getModules());
                 return ModuleAccessor<TailT>::unpack(subcircuit);
             }
         };
@@ -78,7 +71,7 @@ namespace moddlib
         struct ModuleAccessor<SelList<FirstT, std::nullptr_t>>
         {
             template <typename CurrentCircuitT>
-            static auto& unpack(CurrentCircuitT& circuit)
+            static decltype(auto) unpack(CurrentCircuitT& circuit)
             {
                  return unpack(circuit, typename FirstT::selectorType {});
             }
@@ -86,37 +79,100 @@ namespace moddlib
         private:
         
             template <typename CurrentCircuitT>
-            static auto& unpack(CurrentCircuitT& circuit, ModuleSelectorTag)
+            static decltype(auto) unpack(CurrentCircuitT& circuit, ModuleSelectorTag)
+            {
+                return std::get<FirstT::pos>(circuit.template getModules());
+            }
+            
+            template <typename CurrentCircuitT>
+            static decltype(auto) unpack(CurrentCircuitT& circuit, InputSelectorTag)
+            {
+                return circuit;
+            }
+            
+            template <typename CurrentCircuitT>
+            static decltype(auto) unpack(CurrentCircuitT& circuit, OutputSelectorTag)
+            {
+                return circuit;
+            }
+        };
+        
+        template <typename SelT>
+        struct PortAccessor
+        {
+            template <typename CurrentCircuitT>
+            static decltype(auto) unpack(CurrentCircuitT& circuit)
+            {
+                return SelT::compile_error;
+            }
+        };
+        
+        template <typename FirstT, typename TailT>
+        struct PortAccessor<SelList<FirstT, TailT>>
+        {
+            template <typename CurrentCircuitT>
+            static decltype(auto) unpack(CurrentCircuitT& circuit)
+            {
+                auto& subcircuit = circuit.template module<FirstT>();
+                return PortAccessor<TailT>::unpack(subcircuit);
+            }
+        };
+        
+        template <typename FirstT>
+        struct PortAccessor<SelList<FirstT, std::nullptr_t>>
+        {
+            template <typename CurrentCircuitT>
+            static decltype(auto) unpack(CurrentCircuitT& circuit)
+            {
+                 return unpack(circuit, typename FirstT::selectorType {});
+            }
+            
+        private:
+        
+            template <typename CurrentCircuitT>
+            static decltype(auto) unpack(CurrentCircuitT& circuit, ModuleSelectorTag)
             {
                 return circuit.template module<FirstT>();
             }
             
             template <typename CurrentCircuitT>
-            static auto& unpack(CurrentCircuitT& circuit, InputSelectorTag)
+            static decltype(auto) unpack(CurrentCircuitT& circuit, InputSelectorTag)
             {
                 return circuit.template input<FirstT>();
             }
             
             template <typename CurrentCircuitT>
-            static auto& unpack(CurrentCircuitT& circuit, OutputSelectorTag)
+            static decltype(auto) unpack(CurrentCircuitT& circuit, OutputSelectorTag)
             {
                 return circuit.template output<FirstT>();
             }
 
         };
-
+        
         template <typename... SelectorT>
-        constexpr auto moduleIn() -> decltype(auto)
+        constexpr decltype(auto) module()
         {
             return ModuleAccessor<Sel_<SelectorT...>>::unpack(*this);
         }
-
+        
         template <typename... SelectorT>
-        constexpr auto moduleOut() -> decltype(auto)
+        constexpr decltype(auto) port()
         {
-            return ModuleAccessor<Sel_<SelectorT...>>::unpack(*this);
+            return PortAccessor<Sel_<SelectorT...>>::unpack(*this);
         }
-
+        
+        template <typename... SelectorT>
+        constexpr decltype(auto) portIn()
+        {
+            return PortAccessor<Sel_<SelectorT..., BIn_<0, 0>>>::unpack(*this);
+        }
+        
+        template <typename... SelectorT>
+        constexpr decltype(auto) portOut()
+        {
+            return PortAccessor<Sel_<SelectorT..., BOut_<0, 0>>>::unpack(*this);
+        }
+        
         constexpr std::tuple<moduleTs...>& getModules()
         {
             return _modules;
@@ -230,28 +286,42 @@ namespace moddlib
     // Helpers methods to prevent need for this->template lookup
 
     template <typename... SelectorT, typename CircuitT>
-    auto moduleIn(CircuitT* circuit) -> decltype(auto)
+    auto port(CircuitT* circuit) -> decltype(auto)
     {
-        return circuit->template moduleIn<SelectorT...>();
+        return circuit->template port<SelectorT...>();
     }
     
     template <typename... SelectorT, typename CircuitT>
-    auto moduleIn(CircuitT& circuit) -> decltype(auto)
+    auto port(CircuitT& circuit) -> decltype(auto)
     {
-        return circuit.template moduleIn<SelectorT...>();
+        return circuit.template port<SelectorT...>();
     }
     
     template <typename... SelectorT, typename CircuitT>
-    auto moduleOut(CircuitT* circuit) -> decltype(auto)
+    auto portIn(CircuitT* circuit) -> decltype(auto)
     {
-        return circuit->template moduleOut<SelectorT...>();
+        return circuit->template portIn<SelectorT...>();
     }
     
     template <typename... SelectorT, typename CircuitT>
-    auto moduleOut(CircuitT& circuit) -> decltype(auto)
+    auto portIn(CircuitT& circuit) -> decltype(auto)
     {
-        return circuit.template moduleOut<SelectorT...>();
+        return circuit.template portIn<SelectorT...>();
     }
+    
+        template <typename... SelectorT, typename CircuitT>
+    auto portOut(CircuitT* circuit) -> decltype(auto)
+    {
+        return circuit->template portOut<SelectorT...>();
+    }
+    
+    template <typename... SelectorT, typename CircuitT>
+    auto portOut(CircuitT& circuit) -> decltype(auto)
+    {
+        return circuit.template portOut<SelectorT...>();
+    }
+
+
 }
 
 #endif

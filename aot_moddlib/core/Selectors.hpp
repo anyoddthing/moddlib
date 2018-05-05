@@ -168,27 +168,6 @@ namespace moddlib
     >> : std::true_type {};
     
     //==============================================================================
-    // Default ins and outs
-    
-    template <typename UnitT>
-    struct MainOut
-    {
-        using type = typename UnitT::mainOut;
-    };
-    
-    template <typename UnitT>
-    using MainOutT = typename MainOut<UnitT>::type;
-    
-    template <typename UnitT>
-    struct MainIn
-    {
-        using type = typename UnitT::mainIn;
-    };
-    
-    template <typename UnitT>
-    using MainInT = typename MainIn<UnitT>::type;
-
-    //==============================================================================
     // default freq in
     
 #define DEFAULT_PORT(_NAME_, _TYPE_)                                    \

@@ -42,16 +42,16 @@ namespace moddlib
             //==============================================================================
             // export ports
             
-            connect(input<triggerIn>(), moduleIn<phaseModule, PhaseGenerator::triggerIn>());
-            connect(input<triggerIn>(), moduleIn<envModule, ADSREnvelopeGenerator::triggerIn>());
+            connect(input<triggerIn>(), port<phaseModule, PhaseGenerator::triggerIn>());
+            connect(input<triggerIn>(), port<envModule, ADSREnvelopeGenerator::triggerIn>());
             
-            input<frequencyIn>().linkTo(moduleIn<phaseModule, PhaseGenerator::freqIn>());
+            input<frequencyIn>().linkTo(port<phaseModule, PhaseGenerator::freqIn>());
 
             //==============================================================================
             // connect modules
             
-            connect(moduleOut<phaseModule, PhaseGenerator::mainOut>(), moduleIn<oscModule, OscillatorT::phaseIn>());
-            connect(moduleOut<oscModule, OscillatorT::mainOut>(), moduleIn<envModule, ADSREnvelopeGenerator::mainIn>());
+            connect(port<phaseModule, PhaseGenerator::mainOut>(), port<oscModule, OscillatorT::phaseIn>());
+            connect(port<oscModule, OscillatorT::mainOut>(), port<envModule, ADSREnvelopeGenerator::mainIn>());
         }
     };
     

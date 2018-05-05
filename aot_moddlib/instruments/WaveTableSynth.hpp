@@ -39,17 +39,17 @@ namespace moddlib
             //==============================================================================
             // export ports
             
-            connect(input<triggerIn>(), moduleIn<phaseModule, PhaseGenerator::triggerIn>());
-            connect(input<freqIn>(), moduleIn<phaseModule, FreqInT<PhaseGenerator>>());
-            connect(input<freqIn>(), moduleIn<oscModule, WaveTableOscillator::freqIn>());
+            connect(input<triggerIn>(), port<phaseModule, PhaseGenerator::triggerIn>());
+            connect(input<freqIn>(), port<phaseModule, FreqInT<PhaseGenerator>>());
+            connect(input<freqIn>(), port<oscModule, WaveTableOscillator::freqIn>());
             
-            connect(input<triggerIn>(), moduleIn<envModule, ADSREnvelopeGenerator::triggerIn>());
+            connect(input<triggerIn>(), port<envModule, ADSREnvelopeGenerator::triggerIn>());
 
             //==============================================================================
             // connect modules
             
-            connect(moduleOut<phaseModule, PhaseGenerator::mainOut>(), moduleIn<oscModule, WaveTableOscillator::phaseIn>());
-            connect(moduleOut<oscModule, WaveTableOscillator::mainOut>(), moduleIn<envModule, ADSREnvelopeGenerator::mainIn>());
+            connect(portOut<phaseModule>(), port<oscModule, WaveTableOscillator::phaseIn>());
+            connect(portOut<oscModule>(), portIn<envModule>());
             
             auto& osc = module<oscModule>();
             auto waveTable = std::make_shared<WaveTable2D>();

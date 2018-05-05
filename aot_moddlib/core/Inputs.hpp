@@ -271,6 +271,11 @@ namespace moddlib
             return _source != &FlatOutput::sharedOutput();
         }
 
+        void disconnect()
+        {
+            _source = &FlatOutput::sharedOutput();
+        }
+        
         void setSource(const FloatBuffer& source)
         {
             _source = &source;

@@ -46,6 +46,8 @@ struct ChildCircuit :
     using forwarderModule = Mod_<0>;
     using generatorModule = Mod_<1>;
     
+    using freqIn = Sel_<generatorModule, SimpleGenerator::freqIn>;
+    
     ChildCircuit()
     {
         connect(
@@ -59,6 +61,8 @@ struct MasterCircuit :
     Circuit<MasterCircuit, ChildCircuit>,
     InputBank<Inputs<1, FloatPort>>
 {
+    using freqIn = Sel_<Mod_<1>, ChildCircuit::freqIn>;
+    
     MasterCircuit()
     {
         connect(
@@ -68,32 +72,10 @@ struct MasterCircuit :
     }
 };
 
-struct Unpacker
-{
-    template <typename SelT> static std::enable_if_t<
-        std::is_same<typename SelT::tail, std::nullptr_t>::value,
-    void> unpack()
-    {
-        std::cout << "last: " << SelT::head::bank << std::endl;
-    }
-    
-    template <typename SelT> static std::enable_if_t<
-        !std::is_same<typename SelT::tail, std::nullptr_t>::value,
-    void> unpack()
-    {
-        std::cout << "elem: " << SelT::head::bank << std::endl;
-        unpack<typename SelT::tail>();
-    }
-};
-
-
 void testNestedCircuit()
 {
-//    using sel = Sel_<Bank_<0>, Bank_<1>, Bank_<12>>;
-//    Unpacker::unpack<sel>();
     using sel = Mod_<1>;
     static_assert(IsModuleSelector<sel>::value, "modselector");
-//    static_assert(IsModuleSelector<Bank_<0>>::value, "modselector");
 }
 
 

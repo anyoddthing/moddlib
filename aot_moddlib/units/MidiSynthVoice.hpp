@@ -19,6 +19,8 @@ namespace moddlib
     template <typename VoiceT, typename CircuitT>
     struct MidiSynthVoice : Voice
     {
+        using circuit = CircuitT;
+        
         MidiSynthVoice() :
             _rampSamples(0),
             _circuit(std::make_unique<CircuitT>())

@@ -45,27 +45,27 @@ namespace moddlib
 
             connect(
                 input<triggerIn>(),
-                moduleIn<phaseModule, TriggerInT<PhaseGenerator>>(this));
+                port<phaseModule, TriggerInT<PhaseGenerator>>(this));
             connect(
                 input<freqIn>(),
-                moduleIn<phaseModule, FreqInT<PhaseGenerator>>(this));
+                port<phaseModule, FreqInT<PhaseGenerator>>(this));
             tryconnect(
                 input<freqIn>(),
-                moduleIn<oscModule, FreqInT<OscillatorT>>(this));
+                port<oscModule, FreqInT<OscillatorT>>(this));
 
             connect(
                 input<triggerIn>(),
-                moduleIn<envModule, TriggerInT<ADSREnvelopeGenerator>>(this));
+                port<envModule, TriggerInT<ADSREnvelopeGenerator>>(this));
             
             //==============================================================================
             // connect modules
 
             connect(
-                moduleOut<phaseModule, MainOutT<PhaseGenerator>>(this),
-                moduleIn<oscModule, PhaseInT<OscillatorT>>(this));
+                portOut<phaseModule>(this),
+                port<oscModule, PhaseInT<OscillatorT>>(this));
             connect(
-                moduleOut<oscModule, MainOutT<OscillatorT>>(this),
-                moduleIn<envModule, MainInT<ADSREnvelopeGenerator>>(this));
+                portOut<oscModule>(this),
+                portIn<envModule>(this));
         }
     };
     

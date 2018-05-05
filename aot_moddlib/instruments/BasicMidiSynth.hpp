@@ -38,7 +38,7 @@ namespace moddlib
         constexpr StreamOutput& mainOut()
         {
             auto& circuit = this->template getCircuit();
-            return moduleOut<envModule, MainOutT<ADSREnvelopeGenerator>>(circuit);
+            return portOut<envModule>(circuit);
         }
 
         bool isSilent()

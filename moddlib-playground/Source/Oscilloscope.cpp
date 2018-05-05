@@ -21,7 +21,7 @@ Oscilloscope::Oscilloscope() : _dataAvailable(false), _bufferPos(0), _numSamples
 void Oscilloscope::paint(Graphics& g)
 {
     auto bounds = getLocalBounds();
-    g.fillAll(Colours::black);
+    g.fillAll(getLookAndFeel().findColour(ResizableWindow::backgroundColourId));
     g.setColour(Colours::white);
     g.drawRect(0, 0, bounds.getWidth(), bounds.getHeight());
     g.drawLine(0, bounds.getHeight() / 2, bounds.getWidth(), bounds.getHeight() / 2);

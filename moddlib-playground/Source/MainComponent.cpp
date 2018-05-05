@@ -61,9 +61,12 @@ public:
     
     void initComponents()
     {
-        _audioDeviceSelector = std::make_unique<AudioDeviceSelectorComponent>(
-            deviceManager, 0, 0, 2, 2, true, false, true, false);
-        addAndMakeVisible(_audioDeviceSelector.get());
+//        _audioDeviceSelector = std::make_unique<AudioDeviceSelectorComponent>(
+//            deviceManager, 0, 0, 2, 2, true, false, true, false);
+//        addAndMakeVisible(_audioDeviceSelector.get());
+        
+        _slider = std::make_unique<Slider>(Slider::LinearVertical, Slider::TextBoxBelow);
+        addAndMakeVisible(_slider.get());
         
         _oscilloscope = std::make_unique<Oscilloscope>();
         addAndMakeVisible(_oscilloscope.get());
@@ -79,19 +82,23 @@ public:
         }
     }
     
-    void paint(Graphics& g) override
-    {
-        g.fillAll(getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
-    }
-
     void resized() override
     {
         auto bounds = getLocalBounds();
 
-        _audioDeviceSelector->setBounds(bounds.removeFromTop(200));
+        auto top = bounds.removeFromTop(200);
+        _slider->setBounds(top.removeFromLeft(50));
+        
+//        _audioDeviceSelector->setBounds(top);
         _oscilloscope->setBounds(bounds.removeFromLeft(bounds.getWidth() / 2));
         _spectrogram->setBounds(bounds);
     }
+    
+    void paint(Graphics& g) override
+    {
+        g.fillAll(getLookAndFeel().findColour(ResizableWindow::backgroundColourId));
+    }
+
 
     //==============================================================================
     // audio
@@ -151,7 +158,7 @@ private:
     
     
     moddlib::SampleBuffer _sampleBuffer;
-    
+    std::unique_ptr<Slider> _slider;
     std::unique_ptr<AudioDeviceSelectorComponent> _audioDeviceSelector;
     std::unique_ptr<Oscilloscope> _oscilloscope;
     std::unique_ptr<Spectrogram> _spectrogram;
