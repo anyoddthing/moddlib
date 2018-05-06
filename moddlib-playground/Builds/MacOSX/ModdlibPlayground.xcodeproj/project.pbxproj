@@ -79,6 +79,7 @@
 		B0DB32D2E76E4B90C747CFC6 = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = MainComponent.cpp; path = ../../Source/MainComponent.cpp; sourceTree = "SOURCE_ROOT"; };
 		B0F190BB5DA92513F677FA6A = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Oscilloscope.h; path = ../../Source/Oscilloscope.h; sourceTree = "SOURCE_ROOT"; };
 		B86223401025841D52BC16DA = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Spectrogram.cpp; path = ../../Source/Spectrogram.cpp; sourceTree = "SOURCE_ROOT"; };
+		C2A8D9FD6DC23FFE15DFEFF1 = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MidiKnobMatrix.h; path = ../../Source/MidiKnobMatrix.h; sourceTree = "SOURCE_ROOT"; };
 		C601E6B69D76701C7CBDC317 = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Oscilloscope.cpp; path = ../../Source/Oscilloscope.cpp; sourceTree = "SOURCE_ROOT"; };
 		C7A90E63810383FC87CCD63A = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
 		C8B1ACC39793626AE2E0D55D = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = "include_juce_audio_processors.mm"; path = "../../JuceLibraryCode/include_juce_audio_processors.mm"; sourceTree = "SOURCE_ROOT"; };
@@ -104,6 +105,7 @@
 		F39C1546A75F3C40FC320D0D = {isa = PBXFileReference; lastKnownFileType = file; name = "juce_core"; path = "/Users/daniel/Source/cpp/JUCE/modules/juce_core"; sourceTree = "<absolute>"; };
 		FE530CD3FF6E5DA985D59DA3 = {isa = PBXFileReference; lastKnownFileType = file.nib; name = RecentFilesMenuTemplate.nib; path = RecentFilesMenuTemplate.nib; sourceTree = "SOURCE_ROOT"; };
 		4443C94CF6BAB8491C9F89F4 = {isa = PBXGroup; children = (
+					C2A8D9FD6DC23FFE15DFEFF1,
 					B86223401025841D52BC16DA,
 					A27CA4082D0F6A45ACF730F4,
 					C601E6B69D76701C7CBDC317,

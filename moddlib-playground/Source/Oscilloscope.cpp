@@ -22,7 +22,7 @@ void Oscilloscope::paint(Graphics& g)
 {
     auto bounds = getLocalBounds();
     g.fillAll(getLookAndFeel().findColour(ResizableWindow::backgroundColourId));
-    g.setColour(Colours::white);
+    g.setColour(getLookAndFeel().findColour(Slider::textBoxOutlineColourId));
     g.drawRect(0, 0, bounds.getWidth(), bounds.getHeight());
     g.drawLine(0, bounds.getHeight() / 2, bounds.getWidth(), bounds.getHeight() / 2);
     g.drawText(String(_numSamples), 5, 5, 50, 20, Justification::Flags::left);

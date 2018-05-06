@@ -26,6 +26,8 @@ namespace moddlib
     template <typename CircuitT>
     struct BasicMidiSynthVoice : MidiSynthVoice<BasicMidiSynthVoice<CircuitT>, CircuitT>, TriggerModule
     {
+        using CircuitType = CircuitT;
+        
         using envModule = typename CircuitT::envModule;
         
         BasicMidiSynthVoice()
@@ -54,27 +56,6 @@ namespace moddlib
     {
         using CircuitType = CircuitT;
         using VoiceType = BasicMidiSynthVoice<CircuitT>;
-
-        BasicMidiSynth() :
-            _releaseInput(0.1f, 4.0f)
-        {
-            for (auto& voice : _voices)
-            {
-                auto& envModule = voice.getCircuit().template module<typename CircuitT::envModule>();
-
-                connect(_releaseInput, envModule.template input<ADSREnvelopeGenerator::releaseIn>());
-            }
-        }
-
-        std::array<VoiceType, 12>& getVoices()
-        {
-            return _voices;
-        }
-
-    private:
-
-        std::array<VoiceType, 12>  _voices;
-        MidiOutputPort             _releaseInput;
     };
 }
 

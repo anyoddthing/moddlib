@@ -12,6 +12,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "aot_moddlib/instruments/SubtractiveSynth.hpp"
 #include "aot_moddlib/instruments/WaveTableSynth.hpp"
+#include "MidiKnobMatrix.h"
 #include "Oscilloscope.h"
 #include "Spectrogram.h"
 
@@ -59,14 +60,24 @@ public:
     //==============================================================================
     // ui
     
+    void sliderValueChanged(int slider, uint8_t value)
+    {
+        
+    }
+    
     void initComponents()
     {
+        using namespace std::placeholders;
 //        _audioDeviceSelector = std::make_unique<AudioDeviceSelectorComponent>(
 //            deviceManager, 0, 0, 2, 2, true, false, true, false);
 //        addAndMakeVisible(_audioDeviceSelector.get());
         
-        _slider = std::make_unique<Slider>(Slider::LinearVertical, Slider::TextBoxBelow);
-        addAndMakeVisible(_slider.get());
+        _midiKnobs = std::make_unique<MidiKnobMatrix>();
+        _midiKnobs->setListener([this](int slider, uint8_t value) {
+            sliderValueChanged(slider, value);
+        });
+        
+        addAndMakeVisible(_midiKnobs.get());
         
         _oscilloscope = std::make_unique<Oscilloscope>();
         addAndMakeVisible(_oscilloscope.get());
@@ -87,7 +98,7 @@ public:
         auto bounds = getLocalBounds();
 
         auto top = bounds.removeFromTop(200);
-        _slider->setBounds(top.removeFromLeft(50));
+        _midiKnobs->setBounds(top);
         
 //        _audioDeviceSelector->setBounds(top);
         _oscilloscope->setBounds(bounds.removeFromLeft(bounds.getWidth() / 2));
@@ -105,12 +116,24 @@ public:
     
     void prepareToPlay(int samplesPerBlockExpected, double sampleRate) override
     {
+        using namespace moddlib;
         if (DUMP_DEBUG_STREAM)
         {
             _dbgStream = std::make_unique<std::ofstream>("testout.bin", std::ios::binary | std::ios::out);
         }
+        
+        _waveTable = std::make_shared<WaveTable2D>();
+        _waveTable->setupTables(40, waveTable::sawPartials());
+        
         _synth = std::make_unique<SynthT>();
         
+        using CircuitType = SynthT::CircuitType;
+        _synth->configureVoices([this](uint, auto& voice)
+        {
+            module<CircuitType::oscModule>(voice.getCircuit()).setupTables(_waveTable);
+        });
+        _synth->bindMidiController(
+            MidiPortMapper<CircuitType, Sel_<CircuitType::envModule, ADSREnvelopeGenerator::releaseIn>>(1, true));
     }
 
     void getNextAudioBlock(const AudioSourceChannelInfo& bufferToFill) override
@@ -141,6 +164,15 @@ public:
         {
             DBG(message.getDescription());
             _synth->queueMessage(moddlib::midi::createMidiMessage(message.getRawData()));
+            
+            if (message.isController() && message.getControllerNumber() < 16)
+            {
+                auto incr = message.getControllerValue() - 64;
+                if (incr != 0)
+                {
+                    _midiKnobs->incrementValue(message.getControllerNumber() - 1, incr);
+                }
+            }
         }
     }
     
@@ -155,10 +187,10 @@ private:
     using SynthT = moddlib::SubtractiveSynth<moddlib::WaveTableOscillator>;
 //    using SynthT = moddlib::WaveTableSynth;
     std::unique_ptr<SynthT> _synth;
-    
+    std::shared_ptr<moddlib::WaveTable2D> _waveTable;
     
     moddlib::SampleBuffer _sampleBuffer;
-    std::unique_ptr<Slider> _slider;
+    std::unique_ptr<MidiKnobMatrix> _midiKnobs;
     std::unique_ptr<AudioDeviceSelectorComponent> _audioDeviceSelector;
     std::unique_ptr<Oscilloscope> _oscilloscope;
     std::unique_ptr<Spectrogram> _spectrogram;

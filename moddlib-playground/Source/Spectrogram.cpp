@@ -26,6 +26,9 @@ void Spectrogram::paint (Graphics& g)
 
     g.setOpacity (1.0f);
     g.drawImage(_spectrogramImage, getLocalBounds().toFloat());
+    g.setColour(getLookAndFeel().findColour(Slider::textBoxOutlineColourId));
+    auto bounds = getLocalBounds();
+    g.drawRect(0, 0, bounds.getWidth(), bounds.getHeight());
 }
 
 void Spectrogram::update()

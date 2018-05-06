@@ -286,6 +286,18 @@ namespace moddlib
     // Helpers methods to prevent need for this->template lookup
 
     template <typename... SelectorT, typename CircuitT>
+    auto module(CircuitT* circuit) -> decltype(auto)
+    {
+        return circuit->template module<SelectorT...>();
+    }
+    
+    template <typename... SelectorT, typename CircuitT>
+    auto module(CircuitT& circuit) -> decltype(auto)
+    {
+        return circuit.template module<SelectorT...>();
+    }
+    
+    template <typename... SelectorT, typename CircuitT>
     auto port(CircuitT* circuit) -> decltype(auto)
     {
         return circuit->template port<SelectorT...>();
@@ -309,7 +321,7 @@ namespace moddlib
         return circuit.template portIn<SelectorT...>();
     }
     
-        template <typename... SelectorT, typename CircuitT>
+    template <typename... SelectorT, typename CircuitT>
     auto portOut(CircuitT* circuit) -> decltype(auto)
     {
         return circuit->template portOut<SelectorT...>();

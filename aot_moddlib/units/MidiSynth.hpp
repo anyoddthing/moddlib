@@ -30,7 +30,8 @@ namespace moddlib
     {
         using selector = SelT;
         
-        MidiPortMapper(uint8_t  controller) : _controller(controller)
+        MidiPortMapper(uint8_t controller, bool isRelative = false) :
+            _controller(controller), _isRelative(isRelative)
         {
         }
         
@@ -39,8 +40,10 @@ namespace moddlib
         MidiPortMapperAction<CircuitT> bind()
         {
             auto controller = _controller;
-            return [controller](MidiOutputPortBank& portBank, CircuitT& circuit)
+            auto relative = _isRelative;
+            return [controller, relative](MidiOutputPortBank& portBank, CircuitT& circuit)
             {
+                portBank[controller].setIsRelative(relative);
                 connect(portBank[controller], port<SelT>(circuit));
             };
         }
@@ -55,18 +58,27 @@ namespace moddlib
         
     private:
         uint8_t _controller;
+        bool _isRelative;
     };
     
-    template <typename SynthT, typename VoiceT>
+    template <typename SynthT, typename VoiceT, uint NumVoices = 12>
     struct MidiSynth
     {
-        using circuit = typename VoiceT::circuit;
+        using CircuitType = typename VoiceT::CircuitType;
         
-        MidiSynth() :
-            _nextVoice(0)
+        MidiSynth() : _nextVoice(0)
         {
         }
 
+        void configureVoices(std::function<void(uint, VoiceT&)> configurator)
+        {
+            auto& voices = getVoices();
+            for (uint i = 0; i < voices.size(); ++i)
+            {
+                configurator(i, voices[i]);
+            }
+        }
+        
         void generate(SampleBuffer& outputBuffer)
         {
             processMessages();
@@ -93,19 +105,25 @@ namespace moddlib
 
         bool queueMessage(const MidiMessage message)
         {
+            std::cout << "queueMessage: " << message.getType() << std::endl;
             return _midiBuffer.enqueue(message);
         }
         
         template <typename SelT>
-        void bindMidiController(MidiPortMapper<circuit, SelT>& mapper)
+        void bindMidiController(MidiPortMapper<CircuitType, SelT> mapper)
         {
             auto& voices = thiz()->getVoices();
             for (auto& voice : voices)
             {
-                mapper.bind()(_midiPorts, voice);
+                mapper.bind()(_midiPorts, voice.getCircuit());
             }
             
             _mappings.insert({mapper.getController(), mapper.unbind()});
+        }
+
+        std::array<VoiceT, NumVoices>& getVoices()
+        {
+            return _voices;
         }
 
     private:
@@ -120,6 +138,7 @@ namespace moddlib
             MidiMessage message;
             while (_midiBuffer.dequeue(message))
             {
+                std::cout << "processMessage: " << message.getType() << std::endl;
                 processMessage(message);
             }
         }
@@ -218,11 +237,11 @@ namespace moddlib
         }
 
     private:
-
-        size_t                  _nextVoice;
-        MidiBuffer              _midiBuffer;
-        MidiOutputPortBank      _midiPorts;
-        std::unordered_map<uint8_t, MidiPortMapperAction<circuit>> _mappings;
+        std::array<VoiceT, NumVoices>   _voices;
+        size_t                          _nextVoice;
+        MidiBuffer                      _midiBuffer;
+        MidiOutputPortBank              _midiPorts;
+        std::unordered_map<uint8_t, MidiPortMapperAction<CircuitType>> _mappings;
     };
 }
 
