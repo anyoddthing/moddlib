@@ -60,9 +60,9 @@ public:
     //==============================================================================
     // ui
     
-    void sliderValueChanged(int slider, uint8_t value)
+    void sliderValueChanged(uint slider, uint8_t value)
     {
-        
+        _synth->getMidiPort(slider).setControlValue(value);
     }
     
     void initComponents()
@@ -134,6 +134,7 @@ public:
         });
         _synth->bindMidiController(
             MidiPortMapper<CircuitType, Sel_<CircuitType::envModule, ADSREnvelopeGenerator::releaseIn>>(1, true));
+        _midiKnobs->setValue(0, _synth->getMidiPort(1).getControlValue());
     }
 
     void getNextAudioBlock(const AudioSourceChannelInfo& bufferToFill) override
@@ -176,11 +177,7 @@ public:
         }
     }
     
-    void releaseResources() override
-    {
-        
-    }
-
+    void releaseResources() override {}
 private:
     //==============================================================================
 

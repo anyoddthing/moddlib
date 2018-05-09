@@ -6,19 +6,18 @@
 //  Copyright © 2015 Daniel Doubleday. All rights reserved.
 //
 
-#ifndef MidiInputPort_h
-#define MidiInputPort_h
+#pragma once
 
 #include "../core/core.hpp"
 
 namespace moddlib
 {
-    class MidiOutputPort : public FloatOutput
+    struct MidiOutputPort : FloatOutput
     {
     public:
 
-        MidiOutputPort(float min, float max, float mid, bool isRelative = false) :
-            _min(min), _mid(mid), _max(max), _isRelative(isRelative)
+        MidiOutputPort(float min, float max, float mid) :
+            _min(min), _mid(mid), _max(max)
         {
             setControlValue(1);
             setControlValue(0);
@@ -28,17 +27,18 @@ namespace moddlib
             MidiOutputPort(min, max, (max - min) / 2)
         {
         }
-
-        void setControlValue(int value)
+        
+        void incrementControlValue(int value)
         {
-            std::cout << "setControlValue " << (int)value << std::endl;
-            if (_isRelative)
-            {
-                auto diff = value - 64;
-                value = static_cast<int>(getControlValue()) + diff;
-                value = std::min(128, std::max(0, value));
-            }
+            auto diff = value - 64;
+            value = static_cast<int>(getControlValue()) + diff;
+            value = std::min(128, std::max(0, value));
             
+            setControlValue(value);
+        }
+
+        void setControlValue(uint8_t value)
+        {
             if (value >= 64)
             {
                 auto prcnt = (value - 64) / 63.f;
@@ -49,28 +49,67 @@ namespace moddlib
                 auto prcnt = value / 63.f;
                 setValue(_min + prcnt * (_mid - _min));
             }
-        
         }
 
         uint8_t getControlValue()
         {
-            return static_cast<uint8_t>(0.5f + 127.f * (_value - _min) / (_max - _min));
+            float value = 0.5f + 127.f * (_value - _min) / (_max - _min);
+            value = std::min<float>(128, std::max<float>(0, value));
+            return static_cast<uint8_t>(value);
         }
-
-        void setIsRelative(bool value)
+        
+        void setMin(float value)
         {
-            _isRelative = value;
+            _min = value;
+        }
+        
+        void setMax(float value)
+        {
+            _max = value;
+        }
+        
+        void setMid(float value)
+        {
+            _mid = value;
         }
         
     private:
-
         float _min;
         float _mid;
         float _max;
-        bool _isRelative;
     };
 
+    struct MidiPortBank
+    {
+        void setRelative(uint controller, bool value)
+        {
+            _isRelative[controller] = value;
+        }
+        
+        MidiOutputPort& operator[](uint index)
+        {
+            return _ports[index];
+        }
+        
+        void processMessage(MidiMessage midiMessage)
+        {
+            uint8_t control = midiMessage.getControl();
+            uint8_t value = midiMessage.getControlValue();
+            if (_isRelative[control])
+            {
+                _ports[control].incrementControlValue(value);
+            }
+            else
+            {
+                _ports[control].setControlValue(value);
+            }
+        }
+        
+    private:
+        std::array<MidiOutputPort, 128> _ports;
+        std::bitset<128> _isRelative;
+    };
 }
 
 
-#endif /* MidiInputPort_h */
+

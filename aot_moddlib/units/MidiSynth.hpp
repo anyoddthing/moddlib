@@ -20,10 +20,8 @@
 
 namespace moddlib
 {
-    using MidiOutputPortBank = std::array<MidiOutputPort, 128>;
-    
     template <typename CircuitT>
-    using MidiPortMapperAction = std::function<void(MidiOutputPortBank&, CircuitT&)>;
+    using MidiPortMapperAction = std::function<void(MidiPortBank&, CircuitT&)>;
     
     template <typename CircuitT, typename SelT>
     struct MidiPortMapper
@@ -41,16 +39,19 @@ namespace moddlib
         {
             auto controller = _controller;
             auto relative = _isRelative;
-            return [controller, relative](MidiOutputPortBank& portBank, CircuitT& circuit)
+            return [controller, relative](MidiPortBank& portBank, CircuitT& circuit)
             {
-                portBank[controller].setIsRelative(relative);
-                connect(portBank[controller], port<SelT>(circuit));
+                portBank.setRelative(controller, relative);
+                auto& input = port<SelT>(circuit);
+                auto& port = portBank[controller];
+                port.setValue(input.getValue());
+                connect(port, input);
             };
         }
         
         MidiPortMapperAction<CircuitT> unbind()
         {
-            return [](MidiOutputPortBank& portBank, CircuitT& circuit)
+            return [](MidiPortBank& portBank, CircuitT& circuit)
             {
                 port<SelT>(circuit).disconnect();
             };
@@ -125,6 +126,11 @@ namespace moddlib
         {
             return _voices;
         }
+        
+        MidiOutputPort& getMidiPort(uint index)
+        {
+            return _midiPorts[index];
+        }
 
     private:
 
@@ -195,7 +201,7 @@ namespace moddlib
 
         void processControlChange(MidiMessage message)
         {
-            _midiPorts[message.getControl()].setControlValue(message.getControlValue());
+            _midiPorts.processMessage(message);
         }
 
         uint numActiveVoices()
@@ -240,7 +246,7 @@ namespace moddlib
         std::array<VoiceT, NumVoices>   _voices;
         size_t                          _nextVoice;
         MidiBuffer                      _midiBuffer;
-        MidiOutputPortBank              _midiPorts;
+        MidiPortBank                    _midiPorts;
         std::unordered_map<uint8_t, MidiPortMapperAction<CircuitType>> _mappings;
     };
 }
