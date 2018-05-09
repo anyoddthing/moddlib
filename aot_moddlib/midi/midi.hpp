@@ -10,6 +10,6 @@
 
 #include "MidiMessage.hpp"
 #include "MidiBuffer.hpp"
-#include "MidiOutputPort.hpp"
+#include "MidiPort.hpp"
 
 

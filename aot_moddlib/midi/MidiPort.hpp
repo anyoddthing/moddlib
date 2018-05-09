@@ -12,19 +12,19 @@
 
 namespace moddlib
 {
-    struct MidiOutputPort : FloatOutput
+    struct MidiPort : FloatOutput
     {
     public:
 
-        MidiOutputPort(float min, float max, float mid) :
+        MidiPort(float min, float max, float mid) :
             _min(min), _mid(mid), _max(max)
         {
             setControlValue(1);
             setControlValue(0);
         }
 
-        MidiOutputPort(float min = 0, float max = 1) :
-            MidiOutputPort(min, max, (max - min) / 2)
+        MidiPort(float min = 0, float max = 1) :
+            MidiPort(min, max, (max - min) / 2)
         {
         }
         
@@ -86,7 +86,7 @@ namespace moddlib
             _isRelative[controller] = value;
         }
         
-        MidiOutputPort& operator[](uint index)
+        MidiPort& operator[](uint index)
         {
             return _ports[index];
         }
@@ -106,7 +106,7 @@ namespace moddlib
         }
         
     private:
-        std::array<MidiOutputPort, 128> _ports;
+        std::array<MidiPort, 128> _ports;
         std::bitset<128> _isRelative;
     };
 }

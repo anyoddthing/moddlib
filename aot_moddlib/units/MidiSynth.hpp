@@ -127,7 +127,7 @@ namespace moddlib
             return _voices;
         }
         
-        MidiOutputPort& getMidiPort(uint index)
+        MidiPort& getMidiPort(uint index)
         {
             return _midiPorts[index];
         }
