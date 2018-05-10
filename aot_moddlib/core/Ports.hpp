@@ -19,7 +19,7 @@ namespace moddlib
     
     namespace detail
     {
-        struct Port
+        struct FloatPortBuffer
         {
             FloatOutput& buffer()
             {
@@ -29,9 +29,21 @@ namespace moddlib
         protected:
             FloatOutput _buffer;
         };
+        
+        struct StreamPortBuffer
+        {
+            StreamOutput& buffer()
+            {
+                return _buffer;
+            }
+         
+        protected:
+            StreamOutput _buffer;
+        };
+
     }
 
-    struct FloatPort : FloatInput, detail::Port
+    struct FloatPort : FloatInput, detail::FloatPortBuffer
     {
         void prepare()
         {
@@ -39,7 +51,15 @@ namespace moddlib
         }
     };
     
-    struct TriggerPort : TriggerInput, detail::Port
+    struct StreamPort : FloatInput, detail::StreamPortBuffer
+    {
+        void prepare()
+        {
+            _buffer.fill(getValue());
+        }
+    };
+    
+    struct TriggerPort : TriggerInput, detail::FloatPortBuffer
     {
         void prepare()
         {
