@@ -73,6 +73,7 @@ namespace moddlib
         void> initInputs()
         {
             _inputs[I].init();
+            initInputs<I + 1>();
         }
         
         //==============================================================================
@@ -88,6 +89,7 @@ namespace moddlib
         void> prepareInputs()
         {
             _inputs[I].prepare();
+            prepareInputs<I + 1>();
         }
         
         //==============================================================================
@@ -103,6 +105,7 @@ namespace moddlib
         void> cleanupInputs()
         {
             _inputs[I].cleanup();
+            cleanupInputs<I + 1>();
         }
         
     private:
@@ -416,7 +419,7 @@ namespace moddlib
             return buffer().data() + offset;
         }
     
-        void setSource(StreamOutput& source)
+        void setSource(const StreamOutput& source)
         {
             _source = &source;
         }
