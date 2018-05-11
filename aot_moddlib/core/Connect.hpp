@@ -18,6 +18,7 @@ namespace moddlib
     template<> struct IsConnectable<TriggerInput> : public std::true_type {};
 
     template<> struct IsConnectable<FloatPort> : public std::true_type {};
+    template<> struct IsConnectable<StreamPort> : public std::true_type {};
     template<> struct IsConnectable<TriggerPort> : public std::true_type {};
 
     template<> struct IsConnectable<StreamInput> : public std::true_type {};
@@ -67,6 +68,15 @@ namespace moddlib
         };
 
         template <typename Optional>
+        struct Connector<StreamPort, StreamInput, Optional>
+        {
+            static void connect(StreamPort& port, StreamInput& input)
+            {
+                input.setSource(port.buffer());
+            }
+        };
+        
+        template <typename Optional>
         struct Connector<FloatPort, DefaultInput, Optional>
         {
             static void connect(FloatPort& port, DefaultInput& input)
@@ -74,7 +84,6 @@ namespace moddlib
                 input.setSource(port.buffer());
             }
         };
-
     }
     
     template <typename LeftT, typename RightT>

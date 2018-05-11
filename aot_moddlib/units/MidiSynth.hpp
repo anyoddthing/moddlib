@@ -106,7 +106,7 @@ namespace moddlib
 
         bool queueMessage(const MidiMessage message)
         {
-            std::cout << "queueMessage: " << message.getType() << std::endl;
+            LOG("queueMessage: {}", message.getType());
             return _midiBuffer.enqueue(message);
         }
         
@@ -144,7 +144,7 @@ namespace moddlib
             MidiMessage message;
             while (_midiBuffer.dequeue(message))
             {
-                std::cout << "processMessage: " << message.getType() << std::endl;
+                LOG("processMessage: {}", message.getType);
                 processMessage(message);
             }
         }

@@ -152,25 +152,25 @@ namespace moddlib
         template <typename... SelectorT>
         constexpr decltype(auto) module()
         {
-            return ModuleAccessor<Sel_<SelectorT...>>::unpack(*this);
+            return ModuleAccessor<Sel_<SelectorT...>>::unpack(*static_cast<CircuitT*>(this));
         }
         
         template <typename... SelectorT>
         constexpr decltype(auto) port()
         {
-            return PortAccessor<Sel_<SelectorT...>>::unpack(*this);
+            return PortAccessor<Sel_<SelectorT...>>::unpack(*static_cast<CircuitT*>(this));
         }
         
         template <typename... SelectorT>
         constexpr decltype(auto) portIn()
         {
-            return PortAccessor<Sel_<SelectorT..., BIn_<0, 0>>>::unpack(*this);
+            return PortAccessor<Sel_<SelectorT..., BIn_<0, 0>>>::unpack(*static_cast<CircuitT*>(this));
         }
         
         template <typename... SelectorT>
         constexpr decltype(auto) portOut()
         {
-            return PortAccessor<Sel_<SelectorT..., BOut_<0, 0>>>::unpack(*this);
+            return PortAccessor<Sel_<SelectorT..., BOut_<0, 0>>>::unpack(*static_cast<CircuitT*>(this));
         }
         
         constexpr std::tuple<moduleTs...>& getModules()

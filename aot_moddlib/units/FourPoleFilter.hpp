@@ -15,32 +15,22 @@ namespace moddlib
 {
     namespace
     {
-        static constexpr float SATURATION_COEFFICIENT = 0.2;
-        
-        static constexpr float cubicPolynomial(float x)
-        {
-            return x - (x * x * x * SATURATION_COEFFICIENT);
-        }
+        static constexpr double SATURATION_COEFFICIENT = 0.2;
         
         // Inflection point where slope is zero.
         static constexpr float SATURATION_UPPER_INPUT = 1.0 / 0.774596669241483; //1 / std::sqrt(3.0 * SATURATION_COEFFICIENT);
         static constexpr float SATURATION_LOWER_INPUT = 0.0 - SATURATION_UPPER_INPUT;
-        static constexpr float SATURATION_UPPER_OUTPUT = cubicPolynomial(SATURATION_UPPER_INPUT);
-        static constexpr float SATURATION_LOWER_OUTPUT = cubicPolynomial(SATURATION_LOWER_INPUT);
-        
-        static constexpr float MINIMUM_FREQUENCY = 1.0; // blows up if near 0.01
-        static constexpr float MINIMUM_Q = 0.00001;
     }
     
-    struct FourPoleFilter:
-        Generator<FourPoleFilter>,
+    template <typename FloatT = double>
+    struct FourPoleFilter :
+        Generator<FourPoleFilter<FloatT>>,
+        SingleStreamOutput,
         InputBank<
-            Inputs<3, StreamInput>>,
-        OutputBank<
-            Outputs<1, StreamOutput>>
+            Inputs<3, StreamInput>>
     {
         using freqIn = BIn_<0, 1>;
-        using qIn = BIn_<0, 1>;
+        using qIn    = BIn_<0, 2>;
         
         void init()
         {
@@ -50,52 +40,72 @@ namespace moddlib
         
         void doGenerate()
         {
-            auto& in =   input<mainIn>().buffer();
+            auto& in   = input<mainIn>().buffer();
             auto& freq = input<freqIn>().buffer();
             auto& q    = input<qIn>().buffer();
             auto& out  = output<mainOut>().buffer();
             
+//            computeCoefficients(freq[0], q[0]);
+            
             out.forEach([&](auto i, auto& val)
             {
-                computeCoefficients(freq[i], q[i]);
-                if (oversampled)
-                {
-                    oneSample(0.0f);
-                }
-                
-                val = oneSample(in[0]);
+//                if (oversampled)
+//                {
+//                    oneSample(0.0f);
+//                }
+
+                val = oneSample(in[i], freq[i], q[i]);
             });
+            
+            _y[0] += 1.0e-26;
+            _y[1] -= 1.0e-26;
         }
         
     private:
     
-        float oneSample(float x)
+        float oneSample(float input, FloatT fc, FloatT res)
         {
-            float coeff = 0.3;
-            x -= _y[3] * feedback; // feedback
-            x *= 0.35013 * fTo4th;
-            _y[0] = x + coeff * _x[0] + (1 - f) * _y[0]; // pole 1
-            _x[0] = x;
-            _y[1] = _y[0] + coeff * _x[1] + (1 - f) * _y[1]; // pole 2
+            fc = std::max<FloatT>(0.02, fc);
+            if (fc < 0.1 && fc < prevF)
+            {
+                auto deltaF = std::min<FloatT>(0.01, (prevF - fc) / 2);
+                fc = prevF - deltaF;
+            }
+            prevF = fc;
+            
+//            res = std::max<FloatT>(MINIMUM_Q, res);
+            FloatT q = res * 4;
+            FloatT f  = fc * 1.16;
+            FloatT fb = q * (1.0 - 0.15 * f * f);
+            
+            input -= _y[3] * fb;
+            input *= 0.35013 * (f*f)*(f*f);
+            _y[0] = input + 0.3 * _x[0] + (1 - f) * _y[0];// Pole 1
+            _x[0] = input;
+            _y[1] = _y[0] + 0.3 * _x[1] + (1 - f) * _y[1];// Pole 2
             _x[1] = _y[0];
-            _y[2] = _y[1] + coeff * _x[2] + (1 - f) * _y[2]; // pole 3
+            _y[2] = _y[1] + 0.3 * _x[2] + (1 - f) * _y[2];// Pole 3
             _x[2] = _y[1];
-            _y[3] = _y[2] + coeff * _x[3] + (1 - f) * _y[3]; // pole 4
+            _y[3] = _y[2] + 0.3 * _x[3] + (1 - f) * _y[3];// Pole 4
             _y[3] = clip(_y[3]);
             _x[3] = _y[2];
-            
             return _y[3];
         }
         
-        constexpr float clip(float x)
+        static constexpr FloatT cubicPolynomial(FloatT x)
+        {
+            return x - (x * x * x * SATURATION_COEFFICIENT);
+        }
+
+        constexpr FloatT clip(FloatT x)
         {
             if (x > SATURATION_UPPER_INPUT)
             {
-                return SATURATION_UPPER_OUTPUT;
+                return cubicPolynomial(SATURATION_UPPER_INPUT);
             }
             else if (x < SATURATION_LOWER_INPUT)
             {
-                return SATURATION_LOWER_OUTPUT;
+                return cubicPolynomial(SATURATION_LOWER_INPUT);
             }
             else
             {
@@ -103,28 +113,11 @@ namespace moddlib
             }
         }
         
-        void computeCoefficients(float freq, float q)
-        {
-            float normalizedFrequency = freq * Engine::instance().getFramePeriod();
-            float fudge = 4.9f - 0.27f * q;
-            if (fudge < 3.0f)
-                fudge = 3.0f;
-            
-            f = normalizedFrequency * (oversampled ? 1.0f : 2.0f) * fudge;
-
-            float fSquared = f * f;
-            fTo4th = fSquared * fSquared;
-            feedback = 0.5f * freq * (1.0f - 0.15f * fSquared);
-        }
-        
     private:
     
-        std::array<float, 4> _x;
-        std::array<float, 4> _y;
-
-        bool oversampled = true;
-        float f;
-        float fTo4th;
-        float feedback;
+        std::array<FloatT, 4> _x;
+        std::array<FloatT, 4> _y;
+        FloatT prevF;
+        bool oversampled = false;
     };
 }

@@ -18,6 +18,7 @@
 #include "../units/ADSREnvelopeGenerator.hpp"
 #include "../units/WaveTableOscillator.hpp"
 #include "../units/TriggerModule.hpp"
+#include "../units/FourPoleFilter.hpp"
 #include "../debug/debug.hpp"
 #include "BasicMidiSynth.hpp"
 
@@ -26,17 +27,26 @@ namespace moddlib
 {
     template <typename OscillatorT>
     struct SubtractiveSynthCircuit :
-        Circuit<SubtractiveSynthCircuit<OscillatorT>, PhaseGenerator, OscillatorT, ADSREnvelopeGenerator>,
+        Circuit<SubtractiveSynthCircuit<OscillatorT>,
+            PhaseGenerator,
+            OscillatorT,
+            FourPoleFilter<double>,
+            ADSREnvelopeGenerator
+            >,
         InputBank<
             Inputs<1, TriggerPort>,
-            Inputs<1, FloatPort>>
+            Inputs<1, FloatPort>,
+            Inputs<2, StreamPort>>
     {
         using phaseModule   = Mod_<0>;
         using oscModule     = Mod_<1>;
-        using envModule     = Mod_<2>;
+        using filterModule  = Mod_<2>;
+        using envModule     = Mod_<3>;
 
         using triggerIn     = BIn_<0, 0>;
         using freqIn        = BIn_<1, 0>;
+        using filterFreqIn  = BIn_<2, 0>;
+        using filterQIn     = BIn_<2, 1>;
 
         SubtractiveSynthCircuit()
         {
@@ -56,6 +66,13 @@ namespace moddlib
             connect(
                 input<triggerIn>(),
                 port<envModule, TriggerInT<ADSREnvelopeGenerator>>(this));
+            connect(
+                port<envModule, ADSREnvelopeGenerator::envOut>(this),
+                port<filterModule, FourPoleFilter<>::freqIn>(this));
+            connect(
+                input<filterQIn>(),
+                port<filterModule, FourPoleFilter<>::qIn>(this));
+
             
             //==============================================================================
             // connect modules
@@ -65,6 +82,9 @@ namespace moddlib
                 port<oscModule, PhaseInT<OscillatorT>>(this));
             connect(
                 portOut<oscModule>(this),
+                portIn<filterModule>(this));
+            connect(
+                portOut<filterModule>(this),
                 portIn<envModule>(this));
         }
     };

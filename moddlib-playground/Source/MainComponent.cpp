@@ -16,7 +16,7 @@
 #include "Oscilloscope.h"
 #include "Spectrogram.h"
 
-static const bool DUMP_DEBUG_STREAM = true;
+static const bool DUMP_DEBUG_STREAM = false;
 
 //==============================================================================
 /*
@@ -125,16 +125,27 @@ public:
         _waveTable = std::make_shared<WaveTable2D>();
         _waveTable->setupTables(40, waveTable::sawPartials());
         
-        _synth = std::make_unique<SynthT>();
+        _synth = std::make_unique<SynthType>();
         
-        using CircuitType = SynthT::CircuitType;
         _synth->configureVoices([this](uint, auto& voice)
         {
             module<CircuitType::oscModule>(voice.getCircuit()).setupTables(_waveTable);
         });
-        _synth->bindMidiController(
-            MidiPortMapper<CircuitType, Sel_<CircuitType::envModule, ADSREnvelopeGenerator::releaseIn>>(1, true));
-        _midiKnobs->setValue(0, _synth->getMidiPort(1).getControlValue());
+        
+//        bool error = CircuitType::error;
+        bindMidiController<Sel_<CircuitType::envModule, ADSREnvelopeGenerator::releaseIn>>(1, 0, 3);
+        bindMidiController<Sel_<CircuitType::filterFreqIn>>(2, 0, 1);
+        bindMidiController<Sel_<CircuitType::filterQIn>>(3, 0, 1);
+    }
+    
+    template <typename SelT>
+    void bindMidiController(int midiController, float min, float max)
+    {
+        auto& midiPort = _synth->getMidiPort(midiController);
+        _synth->bindMidiController(moddlib::MidiPortMapper<CircuitType, SelT>(midiController, true));
+        midiPort.setRange(min, max);
+        
+        _midiKnobs->setValue(midiController - 1, midiPort.getControlValue());
     }
 
     void getNextAudioBlock(const AudioSourceChannelInfo& bufferToFill) override
@@ -181,9 +192,11 @@ public:
 private:
     //==============================================================================
 
-    using SynthT = moddlib::SubtractiveSynth<moddlib::WaveTableOscillator>;
+    using SynthType = moddlib::SubtractiveSynth<moddlib::WaveTableOscillator>;
+    using CircuitType = typename SynthType::CircuitType;
+    
 //    using SynthT = moddlib::WaveTableSynth;
-    std::unique_ptr<SynthT> _synth;
+    std::unique_ptr<SynthType> _synth;
     std::shared_ptr<moddlib::WaveTable2D> _waveTable;
     
     moddlib::SampleBuffer _sampleBuffer;

@@ -83,6 +83,11 @@ namespace moddlib
         
         operator const float*() const { return _buffer.data(); }
         operator float*() { return _buffer.data(); }
+        
+        void fill(float value)
+        {
+            _buffer.fill(value);
+        }
 
         float* ptr(size_t offset = 0)
         {

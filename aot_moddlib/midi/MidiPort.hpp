@@ -31,8 +31,8 @@ namespace moddlib
         void incrementControlValue(int value)
         {
             auto diff = value - 64;
-            value = static_cast<int>(getControlValue()) + diff;
-            value = std::min(128, std::max(0, value));
+            value = getControlValue() + diff;
+            value = std::min<int>(128, std::max<int>(0, value));
             
             setControlValue(value);
         }
@@ -41,42 +41,40 @@ namespace moddlib
         {
             if (value >= 64)
             {
-                auto prcnt = (value - 64) / 63.f;
+                auto prcnt = (value - 64) / 64.f;
                 setValue(_mid + prcnt * (_max - _mid));
             }
             else
             {
-                auto prcnt = value / 63.f;
+                auto prcnt = value / 64.f;
                 setValue(_min + prcnt * (_mid - _min));
             }
+            
+            _controlValue = value;
         }
 
-        uint8_t getControlValue()
+        float getControlValue()
         {
-            float value = 0.5f + 127.f * (_value - _min) / (_max - _min);
-            value = std::min<float>(128, std::max<float>(0, value));
-            return static_cast<uint8_t>(value);
+            return _controlValue;
         }
         
-        void setMin(float value)
+        void setRange(float min, float mid, float max)
         {
-            _min = value;
+            _min = min;
+            _mid = mid;
+            _max = max;
         }
-        
-        void setMax(float value)
+
+        void setRange(float min, float max)
         {
-            _max = value;
+            setRange(min, (max - min) / 2, max);
         }
-        
-        void setMid(float value)
-        {
-            _mid = value;
-        }
-        
+
     private:
         float _min;
         float _mid;
         float _max;
+        uint8_t _controlValue;
     };
 
     struct MidiPortBank
@@ -97,7 +95,10 @@ namespace moddlib
             uint8_t value = midiMessage.getControlValue();
             if (_isRelative[control])
             {
-                _ports[control].incrementControlValue(value);
+                if (value != 64)
+                {
+                    _ports[control].incrementControlValue(value);
+                }
             }
             else
             {
